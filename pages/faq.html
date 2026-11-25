@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsive viewport for mobile and desktop screens -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ &amp; House Rules | Roll &amp; Brew</title>
+
+  <!-- Relative path going up one folder from pages/ to css/style.css -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Site header containing the cafe brand and primary navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="brand-logo">Roll &amp; Brew</a>
+
+      <!-- Top navigation bar linking between the site pages -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="faq.html" aria-current="page">FAQ &amp; House Rules</a></li>
+          <li><a href="location.html">Location &amp; Hours</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content area unique to the FAQ & House Rules page -->
+  <main class="page-content">
+    <!-- Page introduction / title section -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <h1 id="page-title">FAQ &amp; House Rules</h1>
+      <p class="page-subtitle">Everything you need to know before playing at Roll &amp; Brew.</p>
+    </section>
+
+    <!-- Frequently Asked Questions section using native HTML5 accordion elements -->
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+
+      <!-- First item includes the "open" attribute so it is expanded by default -->
+      <details class="faq-item" open>
+        <summary>1. How much does it cost to play?</summary>
+        <p>It is 500 PKR per person for unlimited access to our library of 500+ board games during your visit.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>2. Do we need to know the rules beforehand?</summary>
+        <p>Not at all! Our friendly staff is happy to recommend a game and teach you the rules before you start.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>3. Can we bring outside food or drinks?</summary>
+        <p>No outside food or drinks are allowed, as we serve fresh coffee, teas, and snacks right from our cafe counter.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>4. Do we need a reservation?</summary>
+        <p>Walk-ins are always welcome! However, Friday and Saturday evenings can get busy, so calling ahead for large groups is recommended.</p>
+      </details>
+    </section>
+
+    <!-- House Rules section using an ordered list (<ol>) for the 4 numbered rules -->
+    <section class="house-rules-section" aria-labelledby="rules-heading">
+      <h2 id="rules-heading">Our 4 House Rules</h2>
+
+      <ol class="house-rules-list">
+        <li>
+          <strong>Use coasters for all drinks:</strong>
+          Keep cups on coasters or side tables so game boards stay dry.
+        </li>
+        <li>
+          <strong>Treat game pieces with care:</strong>
+          Please return all cards, dice, and tokens back into the box when finished.
+        </li>
+        <li>
+          <strong>Keep noise friendly:</strong>
+          Cheer for your wins, but keep volume comfortable for neighboring tables.
+        </li>
+        <li>
+          <strong>Be kind to everyone:</strong>
+          We are a welcoming space for beginners, families, and veteran gamers alike.
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Site footer with copyright notice -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Roll &amp; Brew Board Game Cafe. All rights reserved.</p>
+  </footer>
+
+  <!-- Relative path going up one folder from pages/ to js/script.js -->
+  <script src="../js/script.js"></script>
+</body>
+</html>
