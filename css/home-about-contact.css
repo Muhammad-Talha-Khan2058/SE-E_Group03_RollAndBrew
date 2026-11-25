@@ -1,0 +1,1085 @@
+/* ==========================================================================
+   Roll & Brew — Shared Styles for Home, About & Contact Pages
+   Palette:
+     - Warm Cream Background:     #F6EFE2
+     - Tinted Cream Section:      #EFE4D1
+     - Off-White Card Surface:    #FFFDF9
+     - Dark Roasted Coffee Brown: #2F1B10 / #3B2314 / #4A2C1A
+     - Warm Caramel Accent:       #B8773D
+   ========================================================================== */
+
+:root {
+  --bg-cream: #f6efe2;
+  --bg-cream-tint: #efe4d1;
+  --surface-offwhite: #fffdf9;
+  --coffee-darkest: #26150c;
+  --coffee-dark: #351f12;
+  --coffee-medium: #4a2c1a;
+  --coffee-muted: #694c3a;
+  --accent-caramel: #c28144;
+  --accent-caramel-soft: #ead6be;
+  --border-warm: #e4d6c1;
+  --text-dark: #2a180e;
+  --text-body: #4d3728;
+  --text-on-dark: #f6efe2;
+  --text-on-dark-muted: #dfd0bc;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 24px rgba(47, 27, 16, 0.07);
+  --shadow-card-hover: 0 14px 32px rgba(47, 27, 16, 0.12);
+  --shadow-hero-card: 0 20px 44px rgba(20, 10, 5, 0.35);
+
+  --container-max: 1160px;
+  --transition-fast: 0.2s ease;
+}
+
+/* Base & Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-body);
+  background-color: var(--bg-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-caramel);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--coffee-dark);
+  color: var(--text-on-dark);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--container-max));
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Header & Navigation Bar (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--coffee-dark);
+  border-bottom: 1px solid rgba(246, 239, 226, 0.14);
+  box-shadow: 0 4px 18px rgba(31, 17, 9, 0.18);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 76px;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-on-dark);
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+}
+
+.brand-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-caramel-soft);
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.05rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-link:hover {
+  background-color: rgba(246, 239, 226, 0.12);
+}
+
+/* Active Cream Pill Button */
+.nav-link--active {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.nav-link--active:hover {
+  background-color: var(--surface-offwhite);
+  color: var(--coffee-darkest);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  background-color: rgba(246, 239, 226, 0.1);
+  border: 1px solid rgba(246, 239, 226, 0.25);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bg-cream);
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.1;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Primary Dark Roasted Coffee Brown Button (for cream / off-white surfaces) */
+.btn-dark {
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  border-color: var(--coffee-dark);
+  box-shadow: 0 6px 16px rgba(47, 27, 16, 0.18);
+}
+
+.btn-dark:hover {
+  background-color: var(--coffee-medium);
+  border-color: var(--coffee-medium);
+  box-shadow: 0 10px 22px rgba(47, 27, 16, 0.24);
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+}
+
+/* Hero Buttons inside the Dark Roasted Coffee Brown Banner */
+.btn-primary-hero {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  border-color: var(--bg-cream);
+  box-shadow: 0 8px 20px rgba(15, 7, 3, 0.3);
+}
+
+.btn-primary-hero:hover {
+  background-color: var(--surface-offwhite);
+  border-color: var(--surface-offwhite);
+}
+
+.btn-secondary-hero {
+  background-color: var(--coffee-darkest);
+  color: var(--bg-cream);
+  border-color: rgba(246, 239, 226, 0.45);
+}
+
+.btn-secondary-hero:hover {
+  background-color: var(--coffee-medium);
+  border-color: var(--bg-cream);
+}
+
+/* ==========================================================================
+   Hero Banner (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 4.5rem 0 5rem;
+  color: var(--text-on-dark);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(194, 129, 68, 0.22), transparent 45%),
+    radial-gradient(circle at 12% 85%, rgba(194, 129, 68, 0.12), transparent 40%),
+    linear-gradient(135deg, var(--coffee-darkest) 0%, var(--coffee-dark) 52%, var(--coffee-medium) 100%);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 3rem;
+}
+
+.hours-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1rem;
+  margin-bottom: 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: rgba(246, 239, 226, 0.12);
+  border: 1px solid rgba(246, 239, 226, 0.28);
+  color: var(--accent-caramel-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #8fd18a;
+  box-shadow: 0 0 0 3px rgba(143, 209, 138, 0.22);
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 4.4vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin-bottom: 1.2rem;
+}
+
+.hero-intro {
+  max-width: 56ch;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--text-on-dark-muted);
+  margin-bottom: 2rem;
+}
+
+.hero-intro strong {
+  color: var(--text-on-dark);
+  font-weight: 700;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(246, 239, 226, 0.16);
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+}
+
+.hero-stat-label {
+  font-size: 0.84rem;
+  color: var(--text-on-dark-muted);
+}
+
+/* Hero Right Off-White Showcase Card */
+.showcase-card {
+  background-color: var(--surface-offwhite);
+  color: var(--text-body);
+  border-radius: var(--radius-lg);
+  padding: 1.85rem;
+  border: 1px solid var(--border-warm);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.showcase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.showcase-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-caramel);
+}
+
+.showcase-pill {
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--coffee-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.showcase-title {
+  font-size: 1.45rem;
+  color: var(--coffee-darkest);
+  margin-bottom: 0.45rem;
+}
+
+.showcase-copy {
+  font-size: 0.94rem;
+  color: var(--coffee-muted);
+  margin-bottom: 1.25rem;
+}
+
+.pairing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.35rem;
+}
+
+.pairing-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0.95rem;
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+}
+
+.pairing-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+}
+
+.pairing-name {
+  font-family: var(--font-sans);
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--coffee-darkest);
+  margin-bottom: 0.15rem;
+}
+
+.pairing-meta {
+  font-size: 0.82rem;
+  color: var(--coffee-muted);
+}
+
+.showcase-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-warm);
+  font-size: 0.84rem;
+  color: var(--coffee-muted);
+}
+
+.showcase-link {
+  font-weight: 700;
+  color: var(--coffee-dark);
+  white-space: nowrap;
+}
+
+.showcase-link:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Page Sections & Off-White Cards
+   ========================================================================== */
+.section {
+  padding: 4.5rem 0;
+}
+
+.section--tinted {
+  background-color: var(--bg-cream-tint);
+  border-block: 1px solid var(--border-warm);
+}
+
+.section-header {
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+
+.section-header--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-header--center .section-subtitle {
+  margin-inline: auto;
+}
+
+.section-header--split {
+  max-width: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.section-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent-caramel);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.section-subtitle {
+  font-size: 1.02rem;
+  color: var(--coffee-muted);
+  max-width: 58ch;
+}
+
+.cards-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cards-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cards-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Off-White Card Component */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  margin-bottom: 1.2rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.card-text {
+  font-size: 0.96rem;
+  color: var(--text-body);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.card-btn {
+  align-self: flex-start;
+  padding: 0.72rem 1.25rem;
+  font-size: 0.9rem;
+}
+
+.tag-pill {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--coffee-dark);
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 0.95rem;
+}
+
+.game-card .card-text {
+  margin-bottom: 1rem;
+}
+
+.card-meta {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-warm);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--coffee-muted);
+}
+
+.menu-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.95rem;
+}
+
+.menu-card-top .tag-pill {
+  margin-bottom: 0;
+}
+
+.menu-price {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--coffee-dark);
+}
+
+.menu-card .card-text {
+  margin-bottom: 0;
+}
+
+.step-card .card-text {
+  margin-bottom: 0;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 1.1rem;
+}
+
+/* ==========================================================================
+   Game of the Week Card
+   ========================================================================== */
+.gotw-card {
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-left: 6px solid var(--coffee-dark);
+  border-radius: var(--radius-lg);
+  padding: 2.1rem 2.25rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.gotw-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.gotw-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.gotw-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.gotw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gotw-meta-pill {
+  margin-bottom: 0;
+}
+
+.gotw-emblem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--coffee-dark);
+}
+
+.gotw-title {
+  font-size: clamp(1.65rem, 2.5vw, 2.1rem);
+  color: var(--coffee-darkest);
+  margin-bottom: 0.65rem;
+}
+
+.gotw-description {
+  max-width: 72ch;
+  font-size: 1.02rem;
+  color: var(--text-body);
+  margin-bottom: 1.6rem;
+}
+
+.gotw-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-warm);
+}
+
+.gotw-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--coffee-dark);
+}
+
+.availability-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3f7d47;
+  box-shadow: 0 0 0 4px rgba(63, 125, 71, 0.18);
+}
+
+/* ==========================================================================
+   Why Visit Roll & Brew Cards
+   ========================================================================== */
+.why-card {
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.75rem;
+}
+
+.why-card .card-icon {
+  margin-bottom: 1rem;
+}
+
+.why-highlight {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-caramel);
+  margin-bottom: 0.35rem;
+}
+
+.why-card .card-title {
+  margin-bottom: 0.45rem;
+}
+
+.why-card .card-text {
+  margin-bottom: 0;
+  color: var(--coffee-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Explore Café Sections (Soft Sand Pill Links)
+   ========================================================================== */
+.explore-section {
+  padding: 3rem 0 2rem;
+}
+
+.explore-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.35rem;
+  text-align: center;
+}
+
+.explore-heading {
+  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  color: var(--coffee-darkest);
+}
+
+.explore-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.sand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius-pill);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  color: var(--coffee-darkest);
+  font-size: 0.94rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(47, 27, 16, 0.05);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sand-pill:hover {
+  background-color: #dfcba9;
+  border-color: var(--accent-caramel);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(47, 27, 16, 0.1);
+}
+
+/* ==========================================================================
+   Bottom Group Bookings Banner (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.booking-section {
+  padding: 2rem 0 4.5rem;
+}
+
+.booking-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 2.5rem 2.75rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--coffee-darkest) 0%, var(--coffee-dark) 58%, var(--coffee-medium) 100%);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.booking-content {
+  max-width: 600px;
+}
+
+.booking-title {
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  color: var(--text-on-dark);
+  margin-bottom: 0.5rem;
+}
+
+.booking-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-on-dark-muted);
+}
+
+.btn-cream {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  border-color: var(--bg-cream);
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(15, 7, 3, 0.25);
+}
+
+.btn-cream:hover {
+  background-color: var(--surface-offwhite);
+  border-color: var(--surface-offwhite);
+}
+
+/* ==========================================================================
+   Footer (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.site-footer {
+  background-color: var(--coffee-darkest);
+  color: var(--text-on-dark-muted);
+  padding: 3.5rem 0 1.75rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid rgba(246, 239, 226, 0.14);
+}
+
+.brand-logo--footer {
+  margin-bottom: 0.85rem;
+}
+
+.footer-copy {
+  max-width: 38ch;
+  font-size: 0.94rem;
+}
+
+.footer-heading {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-on-dark);
+  margin-bottom: 1rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.94rem;
+}
+
+.footer-links a:hover {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+}
+
+.footer-detail {
+  font-size: 0.94rem;
+  margin-bottom: 0.45rem;
+}
+
+.footer-detail strong {
+  color: var(--text-on-dark);
+}
+
+.footer-bottom {
+  padding-top: 1.5rem;
+  font-size: 0.86rem;
+  color: rgba(223, 208, 188, 0.8);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .cards-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-container {
+    flex-wrap: wrap;
+    padding: 0.75rem 0;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .primary-nav {
+    display: none;
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .primary-nav.is-open {
+    display: block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.4rem;
+  }
+
+  .nav-link {
+    justify-content: flex-start;
+  }
+
+  .hero {
+    padding: 3.25rem 0 3.75rem;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .cards-grid--3,
+  .cards-grid--4,
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 3.25rem 0;
+  }
+
+  .gotw-card {
+    padding: 1.5rem;
+  }
+
+  .booking-section {
+    padding: 1.5rem 0 3.25rem;
+  }
+
+  .booking-banner {
+    padding: 1.85rem 1.5rem;
+  }
+}
