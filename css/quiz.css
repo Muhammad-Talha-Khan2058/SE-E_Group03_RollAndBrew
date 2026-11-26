@@ -1,0 +1,446 @@
+/* ==========================================================================
+   Roll & Brew — Board Game Trivia Quiz Stylesheet
+   Warm café theme: dark espresso brown (#3B2418) & warm cream (#FAF3E8)
+   ========================================================================== */
+
+:root {
+  --cafe-brown: #3B2418;
+  --cafe-brown-hover: #2A180F;
+  --cafe-brown-soft: #5C4333;
+  --cafe-cream: #FAF3E8;
+  --cafe-card-bg: #FFFFFF;
+  --cafe-parchment: #F3E7D4;
+  --cafe-border: #E2D2BA;
+  --cafe-caramel: #B56926;
+
+  --correct-bg: #E8F8EE;
+  --correct-border: #28A745;
+  --correct-text: #165B33;
+
+  --wrong-bg: #FDEDEC;
+  --wrong-border: #DC3545;
+  --wrong-text: #8B1E1E;
+}
+
+/* Base Page Styling */
+body {
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: var(--cafe-cream);
+  color: var(--cafe-brown);
+  line-height: 1.6;
+}
+
+/* Accessible Skip Link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background-color: var(--cafe-brown);
+  color: var(--cafe-cream);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  z-index: 1100;
+  border-radius: 0 0 10px 0;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* High-visibility focus indicators for keyboard navigation */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+[tabindex="-1"]:focus-visible {
+  outline: 3px solid var(--cafe-caramel);
+  outline-offset: 3px;
+}
+
+/* Header & Navbar */
+.site-header {
+  background-color: var(--cafe-brown);
+  box-shadow: 0 4px 16px rgba(59, 36, 24, 0.22);
+}
+
+.site-header a:focus-visible,
+.site-header button:focus-visible {
+  outline: 3px solid var(--cafe-cream);
+  outline-offset: 2px;
+}
+
+.brand-logo {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(250, 243, 232, 0.3);
+}
+
+.brand-name {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--cafe-cream);
+  letter-spacing: -0.01em;
+}
+
+.site-header .nav-link {
+  color: rgba(250, 243, 232, 0.85);
+  font-weight: 500;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site-header .nav-link:hover {
+  color: #FFFFFF;
+  background-color: rgba(250, 243, 232, 0.14);
+}
+
+.site-header .nav-link.active {
+  color: var(--cafe-brown);
+  background-color: var(--cafe-cream);
+  font-weight: 700;
+}
+
+/* Cards & Typography */
+.quiz-card {
+  background-color: var(--cafe-card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--cafe-border) !important;
+  box-shadow: 0 10px 28px rgba(59, 36, 24, 0.08) !important;
+}
+
+.lead-text {
+  color: var(--cafe-brown-soft);
+  max-width: 56ch;
+  font-size: 1.05rem;
+}
+
+.cafe-muted {
+  color: var(--cafe-brown-soft);
+}
+
+.cafe-badge {
+  display: inline-block;
+  background-color: var(--cafe-parchment);
+  color: var(--cafe-brown);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.game-tag {
+  display: inline-block;
+  background-color: var(--cafe-parchment);
+  color: var(--cafe-brown);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+}
+
+/* Buttons */
+.btn-cafe {
+  background-color: var(--cafe-brown);
+  color: var(--cafe-cream);
+  border: 2px solid var(--cafe-brown);
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-cafe:hover,
+.btn-cafe:active {
+  background-color: var(--cafe-brown-hover);
+  border-color: var(--cafe-brown-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-cafe-outline {
+  background-color: transparent;
+  color: var(--cafe-brown);
+  border: 2px solid var(--cafe-brown);
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-cafe-outline:hover {
+  background-color: var(--cafe-parchment);
+  color: var(--cafe-brown);
+}
+
+.cafe-link-btn {
+  color: var(--cafe-brown-soft);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.cafe-link-btn:hover {
+  color: var(--cafe-brown);
+}
+
+/* Start Form */
+.start-form-box {
+  max-width: 460px;
+}
+
+.cafe-input {
+  border-radius: 12px;
+  border: 1.5px solid var(--cafe-border);
+  background-color: #FFFDF9;
+  color: var(--cafe-brown);
+}
+
+.cafe-input:focus {
+  border-color: var(--cafe-brown);
+  box-shadow: 0 0 0 0.2rem rgba(59, 36, 24, 0.15);
+}
+
+.saved-banner {
+  background-color: var(--cafe-parchment);
+  border: 1px solid var(--cafe-border);
+  border-radius: 14px;
+  color: var(--cafe-brown);
+  text-align: center;
+}
+
+.error-message {
+  color: var(--wrong-text);
+  background-color: var(--wrong-bg);
+  border: 1px solid var(--wrong-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Question Progress & Timer */
+.progress-label {
+  color: var(--cafe-brown);
+  font-size: 0.95rem;
+}
+
+.score-pill {
+  background-color: var(--cafe-parchment);
+  color: var(--cafe-brown);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.timer-pill {
+  background-color: var(--cafe-brown);
+  color: var(--cafe-cream);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  min-width: 60px;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.timer-pill.timer-warning {
+  background-color: #B02A37;
+  color: #FFFFFF;
+}
+
+.cafe-progress {
+  height: 10px;
+  background-color: var(--cafe-parchment);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cafe-progress-bar {
+  background-color: var(--cafe-brown);
+  transition: width 0.3s ease;
+}
+
+/* Answer Option Buttons */
+.answer-btn {
+  text-align: left;
+  background-color: var(--cafe-cream);
+  color: var(--cafe-brown);
+  border: 2px solid var(--cafe-border);
+  border-radius: 14px;
+  padding: 0.95rem 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+  background-color: var(--cafe-parchment);
+  border-color: var(--cafe-brown);
+  transform: translateY(-1px);
+}
+
+.answer-btn:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.answer-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background-color: var(--cafe-brown);
+  color: var(--cafe-cream);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* Instant Feedback States */
+.answer-btn.answer-correct {
+  background-color: var(--correct-bg);
+  border-color: var(--correct-border);
+  color: var(--correct-text);
+}
+
+.answer-btn.answer-correct .answer-letter {
+  background-color: var(--correct-border);
+  color: #FFFFFF;
+}
+
+.answer-btn.answer-wrong {
+  background-color: var(--wrong-bg);
+  border-color: var(--wrong-border);
+  color: var(--wrong-text);
+}
+
+.answer-btn.answer-wrong .answer-letter {
+  background-color: var(--wrong-border);
+  color: #FFFFFF;
+}
+
+.feedback-box {
+  border-radius: 14px;
+  border: 1.5px solid transparent;
+}
+
+.feedback-box.feedback-correct {
+  background-color: var(--correct-bg);
+  border-color: var(--correct-border);
+  color: var(--correct-text);
+}
+
+.feedback-box.feedback-wrong {
+  background-color: var(--wrong-bg);
+  border-color: var(--wrong-border);
+  color: var(--wrong-text);
+}
+
+/* Results & Review */
+.result-title-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--cafe-caramel);
+}
+
+.score-summary-box {
+  max-width: 440px;
+  background-color: var(--cafe-cream);
+  border: 1.5px solid var(--cafe-border);
+  border-radius: 16px;
+}
+
+.summary-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cafe-brown-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summary-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--cafe-brown);
+}
+
+.cafe-divider {
+  border-color: var(--cafe-border);
+  opacity: 1;
+}
+
+.review-item {
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  border: 1.5px solid var(--cafe-border);
+  background-color: #FFFDF9;
+}
+
+.review-item.review-correct {
+  border-left: 5px solid var(--correct-border);
+}
+
+.review-item.review-wrong {
+  border-left: 5px solid var(--wrong-border);
+}
+
+.review-status-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+}
+
+.review-status-badge.status-correct {
+  background-color: var(--correct-bg);
+  color: var(--correct-text);
+}
+
+.review-status-badge.status-wrong {
+  background-color: var(--wrong-bg);
+  color: var(--wrong-text);
+}
+
+/* Leaderboard Table */
+.best-chip {
+  background-color: var(--cafe-parchment);
+  color: var(--cafe-brown);
+  border: 1px solid var(--cafe-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.cafe-table th {
+  color: var(--cafe-brown-soft);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--cafe-border);
+}
+
+.cafe-table td {
+  color: var(--cafe-brown);
+  border-bottom: 1px solid var(--cafe-parchment);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--cafe-brown);
+  color: var(--cafe-cream);
+}
+
+.footer-credit {
+  color: rgba(250, 243, 232, 0.82);
+}
