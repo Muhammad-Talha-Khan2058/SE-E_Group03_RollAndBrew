@@ -146,22 +146,14 @@ svg {
   flex-shrink: 0;
 }
 
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
-  border-radius: 10px;
-  background-color: var(--bg-cream);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
 .brand-logo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: block;
+  height: 46px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .brand-text {
@@ -323,24 +315,30 @@ svg {
 }
 
 /* ==========================================================================
-   Hero Banner (Dark Roasted Coffee Brown)
+   Hero Banner (Centered Dark Roasted Coffee Brown Card on Cream Background)
    ========================================================================== */
 .hero {
+  padding: 3rem 0 1.25rem;
+  background-color: var(--bg-cream);
+}
+
+.hero-card {
   position: relative;
   overflow: hidden;
-  padding: 4.5rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-inline: auto;
+  padding: 4.25rem 2.5rem;
+  border-radius: var(--radius-lg);
   color: var(--text-on-dark);
   background:
     radial-gradient(circle at 85% 20%, rgba(194, 129, 68, 0.22), transparent 45%),
-    radial-gradient(circle at 12% 85%, rgba(194, 129, 68, 0.12), transparent 40%),
+    radial-gradient(circle at 15% 85%, rgba(194, 129, 68, 0.14), transparent 40%),
     linear-gradient(135deg, var(--coffee-darkest) 0%, var(--coffee-dark) 52%, var(--coffee-medium) 100%);
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  align-items: center;
-  gap: 3rem;
+  box-shadow: var(--shadow-hero-card);
 }
 
 .hours-badge {
@@ -367,168 +365,27 @@ svg {
 }
 
 .hero-title {
-  font-size: clamp(2.4rem, 4.4vw, 3.75rem);
+  font-size: clamp(2.25rem, 4.4vw, 3.65rem);
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--text-on-dark);
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.1rem;
 }
 
 .hero-intro {
-  max-width: 56ch;
+  max-width: 58ch;
+  margin-inline: auto;
   font-size: 1.08rem;
   line-height: 1.7;
   color: var(--text-on-dark-muted);
   margin-bottom: 2rem;
 }
 
-.hero-intro strong {
-  color: var(--text-on-dark);
-  font-weight: 700;
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.9rem;
-  margin-bottom: 2.5rem;
-}
-
-.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.25rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid rgba(246, 239, 226, 0.16);
-}
-
-.hero-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.hero-stat-value {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text-on-dark);
-}
-
-.hero-stat-label {
-  font-size: 0.84rem;
-  color: var(--text-on-dark-muted);
-}
-
-/* Hero Right Off-White Showcase Card */
-.showcase-card {
-  background-color: var(--surface-offwhite);
-  color: var(--text-body);
-  border-radius: var(--radius-lg);
-  padding: 1.85rem;
-  border: 1px solid var(--border-warm);
-  box-shadow: var(--shadow-hero-card);
-}
-
-.showcase-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.showcase-eyebrow {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-caramel);
-}
-
-.showcase-pill {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius-pill);
-  background-color: var(--bg-cream);
-  border: 1px solid var(--border-warm);
-  color: var(--coffee-dark);
-  font-size: 0.75rem;
-  font-weight: 700;
-}
-
-.showcase-title {
-  font-size: 1.45rem;
-  color: var(--coffee-darkest);
-  margin-bottom: 0.45rem;
-}
-
-.showcase-copy {
-  font-size: 0.94rem;
-  color: var(--coffee-muted);
-  margin-bottom: 1.25rem;
-}
-
-.pairing-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  margin-bottom: 1.35rem;
-}
-
-.pairing-item {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.85rem 0.95rem;
-  background-color: var(--bg-cream);
-  border: 1px solid var(--border-warm);
-  border-radius: var(--radius-md);
-}
-
-.pairing-icon {
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  background-color: var(--coffee-dark);
-  color: var(--bg-cream);
-}
-
-.pairing-name {
-  font-family: var(--font-sans);
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: var(--coffee-darkest);
-  margin-bottom: 0.15rem;
-}
-
-.pairing-meta {
-  font-size: 0.82rem;
-  color: var(--coffee-muted);
-}
-
-.showcase-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-warm);
-  font-size: 0.84rem;
-  color: var(--coffee-muted);
-}
-
-.showcase-link {
-  font-weight: 700;
-  color: var(--coffee-dark);
-  white-space: nowrap;
-}
-
-.showcase-link:hover {
-  text-decoration: underline;
+  gap: 0.9rem;
 }
 
 /* ==========================================================================
@@ -994,11 +851,6 @@ svg {
    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 992px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
   .cards-grid--4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1040,12 +892,11 @@ svg {
   }
 
   .hero {
-    padding: 3.25rem 0 3.75rem;
+    padding: 2rem 0 0.75rem;
   }
 
-  .hero-stats {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
+  .hero-card {
+    padding: 3rem 1.5rem;
   }
 
   .cards-grid--3,
