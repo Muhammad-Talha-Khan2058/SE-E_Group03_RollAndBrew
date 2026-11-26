@@ -848,9 +848,259 @@ svg {
 }
 
 /* ==========================================================================
+   About Page — Our Story Section
+   ========================================================================== */
+.about-story-section {
+  padding: 4.5rem 0;
+}
+
+.about-story-heading {
+  font-size: clamp(2.1rem, 3.6vw, 2.85rem);
+  margin-bottom: 0;
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.38fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.story-feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.75rem 2.25rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--coffee-darkest) 0%, var(--coffee-dark) 62%, var(--coffee-medium) 100%);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.story-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background-color: rgba(246, 239, 226, 0.14);
+  border: 2px solid var(--accent-caramel-soft);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.story-feature-title {
+  font-size: 1.5rem;
+  color: var(--text-on-dark);
+  margin-bottom: 0.45rem;
+}
+
+.story-feature-subtitle {
+  max-width: 28ch;
+  font-size: 0.96rem;
+  color: var(--text-on-dark-muted);
+}
+
+.story-text-card {
+  display: flex;
+  align-items: center;
+  padding: 2.75rem 2.5rem;
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.story-paragraph {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   About Page — What We Stand For
+   ========================================================================== */
+.stand-for-header {
+  align-items: baseline;
+  margin-bottom: 1.75rem;
+}
+
+.stand-for-header .section-title {
+  margin-bottom: 0;
+}
+
+.stand-for-meta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--coffee-muted);
+  transition: color var(--transition-fast);
+}
+
+.stand-for-meta:hover {
+  color: var(--coffee-darkest);
+  text-decoration: underline;
+}
+
+.stand-for-card {
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.stand-for-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.stand-for-item {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+.stand-for-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.stand-for-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.stand-for-copy {
+  font-size: 1.02rem;
+  color: var(--text-body);
+}
+
+.stand-for-copy strong {
+  color: var(--coffee-darkest);
+}
+
+/* ==========================================================================
+   About Page — Meet the Team
+   ========================================================================== */
+.team-role-card {
+  align-items: center;
+  text-align: center;
+  padding: 2.15rem 1.75rem;
+}
+
+.team-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  margin-bottom: 1.15rem;
+}
+
+.team-role-card .card-title {
+  margin-bottom: 0.35rem;
+}
+
+.team-role-subtitle {
+  font-size: 0.96rem;
+  color: var(--coffee-muted);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.tan-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  color: var(--coffee-darkest);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   About Page — Warm Tan Café Snapshot Banner
+   ========================================================================== */
+.snapshot-section {
+  padding: 1rem 0 4.5rem;
+}
+
+.snapshot-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-inline: auto;
+  padding: 2.35rem 2.6rem;
+  border-radius: var(--radius-lg);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  box-shadow: var(--shadow-card);
+}
+
+.snapshot-content {
+  max-width: 640px;
+}
+
+.snapshot-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coffee-medium);
+  margin-bottom: 0.45rem;
+}
+
+.snapshot-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  color: var(--coffee-darkest);
+  line-height: 1.35;
+}
+
+.snapshot-btn {
+  white-space: nowrap;
+}
+
+/* ==========================================================================
    Responsive Breakpoints
    ========================================================================== */
 @media (max-width: 992px) {
+  .about-story-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cards-grid--4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -908,8 +1158,25 @@ svg {
     padding: 3.25rem 0;
   }
 
-  .gotw-card {
-    padding: 1.5rem;
+  .gotw-card,
+  .story-feature-card,
+  .story-text-card,
+  .stand-for-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .stand-for-item {
+    align-items: flex-start;
+  }
+
+  .snapshot-section {
+    padding: 0.5rem 0 3.25rem;
+  }
+
+  .snapshot-banner {
+    justify-content: center;
+    text-align: center;
+    padding: 1.85rem 1.5rem;
   }
 
   .booking-section {
