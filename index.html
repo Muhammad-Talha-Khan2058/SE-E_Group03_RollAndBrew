@@ -36,9 +36,9 @@
         aria-controls="primary-navigation"
         aria-label="Toggle navigation menu"
       >
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
       </button>
 
       <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
@@ -212,10 +212,41 @@
     const primaryNav = document.querySelector(".primary-nav");
 
     if (navToggle && primaryNav) {
+      const setMenuOpen = (isOpen) => {
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+        primaryNav.classList.toggle("is-open", isOpen);
+      };
+
       navToggle.addEventListener("click", () => {
         const expanded = navToggle.getAttribute("aria-expanded") === "true";
-        navToggle.setAttribute("aria-expanded", String(!expanded));
-        primaryNav.classList.toggle("is-open", !expanded);
+        setMenuOpen(!expanded);
+      });
+
+      primaryNav.querySelectorAll(".nav-link").forEach((link) => {
+        link.addEventListener("click", () => setMenuOpen(false));
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
+          setMenuOpen(false);
+          navToggle.focus();
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (
+          primaryNav.classList.contains("is-open") &&
+          !primaryNav.contains(event.target) &&
+          !navToggle.contains(event.target)
+        ) {
+          setMenuOpen(false);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768 && primaryNav.classList.contains("is-open")) {
+          setMenuOpen(false);
+        }
       });
     }
   </script>
