@@ -392,7 +392,8 @@ ul {
   gap: 1.5rem;
 }
 
-.snack-card {
+.snack-card,
+.drink-card {
   display: flex;
   flex-direction: column;
   background-color: var(--cream-card);
@@ -403,13 +404,15 @@ ul {
   transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
-.snack-card:hover {
+.snack-card:hover,
+.drink-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-md);
   border-color: var(--amber);
 }
 
-.snack-card.is-hidden {
+.snack-card.is-hidden,
+.drink-card.is-hidden {
   display: none;
 }
 
@@ -467,6 +470,24 @@ ul {
   background-color: var(--spicy-bg);
   color: var(--spicy-text);
   border-color: var(--spicy-border);
+}
+
+.badge-hot {
+  background-color: var(--amber-soft);
+  color: var(--espresso);
+  border-color: rgba(212, 130, 42, 0.45);
+}
+
+.badge-cold {
+  background-color: #e8f1f8;
+  color: #245373;
+  border-color: #bfd6e8;
+}
+
+.badge-mocktail {
+  background-color: #e7f3e8;
+  color: #276738;
+  border-color: #bddbc0;
 }
 
 .card-body {
