@@ -3,57 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Board Game Trivia Quiz | Roll &amp; Brew Board Game Café</title>
-  <meta name="description" content="Test your tabletop knowledge with the Roll & Brew Board Game Trivia Quiz. Answer 10 shuffled questions before the timer runs out and climb the café leaderboard.">
+  <meta name="description" content="Take the Roll &amp; Brew Board Game Café quiz to find the perfect board game for your group, mood, and schedule.">
+  <title>Find Your Perfect Game | Roll &amp; Brew Board Game Café</title>
 
-  <!-- Google Fonts: Inter -->
+  <!-- Clean sans-serif font: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap 5 CSS (no jQuery required) -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  >
+  <!-- Bootstrap 5 CSS (vanilla JS, no jQuery) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-  <!-- Page Stylesheet (relative path) -->
+  <!-- Page stylesheet (relative path from pages/) -->
   <link rel="stylesheet" href="../css/quiz.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Site Header & Responsive Navigation -->
   <header class="site-header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark py-2" aria-label="Main navigation">
+    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Primary navigation">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
-          <img
-            src="../images/logo.png"
-            alt="Roll & Brew Board Game Café logo"
-            width="44"
-            height="44"
-            class="brand-logo"
-          >
+          <img src="../images/logo.png" alt="Roll &amp; Brew Board Game Café logo" class="brand-logo" width="44" height="44">
           <span class="brand-name">Roll &amp; Brew</span>
         </a>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNav"
-          aria-controls="mainNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation menu"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation menu">
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="mainNav">
-          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
+        <div class="collapse navbar-collapse justify-content-end" id="primaryNav">
+          <ul class="navbar-nav gap-lg-2 mt-3 mt-lg-0">
             <li class="nav-item">
               <a class="nav-link" href="../index.html">Home</a>
             </li>
@@ -76,263 +57,94 @@
   </header>
 
   <!-- Main Quiz Content -->
-  <main id="main-content" class="flex-grow-1 py-4 py-md-5">
+  <main id="main-content" class="quiz-main py-4 py-md-5">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-9 col-xl-8">
 
-          <!-- 1. START SCREEN -->
-          <section
-            id="start-screen"
-            class="quiz-card card border-0 shadow-sm p-4 p-md-5 mb-4"
-            aria-labelledby="quiz-main-heading"
-          >
-            <div class="text-center mb-4">
-              <span class="cafe-badge mb-2">Which Board Game Are You?</span>
-              <h1 id="quiz-main-heading" class="display-6 fw-bold mt-2 mb-3">
-                Board Game Trivia Quiz
-              </h1>
-              <p class="lead-text mx-auto mb-0">
-                Grab a warm latte and put your tabletop knowledge to the test! Answer
-                10 shuffled questions about iconic board games—20 seconds per question—to
-                discover your Roll &amp; Brew player title.
-              </p>
+          <!-- 1. Start Screen -->
+          <section id="start-screen" class="quiz-card card border-0 shadow-sm p-4 p-md-5 text-center" aria-labelledby="quiz-title">
+            <div class="mx-auto mb-3">
+              <span class="badge rounded-pill cafe-pill">Board Game Matcher</span>
             </div>
+            <h1 id="quiz-title" class="quiz-heading mb-3">Find Your Perfect Game</h1>
+            <p class="quiz-subtitle mx-auto mb-4">
+              Not sure what to pull off the shelf? Answer 7 quick questions about your group size, time, and vibe, and we will match you with the best games at Roll &amp; Brew.
+            </p>
 
-            <!-- Saved Player Best Score Banner (shown if localStorage has data) -->
-            <div
-              id="saved-player-banner"
-              class="saved-banner p-3 mb-4 d-none"
-              role="status"
-              aria-live="polite"
-            >
-              <p class="mb-0 fw-semibold" id="saved-player-text"></p>
-            </div>
+            <!-- Populated dynamically when a previous result exists in localStorage -->
+            <div id="last-result-banner" class="last-result-banner d-none text-start mb-4" aria-live="polite"></div>
 
-            <!-- Start Quiz Form -->
-            <form id="start-form" novalidate class="mx-auto start-form-box">
-              <div class="mb-3">
-                <label for="player-name" class="form-label fw-semibold">
-                  Player Name <span class="text-danger" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="player-name"
-                  name="playerName"
-                  class="form-control form-control-lg cafe-input"
-                  placeholder="Enter your name (min. 2 characters)"
-                  required
-                  minlength="2"
-                  maxlength="30"
-                  autocomplete="name"
-                  aria-describedby="name-help name-error"
-                >
-                <div id="name-help" class="form-text cafe-muted mt-1">
-                  Your name will appear on the café leaderboard if you score high enough.
-                </div>
-                <div
-                  id="name-error"
-                  class="error-message mt-2 d-none"
-                  role="alert"
-                  aria-live="assertive"
-                ></div>
-              </div>
-
-              <div class="d-grid mt-4">
-                <button
-                  type="submit"
-                  id="start-quiz-btn"
-                  class="btn btn-cafe btn-lg"
-                  aria-label="Start the Board Game Trivia Quiz"
-                >
-                  Start Quiz
-                </button>
-              </div>
-            </form>
-          </section>
-
-          <!-- 2. QUESTION SCREEN -->
-          <section
-            id="question-screen"
-            class="quiz-card card border-0 shadow-sm p-4 p-md-5 mb-4 d-none"
-            aria-labelledby="question-text"
-          >
-            <!-- Progress & Timer Header -->
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-              <span id="question-progress-text" class="fw-bold progress-label">
-                Question 1 of 10
-              </span>
-
-              <div class="d-flex align-items-center gap-2">
-                <span id="live-score-text" class="score-pill" aria-live="polite">
-                  Score: 0
-                </span>
-                <span
-                  id="timer-badge"
-                  class="timer-pill"
-                  aria-label="Time remaining: 20 seconds"
-                >
-                  20s
-                </span>
-              </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div
-              class="progress cafe-progress mb-4"
-              role="progressbar"
-              aria-label="Quiz progress"
-              aria-valuemin="0"
-              aria-valuemax="10"
-              aria-valuenow="1"
-              id="quiz-progress-bar-wrap"
-            >
-              <div
-                id="quiz-progress-bar"
-                class="progress-bar cafe-progress-bar"
-                style="width: 10%;"
-              ></div>
-            </div>
-
-            <!-- Screen reader timer status (announces warnings without spamming every second) -->
-            <p id="timer-sr-status" class="visually-hidden" aria-live="polite"></p>
-
-            <!-- Game Tag & Question Heading -->
-            <div class="mb-4">
-              <span id="question-game-tag" class="game-tag mb-2">Board Game</span>
-              <h2 id="question-text" class="h4 fw-bold mt-2 mb-0" tabindex="-1"></h2>
-            </div>
-
-            <!-- 4 Answer Buttons (populated dynamically by js/quiz.js) -->
-            <div
-              id="answer-options"
-              class="d-grid gap-3 mb-4"
-              role="group"
-              aria-label="Answer choices"
-            ></div>
-
-            <!-- Instant Feedback Box -->
-            <div
-              id="feedback-box"
-              class="feedback-box p-3 mb-4 d-none"
-              role="status"
-              aria-live="polite"
-            >
-              <p id="feedback-title" class="fw-bold mb-1"></p>
-              <p id="feedback-detail" class="mb-0 small"></p>
-            </div>
-
-            <!-- Next Button -->
-            <div class="d-flex justify-content-end">
-              <button
-                type="button"
-                id="next-btn"
-                class="btn btn-cafe px-4 d-none"
-                aria-label="Move to next question"
-              >
-                Next
+            <div>
+              <button type="button" id="start-quiz-btn" class="btn btn-cafe btn-lg px-5 py-3">
+                Start Quiz
               </button>
             </div>
           </section>
 
-          <!-- 3. RESULT SCREEN -->
-          <section
-            id="result-screen"
-            class="quiz-card card border-0 shadow-sm p-4 p-md-5 mb-4 d-none"
-            aria-labelledby="result-heading"
-          >
-            <div class="text-center mb-4">
-              <span class="cafe-badge mb-2">Quiz Complete</span>
-              <h2 id="result-heading" class="h3 fw-bold mt-2 mb-1" tabindex="-1">
-                Great Round, <span id="result-player-name"></span>!
-              </h2>
-              <p id="result-title-badge" class="result-title-text mb-2"></p>
-              <p id="result-title-desc" class="cafe-muted mb-3"></p>
-
-              <!-- Score Summary Card -->
-              <div class="score-summary-box p-4 mx-auto mb-3">
-                <div class="row text-center g-3">
-                  <div class="col-6">
-                    <div class="summary-label">Final Score</div>
-                    <div id="result-score" class="summary-value">0 / 10</div>
-                  </div>
-                  <div class="col-6">
-                    <div class="summary-label">Accuracy</div>
-                    <div id="result-percentage" class="summary-value">0%</div>
-                  </div>
-                </div>
-                <p id="best-score-note" class="mb-0 mt-3 fw-semibold small"></p>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-                <button
-                  type="button"
-                  id="play-again-btn"
-                  class="btn btn-cafe btn-lg"
-                  aria-label="Play the quiz again with new shuffled questions"
-                >
-                  Play Again
-                </button>
-                <a
-                  href="games.html"
-                  class="btn btn-cafe-outline btn-lg"
-                  aria-label="Return to the Games page"
-                >
-                  Back to Games
-                </a>
-                <button
-                  type="button"
-                  id="change-player-btn"
-                  class="btn btn-link cafe-link-btn"
-                >
-                  Switch Player
-                </button>
-              </div>
+          <!-- 2. Question Screen (one question at a time, rendered from JS array) -->
+          <section id="question-screen" class="quiz-card card border-0 shadow-sm p-4 p-md-5 d-none" aria-labelledby="question-text">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span id="progress-label" class="progress-label fw-semibold">Question 1 of 7</span>
+              <span id="optional-badge" class="badge rounded-pill optional-badge d-none">Optional</span>
             </div>
 
-            <hr class="cafe-divider my-4">
+            <div id="quiz-progress-bar" class="progress quiz-progress mb-4" role="progressbar" aria-label="Quiz progress" aria-valuenow="1" aria-valuemin="1" aria-valuemax="7">
+              <div id="progress-bar-fill" class="progress-bar" style="width: 14%"></div>
+            </div>
 
-            <!-- Correct Answers Review -->
-            <div>
-              <h3 class="h5 fw-bold mb-3">Answer Review</h3>
-              <ol id="review-list" class="review-list list-unstyled d-grid gap-3 mb-0"></ol>
+            <h2 id="question-text" class="question-title mb-2" tabindex="-1"></h2>
+            <p id="question-hint" class="question-hint mb-4"></p>
+
+            <!-- Option cards are rendered dynamically here from QUIZ_QUESTIONS -->
+            <div id="options-container" class="row g-3 mb-4" role="radiogroup" aria-labelledby="question-text"></div>
+
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top border-warm">
+              <button type="button" id="back-btn" class="btn btn-cafe-outline">
+                Back
+              </button>
+              <div class="d-flex flex-wrap gap-2 ms-auto">
+                <button type="button" id="skip-btn" class="btn btn-cafe-ghost d-none" aria-label="Skip this optional question">
+                  Skip
+                </button>
+                <button type="button" id="next-btn" class="btn btn-cafe" disabled>
+                  Next
+                </button>
+              </div>
             </div>
           </section>
 
-          <!-- 4. LEADERBOARD SECTION -->
-          <section
-            id="leaderboard-section"
-            class="quiz-card card border-0 shadow-sm p-4 p-md-5"
-            aria-labelledby="leaderboard-heading"
-          >
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-              <div>
-                <span class="cafe-badge mb-1">Hall of Fame</span>
-                <h2 id="leaderboard-heading" class="h4 fw-bold mt-1 mb-0">
-                  Top 5 Café Leaderboard
-                </h2>
-              </div>
-              <span id="leaderboard-best-chip" class="best-chip d-none"></span>
+          <!-- 3. Result Screen (rendered dynamically from BOARD_GAMES scoring) -->
+          <section id="result-screen" class="d-none" aria-live="polite" aria-labelledby="result-heading">
+            <div class="text-center mb-4">
+              <span class="badge rounded-pill cafe-pill mb-2">Your Café Recommendation</span>
+              <h2 id="result-heading" class="quiz-heading h1 mb-1" tabindex="-1">Your Game Matches</h2>
+              <p class="quiz-subtitle mx-auto mb-0">Grab a table, order a fresh brew, and try our top picks for your group.</p>
             </div>
 
-            <p id="leaderboard-empty" class="cafe-muted mb-0 py-3 text-center d-none">
-              No scores yet
-            </p>
+            <!-- Fallback notice if player count rules out games or match score is very low -->
+            <div id="result-notice" class="alert result-notice d-none mb-4" role="status"></div>
 
-            <div id="leaderboard-table-wrap" class="table-responsive d-none">
-              <table class="table cafe-table align-middle mb-0" aria-label="Top 5 quiz scores">
-                <thead>
-                  <tr>
-                    <th scope="col">Rank</th>
-                    <th scope="col">Player</th>
-                    <th scope="col">Score</th>
-                    <th scope="col">Date</th>
-                  </tr>
-                </thead>
-                <tbody id="leaderboard-body"></tbody>
-              </table>
+            <!-- Best matching game card -->
+            <div id="best-match-container" class="mb-4"></div>
+
+            <!-- 2 runner-up games -->
+            <div id="runner-ups-container" class="mb-4"></div>
+
+            <!-- Action buttons -->
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+              <button type="button" id="retake-btn" class="btn btn-cafe">
+                Retake Quiz
+              </button>
+              <button type="button" id="save-result-btn" class="btn btn-cafe-outline">
+                Save this result
+              </button>
+              <a href="games.html" class="btn btn-cafe-secondary">
+                Back to Games
+              </a>
             </div>
+
+            <p id="save-feedback" class="text-center mt-3 mb-0 save-feedback" role="status" aria-live="polite"></p>
           </section>
 
         </div>
@@ -343,19 +155,15 @@
   <!-- Site Footer -->
   <footer class="site-footer py-4 mt-auto">
     <div class="container text-center">
-      <p class="mb-1 fw-semibold">&copy; Roll &amp; Brew Board Game Café</p>
-      <p class="mb-0 small footer-credit">Images on this website were generated using GEMINI</p>
+      <p class="mb-1 fw-medium">&copy; Roll &amp; Brew Board Game Café</p>
+      <p class="mb-0 small footer-attribution">Images on this website were generated using Google Gemini (Imagen).</p>
     </div>
   </footer>
 
-  <!-- Bootstrap 5 JS Bundle (no jQuery) -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
+  <!-- Bootstrap 5 JS Bundle (vanilla JS, required for mobile navbar toggle) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-  <!-- Quiz Logic (relative path) -->
+  <!-- Quiz Data & Logic (relative path from pages/) -->
   <script src="../js/quiz.js"></script>
 </body>
 </html>

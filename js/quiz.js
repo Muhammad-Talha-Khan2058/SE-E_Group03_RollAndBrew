@@ -1,854 +1,1136 @@
-/* ==========================================================================
-   Roll & Brew — Board Game Trivia Quiz
-   Vanilla JavaScript logic: question bank, timer, scoring, review & localStorage
-   ========================================================================== */
+/**
+ * Roll & Brew Board Game Café — "Find Your Perfect Game" Quiz
+ *
+ * Pure vanilla JavaScript (no jQuery, no external frameworks).
+ * All quiz questions and board games are stored in arrays below and rendered
+ * dynamically into the DOM.
+ */
 
-/* --------------------------------------------------------------------------
-   1. Configuration & Question Bank (15 Realistic Board Game Questions)
-   -------------------------------------------------------------------------- */
-const QUIZ_LENGTH = 10;
-const SECONDS_PER_QUESTION = 20;
-const STORAGE_KEYS = {
-  PLAYER_NAME: "rollAndBrew_playerName",
-  BEST_SCORE: "rollAndBrew_bestScore",
-  LEADERBOARD: "rollAndBrew_leaderboard"
-};
+'use strict';
 
-const QUESTION_BANK = [
+/* ============================================================================
+   1. QUIZ QUESTIONS DATA
+   Each question object defines its id, prompt text, helper hint, whether it
+   is optional (enables the Skip button), its scoring weight, and clickable options.
+   ============================================================================ */
+const QUIZ_QUESTIONS = [
   {
-    id: 1,
-    game: "Catan",
-    question: "In Catan, which five resources do players collect and trade to build settlements?",
+    id: 'players',
+    text: 'How many people are playing?',
+    hint: 'Pick the size of your table today.',
+    optional: false,
+    weight: 30,
     options: [
-      "Brick, Lumber, Ore, Grain, and Wool",
-      "Gold, Stone, Wood, Fish, and Silk",
-      "Clay, Iron, Wheat, Coal, and Cotton",
-      "Timber, Marble, Silver, Corn, and Flax"
-    ],
-    correctIndex: 0,
-    explanation: "Catan uses Brick, Lumber, Ore, Grain, and Wool—while the desert hex produces nothing."
+      { value: '1-2', label: '1–2 Players', description: 'Solo session or cozy duo' },
+      { value: '3-4', label: '3–4 Players', description: 'Classic café table group' },
+      { value: '5-6', label: '5–6 Players', description: 'Lively medium-sized group' },
+      { value: '7+', label: '7+ Players', description: 'Big party or crowd' }
+    ]
   },
   {
-    id: 2,
-    game: "Monopoly",
-    question: "In classic Monopoly, how much money do you collect each time you pass GO?",
-    options: ["$100", "$200", "$250", "$500"],
-    correctIndex: 1,
-    explanation: "Passing GO awards $200 from the bank."
-  },
-  {
-    id: 3,
-    game: "Chess",
-    question: "In Chess, which piece is the only one allowed to jump over other pieces?",
-    options: ["Bishop", "Rook", "Knight", "Queen"],
-    correctIndex: 2,
-    explanation: "Knights move in an L-shape and are the only pieces able to leap over others."
-  },
-  {
-    id: 4,
-    game: "Scrabble",
-    question: "In standard English Scrabble, which two letter tiles are each worth 10 points?",
-    options: ["Q and Z", "J and X", "K and Z", "Q and X"],
-    correctIndex: 0,
-    explanation: "Q and Z are the highest-scoring tiles at 10 points each (J and X are worth 8)."
-  },
-  {
-    id: 5,
-    game: "Uno",
-    question: "In a standard game of Uno, how many cards are dealt to each player at the start?",
-    options: ["5 cards", "7 cards", "9 cards", "10 cards"],
-    correctIndex: 1,
-    explanation: "Official Uno rules deal 7 cards face down to every player."
-  },
-  {
-    id: 6,
-    game: "Ticket to Ride",
-    question: "In the original Ticket to Ride, what are players building across North America?",
-    options: ["Highway bridges", "Train routes", "Shipping lanes", "Airports"],
-    correctIndex: 1,
-    explanation: "Players collect colored train cards to claim railway routes connecting cities."
-  },
-  {
-    id: 7,
-    game: "Clue",
-    question: "In the mystery game Clue (Cluedo), who is the mansion host whose murder players solve?",
-    options: ["Mr. Boddy", "Colonel Mustard", "Professor Plum", "Mr. Green"],
-    correctIndex: 0,
-    explanation: "Players deduce who killed Mr. Boddy, with which weapon, and in which room."
-  },
-  {
-    id: 8,
-    game: "Risk",
-    question: "How many continents appear on the classic Risk world map?",
-    options: ["5", "6", "7", "8"],
-    correctIndex: 1,
-    explanation: "Risk divides the map into 6 continents: North America, South America, Europe, Africa, Asia, and Australia."
-  },
-  {
-    id: 9,
-    game: "Pandemic",
-    question: "What style of gameplay is Pandemic most famous for popularizing?",
+    id: 'playMode',
+    text: 'Do you want a team/group game or every player for themselves?',
+    hint: 'Optional — skip if your group does not mind either way.',
+    optional: true,
+    weight: 12,
     options: [
-      "Cooperative team strategy",
-      "Word-building party play",
-      "Solo tile-laying puzzles",
-      "Secret-role bluffing"
-    ],
-    correctIndex: 0,
-    explanation: "In Pandemic, all players work together as one team to cure four diseases before outbreaks overwhelm the globe."
+      { value: 'team', label: 'Team / Cooperative', description: 'Work together toward a shared goal' },
+      { value: 'solo', label: 'Every player for themselves', description: 'Friendly competition for one winner' }
+    ]
   },
   {
-    id: 10,
-    game: "Azul",
-    question: "In Azul, what components do players draft to decorate their personal palace wall?",
+    id: 'usesDice',
+    text: 'Should it involve dice?',
+    hint: 'Tell us if rolling dice is a must or something to avoid.',
+    optional: false,
+    weight: 30,
     options: [
-      "Colorful ceramic-style tiles",
-      "Wooden train cars",
-      "Hexagonal terrain cards",
-      "Plastic army miniatures"
-    ],
-    correctIndex: 0,
-    explanation: "Players draft patterned tiles from factory displays to build mosaic rows and columns."
+      { value: 'yes', label: 'Yes, bring on the dice!', description: 'Luck, tension, and satisfying rolls' },
+      { value: 'no', label: 'No dice preferred', description: 'Cards, tiles, or pure planning instead' }
+    ]
   },
   {
-    id: 11,
-    game: "Codenames",
-    question: "In Codenames, what is the main job of each team's Spymaster?",
+    id: 'duration',
+    text: 'How much time do you have?',
+    hint: 'Optional — skip if you have an open afternoon.',
+    optional: true,
+    weight: 12,
     options: [
-      "Give one-word clues linking grid words",
-      "Roll dice to move team pawns",
-      "Trade resource cards silently",
-      "Draw secret sketches on a timer"
-    ],
-    correctIndex: 0,
-    explanation: "The Spymaster gives a single word and a number so teammates can guess their secret agents."
+      { value: 'under-30', label: 'Under 30 min', description: 'Quick round with a coffee' },
+      { value: '30-60', label: '30–60 min', description: 'Standard café session' },
+      { value: '1-2-hours', label: '1–2 hours', description: 'Settle in for a full game' },
+      { value: '2+-hours', label: '2+ hours', description: 'Deep tabletop marathon' }
+    ]
   },
   {
-    id: 12,
-    game: "Battleship",
-    question: "In classic Battleship, how many spaces (holes) does the Aircraft Carrier occupy?",
-    options: ["3 spaces", "4 spaces", "5 spaces", "6 spaces"],
-    correctIndex: 2,
-    explanation: "The Aircraft Carrier is the longest ship in the fleet at 5 spaces."
+    id: 'complexity',
+    text: 'How complex should it be?',
+    hint: 'Optional — skip if any rules weight is fine.',
+    optional: true,
+    weight: 12,
+    options: [
+      { value: 'easy', label: 'Easy to learn', description: 'Explain the rules in 2 minutes' },
+      { value: 'medium', label: 'Medium', description: 'Balanced rules with rewarding choices' },
+      { value: 'strategic', label: 'Strategic / Deep', description: 'Rich planning and long-term tactics' }
+    ]
   },
   {
-    id: 13,
-    game: "Carcassonne",
-    question: "What famous nickname for wooden board game people tokens originated with Carcassonne?",
-    options: ["Meeples", "Pawns", "Knights", "Tokens"],
-    correctIndex: 0,
-    explanation: "The term 'meeple' (my + people) was coined during a game of Carcassonne in 2000."
+    id: 'mood',
+    text: 'What mood are you in?',
+    hint: 'Optional — skip if you are open to any vibe.',
+    optional: true,
+    weight: 12,
+    options: [
+      { value: 'relaxed', label: 'Relaxed', description: 'Easygoing pace and good conversation' },
+      { value: 'competitive', label: 'Competitive', description: 'Outsmart and outscore the table' },
+      { value: 'funny', label: 'Funny / Party', description: 'Big laughs and playful chaos' },
+      { value: 'mystery', label: 'Mystery / Story', description: 'Clues, secrets, and narrative twists' }
+    ]
   },
   {
-    id: 14,
-    game: "Backgammon",
-    question: "How many triangular points are printed on a standard Backgammon board?",
-    options: ["16", "20", "24", "32"],
-    correctIndex: 2,
-    explanation: "A Backgammon board has 24 narrow triangles split into four quadrants of 6 points each."
-  },
-  {
-    id: 15,
-    game: "Trivial Pursuit",
-    question: "In classic Trivial Pursuit, how many colored wedges must you collect to fill your wheel?",
-    options: ["4 wedges", "6 wedges", "8 wedges", "10 wedges"],
-    correctIndex: 1,
-    explanation: "Each player aims to collect 6 category wedges before heading to the center hub."
+    id: 'components',
+    text: 'Do you want cards, a board, or both?',
+    hint: 'Optional — skip if table setup does not matter.',
+    optional: true,
+    weight: 10,
+    options: [
+      { value: 'cards', label: 'Cards', description: 'Compact setup and quick turns' },
+      { value: 'board', label: 'Board', description: 'Maps, tiles, or classic tabletop boards' },
+      { value: 'both', label: 'Both cards & board', description: 'Full board game experience' }
+    ]
   }
 ];
 
-/* --------------------------------------------------------------------------
-   2. Application State & DOM References
-   -------------------------------------------------------------------------- */
-const state = {
-  playerName: "",
-  questions: [],
-  currentIndex: 0,
-  score: 0,
-  timeLeft: SECONDS_PER_QUESTION,
-  timerId: null,
-  autoAdvanceId: null,
-  hasAnswered: false,
-  reviewHistory: []
+/* ============================================================================
+   2. BOARD GAMES CATALOG DATA (16 games)
+   Each game contains display metadata plus a `criteria` object whose values
+   correspond directly to the option values in QUIZ_QUESTIONS.
+   ============================================================================ */
+const BOARD_GAMES = [
+  {
+    id: 'catan',
+    name: 'Catan',
+    description: 'Trade sheep, brick, and wheat while racing to build settlements and roads across a modular island.',
+    playersLabel: '3–4 players',
+    playTimeLabel: '60–120 min',
+    difficultyLabel: 'Medium',
+    tags: ['Dice', 'Trading', 'Competitive', 'Board & Cards'],
+    criteria: {
+      players: ['3-4'],
+      playMode: ['solo'],
+      usesDice: 'yes',
+      duration: ['1-2-hours'],
+      complexity: 'medium',
+      mood: ['competitive'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'monopoly',
+    name: 'Monopoly',
+    description: 'Roll the dice, buy iconic properties, negotiate deals, and build an empire—just watch out for rent!',
+    playersLabel: '3–6 players',
+    playTimeLabel: '2+ hours',
+    difficultyLabel: 'Medium',
+    tags: ['Dice', 'Classic', 'Competitive', 'Board & Cards'],
+    criteria: {
+      players: ['3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'yes',
+      duration: ['2+-hours'],
+      complexity: 'medium',
+      mood: ['competitive'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'uno',
+    name: 'Uno',
+    description: 'Fast-paced color and number matching packed with Draw Two and Reverse surprises for any group size.',
+    playersLabel: '2–10 players',
+    playTimeLabel: '15–30 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Cards', 'Funny / Party', 'Quick'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6', '7+'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['under-30'],
+      complexity: 'easy',
+      mood: ['funny', 'relaxed'],
+      components: 'cards'
+    }
+  },
+  {
+    id: 'ticket-to-ride',
+    name: 'Ticket to Ride',
+    description: 'Collect colorful train cards to claim railway routes across the map before rivals block your path.',
+    playersLabel: '2–5 players',
+    playTimeLabel: '45–60 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Relaxed', 'Route Building', 'Board & Cards'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['30-60'],
+      complexity: 'easy',
+      mood: ['relaxed', 'competitive'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'codenames',
+    name: 'Codenames',
+    description: 'Two teams compete as Spymasters give clever one-word clues to connect secret agent words on the table.',
+    playersLabel: '4–8+ players',
+    playTimeLabel: '15–30 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Team Game', 'Wordplay', 'Cards'],
+    criteria: {
+      players: ['3-4', '5-6', '7+'],
+      playMode: ['team'],
+      usesDice: 'no',
+      duration: ['under-30'],
+      complexity: 'easy',
+      mood: ['funny', 'mystery'],
+      components: 'cards'
+    }
+  },
+  {
+    id: 'pandemic',
+    name: 'Pandemic',
+    description: 'Join forces as a specialist team racing around the globe to treat outbreaks and discover four cures together.',
+    playersLabel: '2–4 players',
+    playTimeLabel: '45–60 min',
+    difficultyLabel: 'Medium',
+    tags: ['No Dice', 'Cooperative', 'Story / Tension', 'Board & Cards'],
+    criteria: {
+      players: ['1-2', '3-4'],
+      playMode: ['team'],
+      usesDice: 'no',
+      duration: ['30-60'],
+      complexity: 'medium',
+      mood: ['mystery', 'competitive'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'carcassonne',
+    name: 'Carcassonne',
+    description: 'Take turns drawing and placing countryside tiles to build cities, roads, and monasteries bit by bit.',
+    playersLabel: '2–5 players',
+    playTimeLabel: '35–45 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Relaxed', 'Tile Placement', 'Board'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['30-60'],
+      complexity: 'easy',
+      mood: ['relaxed'],
+      components: 'board'
+    }
+  },
+  {
+    id: 'risk',
+    name: 'Risk',
+    description: 'Command armies, roll dramatic dice battles, and forge fragile alliances in a grand quest for world domination.',
+    playersLabel: '2–6 players',
+    playTimeLabel: '2+ hours',
+    difficultyLabel: 'Strategic / Deep',
+    tags: ['Dice', 'Strategic', 'Competitive', 'Board'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'yes',
+      duration: ['2+-hours'],
+      complexity: 'strategic',
+      mood: ['competitive'],
+      components: 'board'
+    }
+  },
+  {
+    id: 'clue',
+    name: 'Clue (Cluedo)',
+    description: 'Roll between mansion rooms, interrogate suspects, and deduce who committed the crime, where, and with what.',
+    playersLabel: '3–6 players',
+    playTimeLabel: '45 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['Dice', 'Mystery', 'Deduction', 'Board & Cards'],
+    criteria: {
+      players: ['3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'yes',
+      duration: ['30-60'],
+      complexity: 'easy',
+      mood: ['mystery'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'dixit',
+    name: 'Dixit',
+    description: 'Share imaginative clues inspired by dreamlike illustrated cards while guessing which artwork belongs to the storyteller.',
+    playersLabel: '3–8 players',
+    playTimeLabel: '30–45 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Creative', 'Relaxed', 'Cards'],
+    criteria: {
+      players: ['3-4', '5-6', '7+'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['30-60'],
+      complexity: 'easy',
+      mood: ['relaxed', 'funny'],
+      components: 'cards'
+    }
+  },
+  {
+    id: 'exploding-kittens',
+    name: 'Exploding Kittens',
+    description: 'A quick, chaotic card game of kitty-powered Russian roulette packed with defuses, skips, and silly sabotage.',
+    playersLabel: '2–5 players',
+    playTimeLabel: '15 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Funny / Party', 'Quick', 'Cards'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['under-30'],
+      complexity: 'easy',
+      mood: ['funny'],
+      components: 'cards'
+    }
+  },
+  {
+    id: 'chess',
+    name: 'Chess',
+    description: 'The timeless two-player battle of pure foresight, sacrifices, and tactical traps with zero luck involved.',
+    playersLabel: '2 players',
+    playTimeLabel: '30–60 min',
+    difficultyLabel: 'Strategic / Deep',
+    tags: ['No Dice', '2 Players', 'Strategic', 'Board'],
+    criteria: {
+      players: ['1-2'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['30-60'],
+      complexity: 'strategic',
+      mood: ['competitive'],
+      components: 'board'
+    }
+  },
+  {
+    id: 'scrabble',
+    name: 'Scrabble',
+    description: 'Sip your latte and craft high-scoring crosswords across bonus squares in this cozy word-building classic.',
+    playersLabel: '2–4 players',
+    playTimeLabel: '60–90 min',
+    difficultyLabel: 'Medium',
+    tags: ['No Dice', 'Word Game', 'Relaxed', 'Board'],
+    criteria: {
+      players: ['1-2', '3-4'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['1-2-hours'],
+      complexity: 'medium',
+      mood: ['relaxed', 'competitive'],
+      components: 'board'
+    }
+  },
+  {
+    id: 'jenga',
+    name: 'Jenga',
+    description: 'Pull wooden blocks one by one and stack them higher until someone’s steady hand finally topples the tower.',
+    playersLabel: '2–8+ players',
+    playTimeLabel: '15–25 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['No Dice', 'Party', 'Dexterity', 'Quick'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6', '7+'],
+      playMode: ['solo'],
+      usesDice: 'no',
+      duration: ['under-30'],
+      complexity: 'easy',
+      mood: ['funny', 'relaxed'],
+      components: 'board'
+    }
+  },
+  {
+    id: 'king-of-tokyo',
+    name: 'King of Tokyo',
+    description: 'Play as giant monsters rolling chunky custom dice to smash Tokyo, earn energy, and trigger wild power cards.',
+    playersLabel: '2–6 players',
+    playTimeLabel: '30 min',
+    difficultyLabel: 'Easy to learn',
+    tags: ['Dice', 'Monsters', 'Funny / Competitive', 'Board & Cards'],
+    criteria: {
+      players: ['1-2', '3-4', '5-6'],
+      playMode: ['solo'],
+      usesDice: 'yes',
+      duration: ['under-30'],
+      complexity: 'easy',
+      mood: ['funny', 'competitive'],
+      components: 'both'
+    }
+  },
+  {
+    id: 'betrayal',
+    name: 'Betrayal at House on the Hill',
+    description: 'Explore a haunted mansion together with dice checks until one player turns traitor in one of 50 spooky stories.',
+    playersLabel: '3–6 players',
+    playTimeLabel: '60–90 min',
+    difficultyLabel: 'Medium',
+    tags: ['Dice', 'Story / Horror', 'Team & Traitor', 'Board & Cards'],
+    criteria: {
+      players: ['3-4', '5-6'],
+      playMode: ['team', 'solo'],
+      usesDice: 'yes',
+      duration: ['1-2-hours'],
+      complexity: 'medium',
+      mood: ['mystery'],
+      components: 'both'
+    }
+  }
+];
+
+/* ============================================================================
+   3. CONSTANTS & APPLICATION STATE
+   ============================================================================ */
+const STORAGE_KEY = 'rollAndBrewQuizState_v1';
+const LOW_MATCH_THRESHOLD = 55; // Below 55% triggers the "No perfect match" banner
+
+const quizState = {
+  currentQuestionIndex: 0,
+  answers: {}, // Map of questionId -> selected option value (or 'skip')
+  lastScoredResults: null,
+  lastIsLowConfidence: false
 };
 
+/* Cached DOM element references */
 const dom = {
-  startScreen: document.getElementById("start-screen"),
-  questionScreen: document.getElementById("question-screen"),
-  resultScreen: document.getElementById("result-screen"),
-
-  startForm: document.getElementById("start-form"),
-  playerNameInput: document.getElementById("player-name"),
-  nameError: document.getElementById("name-error"),
-  savedPlayerBanner: document.getElementById("saved-player-banner"),
-  savedPlayerText: document.getElementById("saved-player-text"),
-
-  progressText: document.getElementById("question-progress-text"),
-  progressBarWrap: document.getElementById("quiz-progress-bar-wrap"),
-  progressBar: document.getElementById("quiz-progress-bar"),
-  liveScoreText: document.getElementById("live-score-text"),
-  timerBadge: document.getElementById("timer-badge"),
-  timerSrStatus: document.getElementById("timer-sr-status"),
-  questionGameTag: document.getElementById("question-game-tag"),
-  questionText: document.getElementById("question-text"),
-  answerOptions: document.getElementById("answer-options"),
-  feedbackBox: document.getElementById("feedback-box"),
-  feedbackTitle: document.getElementById("feedback-title"),
-  feedbackDetail: document.getElementById("feedback-detail"),
-  nextBtn: document.getElementById("next-btn"),
-
-  resultHeading: document.getElementById("result-heading"),
-  resultPlayerName: document.getElementById("result-player-name"),
-  resultTitleBadge: document.getElementById("result-title-badge"),
-  resultTitleDesc: document.getElementById("result-title-desc"),
-  resultScore: document.getElementById("result-score"),
-  resultPercentage: document.getElementById("result-percentage"),
-  bestScoreNote: document.getElementById("best-score-note"),
-  playAgainBtn: document.getElementById("play-again-btn"),
-  changePlayerBtn: document.getElementById("change-player-btn"),
-  reviewList: document.getElementById("review-list"),
-
-  leaderboardEmpty: document.getElementById("leaderboard-empty"),
-  leaderboardTableWrap: document.getElementById("leaderboard-table-wrap"),
-  leaderboardBody: document.getElementById("leaderboard-body"),
-  leaderboardBestChip: document.getElementById("leaderboard-best-chip")
+  startScreen: document.getElementById('start-screen'),
+  questionScreen: document.getElementById('question-screen'),
+  resultScreen: document.getElementById('result-screen'),
+  lastResultBanner: document.getElementById('last-result-banner'),
+  startQuizBtn: document.getElementById('start-quiz-btn'),
+  progressLabel: document.getElementById('progress-label'),
+  optionalBadge: document.getElementById('optional-badge'),
+  progressBar: document.getElementById('quiz-progress-bar'),
+  progressBarFill: document.getElementById('progress-bar-fill'),
+  questionText: document.getElementById('question-text'),
+  questionHint: document.getElementById('question-hint'),
+  optionsContainer: document.getElementById('options-container'),
+  backBtn: document.getElementById('back-btn'),
+  skipBtn: document.getElementById('skip-btn'),
+  nextBtn: document.getElementById('next-btn'),
+  resultHeading: document.getElementById('result-heading'),
+  resultNotice: document.getElementById('result-notice'),
+  bestMatchContainer: document.getElementById('best-match-container'),
+  runnerUpsContainer: document.getElementById('runner-ups-container'),
+  retakeBtn: document.getElementById('retake-btn'),
+  saveResultBtn: document.getElementById('save-result-btn'),
+  saveFeedback: document.getElementById('save-feedback')
 };
 
-/* --------------------------------------------------------------------------
-   3. Initialization & Event Listeners
-   -------------------------------------------------------------------------- */
-document.addEventListener("DOMContentLoaded", initQuizApp);
-
+/* ============================================================================
+   4. SCORING FUNCTION (SEPARATE & EXPLAINABLE FOR VIVA)
+   ============================================================================ */
 /**
- * Sets up initial saved data, renders the leaderboard, and attaches event handlers.
+ * Calculates compatibility scores and match percentages for all board games
+ * based on the user's quiz answers.
+ *
+ * Scoring design:
+ * - "players" (30 pts) and "usesDice" (30 pts) are the two heaviest weights.
+ * - Optional criteria ("playMode", "duration", "complexity", "mood", "components")
+ *   carry smaller weights (10–12 pts).
+ * - Any skipped question ('skip' or missing) gives 0 points and is excluded from
+ *   the maximum possible denominator so skipping optional questions does not
+ *   artificially deflate a strong match.
+ * - Games are sorted from highest percentage to lowest with deterministic
+ *   tie-breakers (player match -> dice match -> alphabetical name).
+ *
+ * @param {Array<Object>} games - The catalog of board game objects.
+ * @param {Object} userAnswers - Key-value map of questionId -> answer value.
+ * @returns {{ rankedGames: Array<Object>, isLowConfidence: boolean, anyPlayerMatched: boolean }}
  */
-function initQuizApp() {
-  loadSavedPlayerInfo();
-  renderLeaderboard();
+function calculateGameScores(games, userAnswers) {
+  // Build a weight lookup map directly from QUIZ_QUESTIONS so weights stay in sync.
+  const weights = {};
+  QUIZ_QUESTIONS.forEach(function (question) {
+    weights[question.id] = question.weight;
+  });
 
-  dom.startForm.addEventListener("submit", handleStartSubmit);
-  dom.playerNameInput.addEventListener("input", clearNameError);
-  dom.nextBtn.addEventListener("click", goToNextQuestion);
-  dom.playAgainBtn.addEventListener("click", startNewQuizRound);
-  dom.changePlayerBtn.addEventListener("click", returnToStartScreen);
-}
+  // Compute the maximum points possible across only the questions the user answered.
+  let maxPossiblePoints = 0;
+  Object.keys(weights).forEach(function (questionId) {
+    const answer = userAnswers[questionId];
+    if (answer && answer !== 'skip') {
+      maxPossiblePoints += weights[questionId];
+    }
+  });
 
-/* --------------------------------------------------------------------------
-   4. Safe localStorage Helpers (Handles missing or corrupted data)
-   -------------------------------------------------------------------------- */
-
-/**
- * Safely reads a string value from localStorage. Returns fallback on error.
- */
-function safeGetStorage(key, fallback = "") {
-  try {
-    const value = window.localStorage.getItem(key);
-    return value !== null ? value : fallback;
-  } catch (err) {
-    return fallback;
+  // Guard against division by zero if no answers were provided.
+  if (maxPossiblePoints === 0) {
+    maxPossiblePoints = 1;
   }
+
+  let anyPlayerMatched = false;
+
+  const scoredGames = games.map(function (game) {
+    let earnedPoints = 0;
+    let playerMatched = false;
+    let diceMatched = false;
+    const c = game.criteria;
+
+    // 1. Heavy weight: Player count (array membership check)
+    if (userAnswers.players && userAnswers.players !== 'skip') {
+      if (Array.isArray(c.players) && c.players.includes(userAnswers.players)) {
+        earnedPoints += weights.players;
+        playerMatched = true;
+        anyPlayerMatched = true;
+      }
+    } else {
+      playerMatched = true; // Not filtered by player count if skipped
+    }
+
+    // 2. Heavy weight: Uses dice (yes / no exact match)
+    if (userAnswers.usesDice && userAnswers.usesDice !== 'skip') {
+      if (c.usesDice === userAnswers.usesDice) {
+        earnedPoints += weights.usesDice;
+        diceMatched = true;
+      }
+    } else {
+      diceMatched = true;
+    }
+
+    // 3. Optional criterion: Play mode (team vs every player for themselves)
+    if (userAnswers.playMode && userAnswers.playMode !== 'skip') {
+      if (Array.isArray(c.playMode) && c.playMode.includes(userAnswers.playMode)) {
+        earnedPoints += weights.playMode;
+      }
+    }
+
+    // 4. Optional criterion: Duration
+    if (userAnswers.duration && userAnswers.duration !== 'skip') {
+      if (Array.isArray(c.duration) && c.duration.includes(userAnswers.duration)) {
+        earnedPoints += weights.duration;
+      }
+    }
+
+    // 5. Optional criterion: Complexity
+    if (userAnswers.complexity && userAnswers.complexity !== 'skip') {
+      if (c.complexity === userAnswers.complexity) {
+        earnedPoints += weights.complexity;
+      }
+    }
+
+    // 6. Optional criterion: Mood
+    if (userAnswers.mood && userAnswers.mood !== 'skip') {
+      if (Array.isArray(c.mood) && c.mood.includes(userAnswers.mood)) {
+        earnedPoints += weights.mood;
+      }
+    }
+
+    // 7. Optional criterion: Components (cards, board, or both)
+    if (userAnswers.components && userAnswers.components !== 'skip') {
+      if (c.components === userAnswers.components) {
+        earnedPoints += weights.components;
+      }
+    }
+
+    // Convert raw points into a 0-100 percentage.
+    const matchPercentage = Math.round((earnedPoints / maxPossiblePoints) * 100);
+
+    return {
+      game: game,
+      rawScore: earnedPoints,
+      maxPossiblePoints: maxPossiblePoints,
+      matchPercentage: matchPercentage,
+      playerMatched: playerMatched,
+      diceMatched: diceMatched
+    };
+  });
+
+  // Sort highest match first; resolve ties cleanly and deterministically.
+  scoredGames.sort(function (a, b) {
+    if (b.matchPercentage !== a.matchPercentage) {
+      return b.matchPercentage - a.matchPercentage;
+    }
+    if (b.rawScore !== a.rawScore) {
+      return b.rawScore - a.rawScore;
+    }
+    if (a.playerMatched !== b.playerMatched) {
+      return a.playerMatched ? -1 : 1;
+    }
+    if (a.diceMatched !== b.diceMatched) {
+      return a.diceMatched ? -1 : 1;
+    }
+    return a.game.name.localeCompare(b.game.name);
+  });
+
+  const bestResult = scoredGames[0];
+  const isLowConfidence =
+    !anyPlayerMatched ||
+    !bestResult ||
+    !bestResult.playerMatched ||
+    bestResult.matchPercentage < LOW_MATCH_THRESHOLD;
+
+  return {
+    rankedGames: scoredGames,
+    isLowConfidence: isLowConfidence,
+    anyPlayerMatched: anyPlayerMatched
+  };
 }
 
+/* ============================================================================
+   5. LOCALSTORAGE HELPERS (WITH CORRUPTION & MISSING DATA PROTECTION)
+   ============================================================================ */
 /**
- * Safely writes a string value to localStorage without crashing if storage is blocked.
+ * Safely loads the saved quiz state from localStorage.
+ * Returns null if missing, unreadable, or malformed so the app never crashes.
+ *
+ * @returns {Object|null}
  */
-function safeSetStorage(key, value) {
+function loadSavedQuizState() {
   try {
-    window.localStorage.setItem(key, value);
-  } catch (err) {
-    // Ignore storage quota or private-mode access errors gracefully
-  }
-}
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      return null;
+    }
 
-/**
- * Reads and validates the saved leaderboard array from localStorage.
- * If the JSON is corrupted or invalid, returns an empty array.
- */
-function getLeaderboard() {
-  const raw = safeGetStorage(STORAGE_KEYS.LEADERBOARD, "[]");
-  try {
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) {
-      return [];
+
+    // Validate expected structure and ensure referenced games still exist.
+    if (
+      !parsed ||
+      typeof parsed !== 'object' ||
+      !parsed.answers ||
+      typeof parsed.answers !== 'object' ||
+      typeof parsed.bestGameId !== 'string'
+    ) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
     }
 
-    // Keep only valid entries with proper name, score, and date fields
-    return parsed
-      .filter(
-        (entry) =>
-          entry &&
-          typeof entry.name === "string" &&
-          entry.name.trim().length > 0 &&
-          typeof entry.score === "number" &&
-          Number.isFinite(entry.score) &&
-          entry.score >= 0 &&
-          entry.score <= QUIZ_LENGTH &&
-          typeof entry.date === "string"
-      )
-      .slice(0, 5);
-  } catch (err) {
-    return [];
-  }
-}
+    const matchingGame = BOARD_GAMES.find(function (g) {
+      return g.id === parsed.bestGameId;
+    });
 
-/**
- * Safely reads the saved numeric best score from localStorage.
- */
-function getSavedBestScore() {
-  const raw = safeGetStorage(STORAGE_KEYS.BEST_SCORE, "");
-  const parsed = Number(raw);
-  if (raw !== "" && Number.isInteger(parsed) && parsed >= 0 && parsed <= QUIZ_LENGTH) {
+    if (!matchingGame) {
+      window.localStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+
     return parsed;
-  }
-  return null;
-}
-
-/**
- * Loads the player's last used name and best score into the start screen and leaderboard header.
- */
-function loadSavedPlayerInfo() {
-  const savedName = safeGetStorage(STORAGE_KEYS.PLAYER_NAME, "").trim();
-  const savedBest = getSavedBestScore();
-
-  if (savedName.length >= 2) {
-    dom.playerNameInput.value = savedName;
-  }
-
-  if (savedName && savedBest !== null) {
-    dom.savedPlayerText.textContent = `Welcome back, ${savedName}! Saved Best Score: ${savedBest} / ${QUIZ_LENGTH}`;
-    dom.savedPlayerBanner.classList.remove("d-none");
-
-    dom.leaderboardBestChip.textContent = `Best: ${savedName} (${savedBest}/${QUIZ_LENGTH})`;
-    dom.leaderboardBestChip.classList.remove("d-none");
-  } else {
-    dom.savedPlayerBanner.classList.add("d-none");
-    dom.leaderboardBestChip.classList.add("d-none");
-  }
-}
-
-/**
- * Saves the player's name, updates best score if beaten, and inserts into top 5 leaderboard.
- */
-function saveResultToStorage(name, score) {
-  safeSetStorage(STORAGE_KEYS.PLAYER_NAME, name);
-
-  const previousBest = getSavedBestScore();
-  const isNewBest = previousBest === null || score > previousBest;
-  if (isNewBest) {
-    safeSetStorage(STORAGE_KEYS.BEST_SCORE, String(score));
-  }
-
-  const today = new Date().toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  });
-
-  const entries = getLeaderboard();
-  entries.push({
-    name: name,
-    score: score,
-    date: today,
-    timestamp: Date.now()
-  });
-
-  // Sort highest score first; for ties, show the most recent attempt first
-  entries.sort((a, b) => {
-    if (b.score !== a.score) {
-      return b.score - a.score;
+  } catch (error) {
+    // Corrupted JSON or blocked storage: clean up safely and return null.
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch (cleanupError) {
+      // Ignore storage errors in restricted environments.
     }
-    return (b.timestamp || 0) - (a.timestamp || 0);
-  });
-
-  const topFive = entries.slice(0, 5);
-  safeSetStorage(STORAGE_KEYS.LEADERBOARD, JSON.stringify(topFive));
-
-  return { previousBest, isNewBest };
+    return null;
+  }
 }
 
-/* --------------------------------------------------------------------------
-   5. Start Screen Validation & Screen Switching
-   -------------------------------------------------------------------------- */
+/**
+ * Saves the user's answers and top recommendation into localStorage.
+ *
+ * @param {Object} answers - User's answers object.
+ * @param {Array<Object>} rankedGames - Sorted scoring results.
+ * @param {boolean} isLowConfidence - Whether the match fell below threshold.
+ * @returns {boolean} True if saving succeeded, false otherwise.
+ */
+function saveQuizState(answers, rankedGames, isLowConfidence) {
+  if (!Array.isArray(rankedGames) || rankedGames.length === 0) {
+    return false;
+  }
+
+  const topEntry = rankedGames[0];
+  const payload = {
+    bestGameId: topEntry.game.id,
+    bestGameName: topEntry.game.name,
+    bestPercentage: topEntry.matchPercentage,
+    isLowConfidence: Boolean(isLowConfidence),
+    answers: Object.assign({}, answers),
+    savedAt: new Date().toISOString()
+  };
+
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+/* ============================================================================
+   6. SCREEN NAVIGATION & RENDERING FUNCTIONS
+   ============================================================================ */
+/**
+ * Switches the active visible section between 'start', 'question', and 'result'.
+ *
+ * @param {'start'|'question'|'result'} screenName
+ */
+function showScreen(screenName) {
+  dom.startScreen.classList.toggle('d-none', screenName !== 'start');
+  dom.questionScreen.classList.toggle('d-none', screenName !== 'question');
+  dom.resultScreen.classList.toggle('d-none', screenName !== 'result');
+}
 
 /**
- * Validates the player name (required, at least 2 non-space characters) and starts the quiz.
+ * Escapes HTML special characters to safely insert dynamic text into templates.
+ *
+ * @param {string} value
+ * @returns {string}
  */
-function handleStartSubmit(event) {
-  event.preventDefault();
-  const cleanedName = dom.playerNameInput.value.trim();
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
-  if (cleanedName.length < 2) {
-    showNameError("Please enter your name (at least 2 characters) to begin.");
-    dom.playerNameInput.focus();
+/**
+ * Displays the "Your last result: X" banner on the start screen whenever valid
+ * saved data exists in localStorage, and wires the button to inspect it.
+ */
+function renderStartScreenSavedBanner() {
+  const saved = loadSavedQuizState();
+
+  if (!saved) {
+    dom.lastResultBanner.classList.add('d-none');
+    dom.lastResultBanner.innerHTML = '';
     return;
   }
 
-  clearNameError();
-  state.playerName = cleanedName;
-  safeSetStorage(STORAGE_KEYS.PLAYER_NAME, cleanedName);
-  startNewQuizRound();
-}
-
-/**
- * Displays an accessible inline validation error under the name input.
- */
-function showNameError(message) {
-  dom.nameError.textContent = message;
-  dom.nameError.classList.remove("d-none");
-  dom.playerNameInput.setAttribute("aria-invalid", "true");
-}
-
-/**
- * Clears the inline validation error when the user starts typing.
- */
-function clearNameError() {
-  dom.nameError.textContent = "";
-  dom.nameError.classList.add("d-none");
-  dom.playerNameInput.removeAttribute("aria-invalid");
-}
-
-/**
- * Shows only the requested screen section ('start' | 'question' | 'result').
- */
-function showScreen(screenName) {
-  dom.startScreen.classList.toggle("d-none", screenName !== "start");
-  dom.questionScreen.classList.toggle("d-none", screenName !== "question");
-  dom.resultScreen.classList.toggle("d-none", screenName !== "result");
-}
-
-/**
- * Returns to the start screen so a new player can enter their name.
- */
-function returnToStartScreen() {
-  stopTimers();
-  loadSavedPlayerInfo();
-  showScreen("start");
-  dom.playerNameInput.focus();
-}
-
-/* --------------------------------------------------------------------------
-   6. Question Shuffling & Quiz Flow
-   -------------------------------------------------------------------------- */
-
-/**
- * Returns a shuffled copy of an array using the Fisher-Yates algorithm.
- */
-function shuffleArray(items) {
-  const copy = items.slice();
-  for (let i = copy.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = copy[i];
-    copy[i] = copy[j];
-    copy[j] = temp;
-  }
-  return copy;
-}
-
-/**
- * Starts a fresh 10-question round with shuffled questions and reset score.
- */
-function startNewQuizRound() {
-  stopTimers();
-  state.questions = shuffleArray(QUESTION_BANK).slice(0, QUIZ_LENGTH);
-  state.currentIndex = 0;
-  state.score = 0;
-  state.reviewHistory = [];
-
-  showScreen("question");
-  renderCurrentQuestion();
-}
-
-/**
- * Renders the current question, progress bar, 4 answer buttons, and starts the 20s timer.
- */
-function renderCurrentQuestion() {
-  stopTimers();
-  state.hasAnswered = false;
-
-  const currentQuestion = state.questions[state.currentIndex];
-  const questionNumber = state.currentIndex + 1;
-  const progressPercent = Math.round((questionNumber / QUIZ_LENGTH) * 100);
-
-  // Update progress text, progress bar, and live score
-  dom.progressText.textContent = `Question ${questionNumber} of ${QUIZ_LENGTH}`;
-  dom.progressBar.style.width = `${progressPercent}%`;
-  dom.progressBarWrap.setAttribute("aria-valuenow", String(questionNumber));
-  dom.liveScoreText.textContent = `Score: ${state.score}`;
-
-  // Populate question text and game tag
-  dom.questionGameTag.textContent = currentQuestion.game;
-  dom.questionText.textContent = currentQuestion.question;
-
-  // Reset feedback and Next button
-  dom.feedbackBox.className = "feedback-box p-3 mb-4 d-none";
-  dom.feedbackTitle.textContent = "";
-  dom.feedbackDetail.textContent = "";
-  dom.nextBtn.classList.add("d-none");
-  dom.nextBtn.textContent = questionNumber === QUIZ_LENGTH ? "See Results" : "Next";
-
-  // Build 4 accessible answer buttons
-  dom.answerOptions.innerHTML = "";
-  const letters = ["A", "B", "C", "D"];
-
-  currentQuestion.options.forEach((optionText, index) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "answer-btn";
-    button.dataset.index = String(index);
-    button.setAttribute("aria-label", `Option ${letters[index]}: ${optionText}`);
-
-    const letterSpan = document.createElement("span");
-    letterSpan.className = "answer-letter";
-    letterSpan.setAttribute("aria-hidden", "true");
-    letterSpan.textContent = letters[index];
-
-    const textSpan = document.createElement("span");
-    textSpan.textContent = optionText;
-
-    button.appendChild(letterSpan);
-    button.appendChild(textSpan);
-
-    // Click and explicit keyboard support (Enter, Space, and Arrow keys)
-    button.addEventListener("click", () => handleAnswerSelection(index));
-    button.addEventListener("keydown", (event) => handleOptionKeydown(event, index));
-
-    dom.answerOptions.appendChild(button);
+  const matchedGame = BOARD_GAMES.find(function (g) {
+    return g.id === saved.bestGameId;
   });
 
-  startQuestionTimer();
+  if (!matchedGame) {
+    dom.lastResultBanner.classList.add('d-none');
+    return;
+  }
+
+  const safeName = escapeHtml(matchedGame.name);
+  const safePercent = Number.isFinite(saved.bestPercentage) ? saved.bestPercentage : 0;
+  const safeDesc = escapeHtml(matchedGame.description);
+
+  dom.lastResultBanner.innerHTML = `
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+      <div>
+        <p class="last-result-title mb-1">Your last result: ${safeName} (${safePercent}% match)</p>
+        <p class="last-result-meta mb-1">${safeDesc}</p>
+        <p class="small fw-semibold mb-0" style="color: var(--brown-medium);">
+          ${escapeHtml(matchedGame.playersLabel)} &bull; ${escapeHtml(matchedGame.playTimeLabel)} &bull; ${escapeHtml(matchedGame.difficultyLabel)}
+        </p>
+      </div>
+      <div class="flex-shrink-0">
+        <button type="button" id="view-saved-result-btn" class="btn btn-cafe-outline btn-sm px-3 py-2">
+          View Saved Result
+        </button>
+      </div>
+    </div>
+  `;
+
+  dom.lastResultBanner.classList.remove('d-none');
+
+  const viewSavedBtn = document.getElementById('view-saved-result-btn');
+  if (viewSavedBtn) {
+    viewSavedBtn.addEventListener('click', function () {
+      restoreSavedResult();
+    });
+  }
+}
+
+/**
+ * Restores saved answers from localStorage, re-runs scoring, and opens the
+ * full result screen so a reload preserves the previous result cleanly.
+ */
+function restoreSavedResult() {
+  const saved = loadSavedQuizState();
+  if (!saved) {
+    return;
+  }
+
+  quizState.answers = Object.assign({}, saved.answers);
+  const evaluation = calculateGameScores(BOARD_GAMES, quizState.answers);
+  quizState.lastScoredResults = evaluation.rankedGames;
+  quizState.lastIsLowConfidence = evaluation.isLowConfidence;
+
+  renderResults(evaluation.rankedGames, evaluation.isLowConfidence);
+  showScreen('result');
+}
+
+/**
+ * Renders the question at `quizState.currentQuestionIndex`, updates the progress
+ * bar, builds clickable/keyboard-accessible option cards, and sets button states.
+ */
+function renderCurrentQuestion() {
+  const index = quizState.currentQuestionIndex;
+  const total = QUIZ_QUESTIONS.length;
+  const question = QUIZ_QUESTIONS[index];
+  const savedAnswer = quizState.answers[question.id];
+
+  // Update progress label & accessible progress bar
+  const stepNumber = index + 1;
+  const progressPercent = Math.round((stepNumber / total) * 100);
+  dom.progressLabel.textContent = 'Question ' + stepNumber + ' of ' + total;
+  dom.progressBar.setAttribute('aria-valuenow', String(stepNumber));
+  dom.progressBar.setAttribute('aria-valuemax', String(total));
+  dom.progressBarFill.style.width = progressPercent + '%';
+
+  // Update optional badge & Skip button visibility
+  const isOptional = Boolean(question.optional);
+  dom.optionalBadge.classList.toggle('d-none', !isOptional);
+  dom.skipBtn.classList.toggle('d-none', !isOptional);
+
+  // Set question heading & hint
+  dom.questionText.textContent = question.text;
+  dom.questionHint.textContent = question.hint || '';
+
+  // Render option cards dynamically from QUIZ_QUESTIONS
+  dom.optionsContainer.innerHTML = '';
+
+  question.options.forEach(function (option) {
+    const col = document.createElement('div');
+    col.className = 'col-12 col-md-6';
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'option-card';
+    button.setAttribute('role', 'radio');
+    button.setAttribute('data-value', option.value);
+
+    const isSelected = savedAnswer === option.value;
+    if (isSelected) {
+      button.classList.add('selected');
+    }
+    button.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+
+    button.innerHTML = `
+      <span>
+        <span class="option-label">${escapeHtml(option.label)}</span>
+        <span class="option-desc">${escapeHtml(option.description)}</span>
+      </span>
+      <span class="option-indicator" aria-hidden="true">&#10003;</span>
+    `;
+
+    // Mouse / touch selection
+    button.addEventListener('click', function () {
+      selectOption(question.id, option.value);
+    });
+
+    // Explicit keyboard selection for Enter and Space, plus Arrow key navigation
+    button.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        selectOption(question.id, option.value);
+        return;
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        const cards = Array.from(dom.optionsContainer.querySelectorAll('.option-card'));
+        const currentIdx = cards.indexOf(button);
+        if (currentIdx === -1 || cards.length === 0) {
+          return;
+        }
+        const delta = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+        const nextIdx = (currentIdx + delta + cards.length) % cards.length;
+        cards[nextIdx].focus();
+      }
+    });
+
+    col.appendChild(button);
+    dom.optionsContainer.appendChild(col);
+  });
+
+  // Back button goes back to Start screen on Q1, or previous question otherwise
+  dom.backBtn.textContent = index === 0 ? 'Back to Start' : 'Back';
+
+  // Next button reads "See Results" on the final question and stays disabled until chosen
+  dom.nextBtn.textContent = index === total - 1 ? 'See Results' : 'Next';
+  const hasRealSelection = Boolean(savedAnswer && savedAnswer !== 'skip');
+  dom.nextBtn.disabled = !hasRealSelection;
+
+  // Move focus to the question heading for smooth screen-reader & keyboard flow
   dom.questionText.focus();
 }
 
 /**
- * Supports keyboard navigation across the 4 answer buttons (Enter/Space/ArrowUp/ArrowDown).
+ * Records a chosen option for the current question, updates UI selection state,
+ * and enables the Next button.
+ *
+ * @param {string} questionId
+ * @param {string} optionValue
  */
-function handleOptionKeydown(event, index) {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    handleAnswerSelection(index);
-    return;
-  }
+function selectOption(questionId, optionValue) {
+  quizState.answers[questionId] = optionValue;
 
-  const buttons = dom.answerOptions.querySelectorAll(".answer-btn");
-  if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-    event.preventDefault();
-    const nextIdx = (index + 1) % buttons.length;
-    buttons[nextIdx].focus();
-  } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-    event.preventDefault();
-    const prevIdx = (index - 1 + buttons.length) % buttons.length;
-    buttons[prevIdx].focus();
-  }
-}
-
-/* --------------------------------------------------------------------------
-   7. Countdown Timer & Answer Handling
-   -------------------------------------------------------------------------- */
-
-/**
- * Clears active countdown and auto-advance timers.
- */
-function stopTimers() {
-  if (state.timerId !== null) {
-    clearInterval(state.timerId);
-    state.timerId = null;
-  }
-  if (state.autoAdvanceId !== null) {
-    clearTimeout(state.autoAdvanceId);
-    state.autoAdvanceId = null;
-  }
-}
-
-/**
- * Starts the 20-second countdown for the active question.
- */
-function startQuestionTimer() {
-  state.timeLeft = SECONDS_PER_QUESTION;
-  dom.timerSrStatus.textContent = "";
-  updateTimerUI();
-
-  state.timerId = setInterval(() => {
-    state.timeLeft -= 1;
-    updateTimerUI();
-
-    if (state.timeLeft === 5) {
-      dom.timerSrStatus.textContent = "5 seconds remaining.";
-    }
-
-    if (state.timeLeft <= 0) {
-      handleTimeOut();
-    }
-  }, 1000);
-}
-
-/**
- * Updates the visual timer badge and warning highlight when 5 seconds or fewer remain.
- */
-function updateTimerUI() {
-  dom.timerBadge.textContent = `${state.timeLeft}s`;
-  dom.timerBadge.setAttribute("aria-label", `Time remaining: ${state.timeLeft} seconds`);
-  dom.timerBadge.classList.toggle("timer-warning", state.timeLeft <= 5);
-}
-
-/**
- * Evaluates a user's selected option, updates score, shows green/red feedback, and unlocks Next.
- */
-function handleAnswerSelection(selectedIndex) {
-  if (state.hasAnswered) {
-    return;
-  }
-
-  state.hasAnswered = true;
-  stopTimers();
-
-  const currentQuestion = state.questions[state.currentIndex];
-  const isCorrect = selectedIndex === currentQuestion.correctIndex;
-
-  if (isCorrect) {
-    state.score += 1;
-    dom.liveScoreText.textContent = `Score: ${state.score}`;
-  }
-
-  // Record attempt for the end-of-quiz answer review
-  state.reviewHistory.push({
-    question: currentQuestion.question,
-    game: currentQuestion.game,
-    selectedText: currentQuestion.options[selectedIndex],
-    correctText: currentQuestion.options[currentQuestion.correctIndex],
-    isCorrect: isCorrect,
-    timedOut: false
+  const optionButtons = dom.optionsContainer.querySelectorAll('.option-card');
+  optionButtons.forEach(function (btn) {
+    const isMatch = btn.getAttribute('data-value') === optionValue;
+    btn.classList.toggle('selected', isMatch);
+    btn.setAttribute('aria-checked', isMatch ? 'true' : 'false');
   });
 
-  // Highlight selected and correct buttons, and disable all options
-  const buttons = dom.answerOptions.querySelectorAll(".answer-btn");
-  buttons.forEach((btn, idx) => {
-    btn.disabled = true;
-    if (idx === currentQuestion.correctIndex) {
-      btn.classList.add("answer-correct");
-    } else if (idx === selectedIndex && !isCorrect) {
-      btn.classList.add("answer-wrong");
-    }
-  });
-
-  // Show instant feedback message
-  dom.feedbackBox.classList.remove("d-none", "feedback-correct", "feedback-wrong");
-  if (isCorrect) {
-    dom.feedbackBox.classList.add("feedback-correct");
-    dom.feedbackTitle.textContent = "Correct!";
-  } else {
-    dom.feedbackBox.classList.add("feedback-wrong");
-    dom.feedbackTitle.textContent = `Incorrect — the correct answer is "${currentQuestion.options[currentQuestion.correctIndex]}".`;
-  }
-  dom.feedbackDetail.textContent = currentQuestion.explanation;
-
-  dom.nextBtn.classList.remove("d-none");
-  dom.nextBtn.focus();
+  dom.nextBtn.disabled = false;
 }
 
 /**
- * Marks the question wrong when the 20-second timer runs out, then moves on automatically.
+ * Advances to the next question or finishes the quiz and computes results.
  */
-function handleTimeOut() {
-  if (state.hasAnswered) {
-    return;
-  }
-
-  state.hasAnswered = true;
-  stopTimers();
-
-  const currentQuestion = state.questions[state.currentIndex];
-  const correctText = currentQuestion.options[currentQuestion.correctIndex];
-
-  state.reviewHistory.push({
-    question: currentQuestion.question,
-    game: currentQuestion.game,
-    selectedText: "No answer (Time ran out)",
-    correctText: correctText,
-    isCorrect: false,
-    timedOut: true
-  });
-
-  const buttons = dom.answerOptions.querySelectorAll(".answer-btn");
-  buttons.forEach((btn, idx) => {
-    btn.disabled = true;
-    if (idx === currentQuestion.correctIndex) {
-      btn.classList.add("answer-correct");
-    }
-  });
-
-  dom.timerSrStatus.textContent = "Time ran out. Question marked wrong. Moving on.";
-  dom.feedbackBox.classList.remove("d-none", "feedback-correct", "feedback-wrong");
-  dom.feedbackBox.classList.add("feedback-wrong");
-  dom.feedbackTitle.textContent = `Time's up! Marked wrong — correct answer: "${correctText}".`;
-  dom.feedbackDetail.textContent = "Moving to the next step automatically...";
-  dom.nextBtn.classList.remove("d-none");
-
-  // Brief pause so the player sees the correct answer before advancing automatically
-  state.autoAdvanceId = setTimeout(goToNextQuestion, 1400);
-}
-
-/**
- * Advances to the next question, or finishes the quiz if all 10 questions are complete.
- */
-function goToNextQuestion() {
-  stopTimers();
-  state.currentIndex += 1;
-
-  if (state.currentIndex < state.questions.length) {
+function goToNextStep() {
+  if (quizState.currentQuestionIndex < QUIZ_QUESTIONS.length - 1) {
+    quizState.currentQuestionIndex += 1;
     renderCurrentQuestion();
   } else {
     finishQuiz();
   }
 }
 
-/* --------------------------------------------------------------------------
-   8. Result Screen, Score Titles & Leaderboard Rendering
-   -------------------------------------------------------------------------- */
-
 /**
- * Maps a score (0–10) to a fun board-game player title and description.
+ * Handles skipping an optional question: assigns 'skip' (0 points) and moves on.
  */
-function getScoreTitle(score) {
-  if (score >= 9) {
-    return {
-      title: "Catan Champion",
-      desc: "Master strategist! You trade, build, and outwit the whole café."
-    };
+function handleSkipQuestion() {
+  const currentQuestion = QUIZ_QUESTIONS[quizState.currentQuestionIndex];
+  if (!currentQuestion || !currentQuestion.optional) {
+    return;
   }
-  if (score >= 7) {
-    return {
-      title: "Chess Tactician",
-      desc: "Sharp mind! You think three turns ahead on every tabletop."
-    };
-  }
-  if (score >= 5) {
-    return {
-      title: "Ticket to Ride Explorer",
-      desc: "Solid player! Always ready for a fun game night with friends."
-    };
-  }
-  if (score >= 3) {
-    return {
-      title: "Casual Player",
-      desc: "Here for the cozy vibes, warm coffee, and friendly rolls!"
-    };
-  }
-  return {
-    title: "Uno Wildcard",
-    desc: "Unpredictable and proud—grab a fresh brew and shuffle up again!"
-  };
+
+  quizState.answers[currentQuestion.id] = 'skip';
+  goToNextStep();
 }
 
 /**
- * Finalizes the quiz: saves scores to localStorage, renders results, review, and leaderboard.
+ * Handles going back to the previous question or back to the start screen.
+ */
+function handleBackStep() {
+  if (quizState.currentQuestionIndex > 0) {
+    quizState.currentQuestionIndex -= 1;
+    renderCurrentQuestion();
+  } else {
+    renderStartScreenSavedBanner();
+    showScreen('start');
+  }
+}
+
+/**
+ * Computes game rankings, saves the result to localStorage, and renders the
+ * top 3 recommendations on the result screen.
  */
 function finishQuiz() {
-  const percentage = Math.round((state.score / QUIZ_LENGTH) * 100);
-  const rankInfo = getScoreTitle(state.score);
-  const { previousBest, isNewBest } = saveResultToStorage(state.playerName, state.score);
+  const evaluation = calculateGameScores(BOARD_GAMES, quizState.answers);
+  quizState.lastScoredResults = evaluation.rankedGames;
+  quizState.lastIsLowConfidence = evaluation.isLowConfidence;
 
-  dom.resultPlayerName.textContent = state.playerName;
-  dom.resultTitleBadge.textContent = rankInfo.title;
-  dom.resultTitleDesc.textContent = rankInfo.desc;
-  dom.resultScore.textContent = `${state.score} / ${QUIZ_LENGTH}`;
-  dom.resultPercentage.textContent = `${percentage}%`;
+  // Automatically persist the completed quiz result and answers
+  saveQuizState(quizState.answers, evaluation.rankedGames, evaluation.isLowConfidence);
+  renderStartScreenSavedBanner();
 
-  if (isNewBest) {
-    dom.bestScoreNote.textContent = `New Personal Best! (${state.score} / ${QUIZ_LENGTH})`;
-  } else {
-    dom.bestScoreNote.textContent = `Your Personal Best: ${previousBest} / ${QUIZ_LENGTH}`;
-  }
-
-  renderAnswerReview();
-  renderLeaderboard();
-  loadSavedPlayerInfo();
-
-  showScreen("result");
+  renderResults(evaluation.rankedGames, evaluation.isLowConfidence);
+  showScreen('result');
   dom.resultHeading.focus();
 }
 
 /**
- * Builds the 10-question review list safely using DOM nodes (prevents HTML injection).
+ * Renders the top game card and 2 runner-up cards into the result screen,
+ * including low-match notices and tie indicators.
+ *
+ * @param {Array<Object>} rankedGames
+ * @param {boolean} isLowConfidence
  */
-function renderAnswerReview() {
-  dom.reviewList.innerHTML = "";
+function renderResults(rankedGames, isLowConfidence) {
+  dom.saveFeedback.textContent = '';
 
-  state.reviewHistory.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.className = `review-item ${item.isCorrect ? "review-correct" : "review-wrong"}`;
-
-    const topRow = document.createElement("div");
-    topRow.className = "d-flex justify-content-between align-items-start gap-2 mb-2";
-
-    const questionTitle = document.createElement("div");
-    questionTitle.className = "fw-bold";
-    questionTitle.textContent = `${index + 1}. ${item.question}`;
-
-    const statusBadge = document.createElement("span");
-    statusBadge.className = `review-status-badge flex-shrink-0 ${
-      item.isCorrect ? "status-correct" : "status-wrong"
-    }`;
-    statusBadge.textContent = item.isCorrect ? "Correct" : item.timedOut ? "Timed Out" : "Wrong";
-
-    topRow.appendChild(questionTitle);
-    topRow.appendChild(statusBadge);
-
-    const yourAnswer = document.createElement("p");
-    yourAnswer.className = "mb-1 small";
-    yourAnswer.textContent = `Your answer: ${item.selectedText}`;
-
-    const correctAnswer = document.createElement("p");
-    correctAnswer.className = "mb-0 small fw-semibold";
-    correctAnswer.textContent = `Correct answer: ${item.correctText}`;
-
-    li.appendChild(topRow);
-    li.appendChild(yourAnswer);
-    li.appendChild(correctAnswer);
-    dom.reviewList.appendChild(li);
-  });
-}
-
-/**
- * Renders the Top 5 leaderboard table from localStorage, or shows "No scores yet" if empty.
- */
-function renderLeaderboard() {
-  const entries = getLeaderboard();
-
-  if (entries.length === 0) {
-    dom.leaderboardEmpty.classList.remove("d-none");
-    dom.leaderboardTableWrap.classList.add("d-none");
-    dom.leaderboardBody.innerHTML = "";
+  if (!Array.isArray(rankedGames) || rankedGames.length === 0) {
+    dom.resultNotice.textContent = 'No perfect match, closest options:';
+    dom.resultNotice.classList.remove('d-none');
+    dom.bestMatchContainer.innerHTML = '';
+    dom.runnerUpsContainer.innerHTML = '';
     return;
   }
 
-  dom.leaderboardEmpty.classList.add("d-none");
-  dom.leaderboardTableWrap.classList.remove("d-none");
-  dom.leaderboardBody.innerHTML = "";
+  // Show friendly fallback message when player count ruled games out or score is very low
+  if (isLowConfidence) {
+    dom.resultNotice.textContent =
+      'No perfect match, closest options: We could not find a 100% fit for every preference, so here are the closest games on our shelf.';
+    dom.resultNotice.classList.remove('d-none');
+  } else {
+    dom.resultNotice.classList.add('d-none');
+    dom.resultNotice.textContent = '';
+  }
 
-  entries.forEach((entry, index) => {
-    const row = document.createElement("tr");
+  const best = rankedGames[0];
+  const runnerUps = rankedGames.slice(1, 3);
 
-    const rankCell = document.createElement("td");
-    rankCell.className = "fw-bold";
-    rankCell.textContent = `#${index + 1}`;
+  // Check if #1 and #2 tied on percentage
+  const hasTopTie = runnerUps.length > 0 && runnerUps[0].matchPercentage === best.matchPercentage;
+  const tieLabel = hasTopTie ? ' &middot; Tied top score' : '';
 
-    const nameCell = document.createElement("td");
-    nameCell.className = "fw-semibold";
-    nameCell.textContent = entry.name;
+  const bestTagsHtml = best.game.tags
+    .map(function (tag) {
+      return '<span class="game-tag">' + escapeHtml(tag) + '</span>';
+    })
+    .join('');
 
-    const scoreCell = document.createElement("td");
-    const pct = Math.round((entry.score / QUIZ_LENGTH) * 100);
-    scoreCell.textContent = `${entry.score} / ${QUIZ_LENGTH} (${pct}%)`;
+  dom.bestMatchContainer.innerHTML = `
+    <article class="best-match-card p-4 p-md-5" aria-label="Best matching board game">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <span class="badge rounded-pill cafe-pill">Top Recommendation${tieLabel}</span>
+        <span class="match-badge">${best.matchPercentage}% match</span>
+      </div>
 
-    const dateCell = document.createElement("td");
-    dateCell.className = "cafe-muted";
-    dateCell.textContent = entry.date;
+      <h3 class="h2 quiz-heading mb-2">${escapeHtml(best.game.name)}</h3>
+      <p class="mb-4">${escapeHtml(best.game.description)}</p>
 
-    row.appendChild(rankCell);
-    row.appendChild(nameCell);
-    row.appendChild(scoreCell);
-    row.appendChild(dateCell);
+      <div class="row g-2 mb-3">
+        <div class="col-12 col-sm-4">
+          <div class="game-meta-box">
+            <span class="game-meta-label">Players</span>
+            <span class="game-meta-value">${escapeHtml(best.game.playersLabel)}</span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-4">
+          <div class="game-meta-box">
+            <span class="game-meta-label">Play Time</span>
+            <span class="game-meta-value">${escapeHtml(best.game.playTimeLabel)}</span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-4">
+          <div class="game-meta-box">
+            <span class="game-meta-label">Difficulty</span>
+            <span class="game-meta-value">${escapeHtml(best.game.difficultyLabel)}</span>
+          </div>
+        </div>
+      </div>
 
-    dom.leaderboardBody.appendChild(row);
-  });
+      <div class="d-flex flex-wrap gap-2" aria-label="Game tags">
+        ${bestTagsHtml}
+      </div>
+    </article>
+  `;
+
+  // Render 2 runner-up cards
+  const runnerUpCardsHtml = runnerUps
+    .map(function (entry, idx) {
+      const rankNum = idx + 2;
+      const isTiedWithPrev =
+        (idx === 0 && entry.matchPercentage === best.matchPercentage) ||
+        (idx === 1 && entry.matchPercentage === runnerUps[0].matchPercentage);
+      const tiedBadge = isTiedWithPrev ? ' (Tied)' : '';
+      const tagsHtml = entry.game.tags
+        .slice(0, 3)
+        .map(function (tag) {
+          return '<span class="game-tag">' + escapeHtml(tag) + '</span>';
+        })
+        .join('');
+
+      return `
+        <div class="col-12 col-md-6">
+          <article class="runner-up-card p-4 d-flex flex-column justify-content-between" aria-label="Runner-up recommendation ${rankNum}">
+            <div>
+              <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                <span class="small fw-semibold text-uppercase" style="color: var(--text-muted);">Runner-up #${rankNum}${tiedBadge}</span>
+                <span class="match-badge-runner">${entry.matchPercentage}% match</span>
+              </div>
+              <h4 class="h5 quiz-heading mb-2">${escapeHtml(entry.game.name)}</h4>
+              <p class="small mb-3" style="color: var(--text-muted);">${escapeHtml(entry.game.description)}</p>
+            </div>
+            <div>
+              <p class="small fw-semibold mb-2" style="color: var(--brown-dark);">
+                ${escapeHtml(entry.game.playersLabel)} &bull; ${escapeHtml(entry.game.playTimeLabel)} &bull; ${escapeHtml(entry.game.difficultyLabel)}
+              </p>
+              <div class="d-flex flex-wrap gap-1">
+                ${tagsHtml}
+              </div>
+            </div>
+          </article>
+        </div>
+      `;
+    })
+    .join('');
+
+  dom.runnerUpsContainer.innerHTML = `
+    <h3 class="h5 quiz-heading mb-3">Two Great Runner-Ups</h3>
+    <div class="row g-3">
+      ${runnerUpCardsHtml}
+    </div>
+  `;
 }
+
+/* ============================================================================
+   7. INITIALIZATION & EVENT LISTENERS
+   ============================================================================ */
+/**
+ * Starts a fresh quiz attempt from Question 1.
+ */
+function startNewQuiz() {
+  quizState.currentQuestionIndex = 0;
+  quizState.answers = {};
+  dom.saveFeedback.textContent = '';
+  renderCurrentQuestion();
+  showScreen('question');
+}
+
+/**
+ * Explicit save action for the "Save this result" button.
+ */
+function handleSaveResultClick() {
+  if (!quizState.lastScoredResults) {
+    return;
+  }
+
+  const savedOk = saveQuizState(
+    quizState.answers,
+    quizState.lastScoredResults,
+    quizState.lastIsLowConfidence
+  );
+
+  if (savedOk) {
+    renderStartScreenSavedBanner();
+    dom.saveFeedback.textContent =
+      'Result saved! Reloading this page will remember your match.';
+  } else {
+    dom.saveFeedback.textContent =
+      'Could not access browser storage in this window, but your result is ready above.';
+  }
+}
+
+/**
+ * Bootstraps the quiz on page load: attaches event listeners and restores any
+ * saved previous result from localStorage.
+ */
+function initQuizPage() {
+  dom.startQuizBtn.addEventListener('click', startNewQuiz);
+  dom.backBtn.addEventListener('click', handleBackStep);
+  dom.skipBtn.addEventListener('click', handleSkipQuestion);
+  dom.nextBtn.addEventListener('click', goToNextStep);
+  dom.retakeBtn.addEventListener('click', startNewQuiz);
+  dom.saveResultBtn.addEventListener('click', handleSaveResultClick);
+
+  // Show "Your last result: X" on the start screen if saved data exists
+  renderStartScreenSavedBanner();
+
+  // If a valid saved result exists on reload, also display the previous result
+  // right away while keeping the start banner accessible, or show start screen.
+  // Checking saved state: display the start screen with the "Your last result: X"
+  // card and if the URL or state needs direct view, user can click "View Saved Result".
+  const saved = loadSavedQuizState();
+  if (saved) {
+    quizState.answers = Object.assign({}, saved.answers);
+    const evaluation = calculateGameScores(BOARD_GAMES, quizState.answers);
+    quizState.lastScoredResults = evaluation.rankedGames;
+    quizState.lastIsLowConfidence = evaluation.isLowConfidence;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initQuizPage);
