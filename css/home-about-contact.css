@@ -392,10 +392,13 @@ svg {
   padding: 4.25rem 2.5rem;
   border-radius: var(--radius-lg);
   color: var(--text-on-dark);
-  background:
-    radial-gradient(circle at 85% 20%, rgba(194, 129, 68, 0.22), transparent 45%),
-    radial-gradient(circle at 15% 85%, rgba(194, 129, 68, 0.14), transparent 40%),
-    linear-gradient(135deg, var(--coffee-darkest) 0%, var(--coffee-dark) 52%, var(--coffee-medium) 100%);
+  background-color: #0d1b38;
+  background-image:
+    linear-gradient(135deg, rgba(10, 22, 48, 0.84) 0%, rgba(17, 36, 74, 0.76) 52%, rgba(24, 49, 98, 0.72) 100%),
+    url("../images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   box-shadow: var(--shadow-hero-card);
 }
 
@@ -1149,6 +1152,7 @@ svg {
 
 .snapshot-btn {
   white-space: nowrap;
+  cursor: default;
 }
 
 /* ==========================================================================
