@@ -293,6 +293,78 @@ button:hover,
   background-color: var(--coffee-medium);
 }
 
+.rating-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.rating-fieldset legend {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--coffee-dark);
+}
+
+.rating-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.rating-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--coffee-dark);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.rating-option:hover {
+  border-color: var(--coffee-medium);
+}
+
+.rating-option input[type="radio"] {
+  margin: 0;
+  accent-color: var(--coffee-dark);
+  cursor: pointer;
+}
+
+.rating-option:has(input:checked) {
+  background-color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+  color: var(--card-cream);
+}
+
+.feedback-thanks {
+  margin-top: 1.5rem;
+  padding: 1.15rem 1.25rem;
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-left: 4px solid var(--coffee-dark);
+  border-radius: 8px;
+}
+
+.feedback-thanks[hidden] {
+  display: none;
+}
+
+.feedback-thanks h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  color: var(--coffee-dark);
+}
+
+.feedback-thanks p {
+  margin: 0;
+  color: var(--text-espresso);
+}
+
 /* 9. Location & Hours Page Components */
 .location-grid {
   display: grid;
