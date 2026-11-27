@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bill Estimator — Roll &amp; Brew</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand" aria-label="Roll & Brew Home">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="4"></rect>
+            <circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"></circle>
+            <circle cx="15.5" cy="8.5" r="1.2" fill="currentColor"></circle>
+            <circle cx="12" cy="12" r="1.2" fill="currentColor"></circle>
+            <circle cx="8.5" cy="15.5" r="1.2" fill="currentColor"></circle>
+            <circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"></circle>
+          </svg>
+        </span>
+        <span>Roll <span class="brand-accent">&amp;</span> Brew</span>
+      </a>
+
+      <button
+        type="button"
+        class="hamburger"
+        id="hamburgerBtn"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <nav id="navMenu" class="nav-links" aria-label="Main navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="snacks.html" class="nav-link">Snacks Menu</a>
+        <a href="drinks.html" class="nav-link">Drinks Menu</a>
+        <a href="bill.html" class="nav-link active" aria-current="page">
+          Bill Estimator
+          <span class="bill-badge" id="navBillCount" aria-label="Items in bill">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <section class="page-header">
+        <span class="page-eyebrow">Table Tab &amp; Split Calculator</span>
+        <h1 class="page-title">Bill Estimator</h1>
+        <p class="page-subtitle">
+          Adjust quantities, include board game table hours, apply a promo code like <strong>ROLL10</strong>, and split the total evenly across your table.
+        </p>
+      </section>
+
+      <div class="bill-layout">
+        <!-- Order Summary List -->
+        <section class="bill-panel" aria-label="Order summary">
+          <div class="bill-panel-header">
+            <h2 class="bill-panel-title">Your Order</h2>
+            <button type="button" id="clearBillBtn" class="clear-bill-btn">Clear Bill</button>
+          </div>
+
+          <div id="orderList" class="order-list"></div>
+
+          <div id="billEmptyState" class="empty-state" hidden>
+            <h2>Your bill is empty</h2>
+            <p>Add snacks or drinks from our menus to start building your table tab.</p>
+            <div class="bill-empty-actions">
+              <a href="snacks.html" class="add-btn">+ Browse Snacks</a>
+              <a href="drinks.html" class="secondary-btn">+ Browse Drinks</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Estimator Controls & Totals -->
+        <aside class="bill-sidebar" aria-label="Bill options and totals">
+          <div class="bill-panel">
+            <!-- Board Game Table Fee -->
+            <div class="estimator-block">
+              <div class="toggle-row">
+                <div>
+                  <label for="tableFeeToggle" class="block-label" style="margin-bottom: 0.15rem;">
+                    Board Game Table Fee
+                  </label>
+                  <p class="toggle-meta">Rs 300 / hour for game library access</p>
+                </div>
+                <label class="switch" aria-label="Toggle board game table fee">
+                  <input type="checkbox" id="tableFeeToggle">
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div id="tableHoursRow" class="inline-field-row is-disabled">
+                <label for="tableHours" class="toggle-meta">Hours played</label>
+                <div class="qty-control">
+                  <button type="button" class="qty-btn" id="hoursMinus" aria-label="Decrease hours" disabled>-</button>
+                  <input
+                    type="number"
+                    id="tableHours"
+                    class="qty-input"
+                    value="1"
+                    min="1"
+                    max="12"
+                    aria-label="Table hours"
+                    disabled
+                  >
+                  <button type="button" class="qty-btn" id="hoursPlus" aria-label="Increase hours" disabled>+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Promo Code -->
+            <div class="estimator-block">
+              <label for="promoInput" class="block-label">Promo Code</label>
+              <div class="promo-row">
+                <input
+                  type="text"
+                  id="promoInput"
+                  class="text-input"
+                  placeholder="Enter code (try ROLL10)"
+                  autocomplete="off"
+                >
+                <button type="button" id="applyPromoBtn" class="apply-btn">Apply</button>
+              </div>
+              <p id="promoFeedback" class="promo-feedback" aria-live="polite"></p>
+            </div>
+
+            <!-- Split-Bill Calculator -->
+            <div class="estimator-block">
+              <div class="toggle-row">
+                <div>
+                  <label for="playerCount" class="block-label" style="margin-bottom: 0.15rem;">
+                    Split Bill
+                  </label>
+                  <p class="toggle-meta">Divide total by number of players</p>
+                </div>
+                <div class="qty-control">
+                  <button type="button" class="qty-btn" id="playersMinus" aria-label="Decrease players">-</button>
+                  <input
+                    type="number"
+                    id="playerCount"
+                    class="qty-input"
+                    value="2"
+                    min="1"
+                    max="20"
+                    aria-label="Number of players"
+                  >
+                  <button type="button" class="qty-btn" id="playersPlus" aria-label="Increase players">+</button>
+                </div>
+              </div>
+
+              <div class="split-result">
+                <span>Per Player</span>
+                <span id="perPlayerAmount">Rs 0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Totals & Confirm -->
+          <div class="bill-panel">
+            <div class="summary-rows">
+              <div class="summary-row">
+                <span>Items Subtotal</span>
+                <span id="itemsSubtotal">Rs 0</span>
+              </div>
+              <div class="summary-row" id="tableFeeRow" hidden>
+                <span id="tableFeeLabel">Table Fee (1 hr)</span>
+                <span id="tableFeeAmount">Rs 0</span>
+              </div>
+              <div class="summary-row discount" id="discountRow" hidden>
+                <span>Promo (ROLL10 — 10% off)</span>
+                <span id="discountAmount">- Rs 0</span>
+              </div>
+              <div class="summary-row total">
+                <span>Estimated Total</span>
+                <span id="grandTotal">Rs 0</span>
+              </div>
+            </div>
+
+            <button type="button" id="confirmOrderBtn" class="confirm-btn">Confirm Order</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Order Confirmation Modal -->
+  <div
+    id="confirmModal"
+    class="modal-backdrop"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="confirmModalTitle"
+    hidden
+  >
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="modal-eyebrow" id="orderRef">Order Confirmed</span>
+          <h2 class="modal-title" id="confirmModalTitle">Your Roll &amp; Brew Tab</h2>
+        </div>
+        <button type="button" id="closeModalX" class="remove-item-btn" aria-label="Close confirmation">&times;</button>
+      </div>
+
+      <div id="confirmReceiptList" class="modal-receipt-list"></div>
+
+      <div class="summary-rows" id="confirmTotals"></div>
+
+      <div class="modal-actions">
+        <button type="button" id="keepEditingBtn" class="secondary-btn">Back to Bill</button>
+        <button type="button" id="newOrderBtn" class="confirm-btn">Start New Order</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span id="toastMessage">Updated bill!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-heading">Roll &amp; Brew</h3>
+          <p class="footer-text">
+            A cozy board game café for strategy lovers, casual dice rollers, and fresh-brewed comfort food.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Café Hours</h3>
+          <p class="footer-text">
+            Mon – Thu: 12:00 PM – 11:00 PM<br>
+            Fri – Sun: 12:00 PM – 1:00 AM
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Contact Info</h3>
+          <p class="footer-text">
+            42 Meeple Lane, F-7 Markaz, Islamabad<br>
+            Phone: +92 300 555 0194<br>
+            Email: hello@rollandbrew.pk
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Roll &amp; Brew Board Game Café</span>
+        <span>Good games. Warm brews. Great company.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = "rollAndBrewBill";
+      const TABLE_RATE_PER_HOUR = 300;
+      const PROMO_CODE = "ROLL10";
+      const PROMO_RATE = 0.10;
+
+      // Mobile Hamburger Toggle
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburgerBtn.addEventListener("click", () => {
+        const isOpen = navMenu.classList.toggle("open");
+        hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // DOM References
+      const navBillCount = document.getElementById("navBillCount");
+      const orderList = document.getElementById("orderList");
+      const billEmptyState = document.getElementById("billEmptyState");
+      const clearBillBtn = document.getElementById("clearBillBtn");
+
+      const tableFeeToggle = document.getElementById("tableFeeToggle");
+      const tableHoursRow = document.getElementById("tableHoursRow");
+      const tableHoursInput = document.getElementById("tableHours");
+      const hoursMinus = document.getElementById("hoursMinus");
+      const hoursPlus = document.getElementById("hoursPlus");
+
+      const promoInput = document.getElementById("promoInput");
+      const applyPromoBtn = document.getElementById("applyPromoBtn");
+      const promoFeedback = document.getElementById("promoFeedback");
+
+      const playerCountInput = document.getElementById("playerCount");
+      const playersMinus = document.getElementById("playersMinus");
+      const playersPlus = document.getElementById("playersPlus");
+      const perPlayerAmountEl = document.getElementById("perPlayerAmount");
+
+      const itemsSubtotalEl = document.getElementById("itemsSubtotal");
+      const tableFeeRow = document.getElementById("tableFeeRow");
+      const tableFeeLabel = document.getElementById("tableFeeLabel");
+      const tableFeeAmountEl = document.getElementById("tableFeeAmount");
+      const discountRow = document.getElementById("discountRow");
+      const discountAmountEl = document.getElementById("discountAmount");
+      const grandTotalEl = document.getElementById("grandTotal");
+      const confirmOrderBtn = document.getElementById("confirmOrderBtn");
+
+      const confirmModal = document.getElementById("confirmModal");
+      const orderRefEl = document.getElementById("orderRef");
+      const confirmReceiptList = document.getElementById("confirmReceiptList");
+      const confirmTotals = document.getElementById("confirmTotals");
+      const closeModalX = document.getElementById("closeModalX");
+      const keepEditingBtn = document.getElementById("keepEditingBtn");
+      const newOrderBtn = document.getElementById("newOrderBtn");
+
+      const toast = document.getElementById("toast");
+      const toastMessage = document.getElementById("toastMessage");
+      let toastTimer = null;
+
+      let promoApplied = false;
+
+      function formatRs(amount) {
+        const rounded = Math.round(amount * 100) / 100;
+        const formatted = Number.isInteger(rounded)
+          ? rounded.toLocaleString("en-PK")
+          : rounded.toLocaleString("en-PK", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return `Rs ${formatted}`;
+      }
+
+      function showToast(message) {
+        toastMessage.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2500);
+      }
+
+      function getBillItems() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          const parsed = raw ? JSON.parse(raw) : [];
+          return Array.isArray(parsed) ? parsed : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveBillItems(items) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        } catch {
+          // Ignore storage errors
+        }
+      }
+
+      function clampInt(value, min, max) {
+        const num = parseInt(value, 10);
+        if (Number.isNaN(num)) return min;
+        return Math.min(max, Math.max(min, num));
+      }
+
+      function computeTotals(items) {
+        const itemsSubtotal = items.reduce(
+          (sum, item) => sum + (Number(item.price) || 0) * (Number(item.qty) || 1),
+          0
+        );
+        const tableEnabled = tableFeeToggle.checked;
+        const hours = clampInt(tableHoursInput.value, 1, 12);
+        const tableFee = tableEnabled ? hours * TABLE_RATE_PER_HOUR : 0;
+        const preDiscount = itemsSubtotal + tableFee;
+        const discount = promoApplied ? preDiscount * PROMO_RATE : 0;
+        const grandTotal = Math.max(0, preDiscount - discount);
+        const players = clampInt(playerCountInput.value, 1, 20);
+        const perPlayer = grandTotal / players;
+
+        return {
+          itemsSubtotal,
+          tableEnabled,
+          hours,
+          tableFee,
+          discount,
+          grandTotal,
+          players,
+          perPlayer
+        };
+      }
+
+      function renderOrderList() {
+        const items = getBillItems();
+        const totalQty = items.reduce((sum, item) => sum + (Number(item.qty) || 1), 0);
+        navBillCount.textContent = String(totalQty);
+        clearBillBtn.disabled = items.length === 0;
+
+        orderList.innerHTML = "";
+        billEmptyState.hidden = items.length > 0;
+
+        items.forEach((item, index) => {
+          const qty = clampInt(item.qty || 1, 1, 20);
+          const price = Number(item.price) || 0;
+          const lineTotal = price * qty;
+          const categoryLabel = item.category === "drink" ? "Drink" : "Snack";
+
+          const row = document.createElement("div");
+          row.className = "order-item";
+
+          const info = document.createElement("div");
+          info.className = "order-item-info";
+
+          const titleRow = document.createElement("div");
+          titleRow.className = "order-item-title-row";
+
+          const nameSpan = document.createElement("span");
+          nameSpan.className = "order-item-name";
+          nameSpan.textContent = item.name;
+
+          const catSpan = document.createElement("span");
+          catSpan.className = "order-cat-tag";
+          catSpan.textContent = categoryLabel;
+
+          titleRow.append(nameSpan, catSpan);
+
+          const unitSpan = document.createElement("div");
+          unitSpan.className = "order-item-unit";
+          unitSpan.textContent = `${formatRs(price)} each`;
+
+          info.append(titleRow, unitSpan);
+
+          const qtyControl = document.createElement("div");
+          qtyControl.className = "qty-control";
+
+          const minusBtn = document.createElement("button");
+          minusBtn.type = "button";
+          minusBtn.className = "qty-btn";
+          minusBtn.textContent = "-";
+          minusBtn.setAttribute("aria-label", `Decrease ${item.name} quantity`);
+          minusBtn.disabled = qty <= 1;
+          minusBtn.addEventListener("click", () => updateItemQty(index, qty - 1));
+
+          const qtyInput = document.createElement("input");
+          qtyInput.type = "number";
+          qtyInput.className = "qty-input";
+          qtyInput.value = String(qty);
+          qtyInput.min = "1";
+          qtyInput.max = "20";
+          qtyInput.setAttribute("aria-label", `${item.name} quantity`);
+          qtyInput.addEventListener("change", () => {
+            updateItemQty(index, clampInt(qtyInput.value, 1, 20));
+          });
+
+          const plusBtn = document.createElement("button");
+          plusBtn.type = "button";
+          plusBtn.className = "qty-btn";
+          plusBtn.textContent = "+";
+          plusBtn.setAttribute("aria-label", `Increase ${item.name} quantity`);
+          plusBtn.disabled = qty >= 20;
+          plusBtn.addEventListener("click", () => updateItemQty(index, qty + 1));
+
+          qtyControl.append(minusBtn, qtyInput, plusBtn);
+
+          const lineTotalEl = document.createElement("div");
+          lineTotalEl.className = "order-line-total";
+          lineTotalEl.textContent = formatRs(lineTotal);
+
+          const removeBtn = document.createElement("button");
+          removeBtn.type = "button";
+          removeBtn.className = "remove-item-btn";
+          removeBtn.innerHTML = "&times;";
+          removeBtn.setAttribute("aria-label", `Remove ${item.name}`);
+          removeBtn.addEventListener("click", () => removeItem(index));
+
+          row.append(info, qtyControl, lineTotalEl, removeBtn);
+          orderList.appendChild(row);
+        });
+
+        renderSummary(items);
+      }
+
+      function renderSummary(items) {
+        const totals = computeTotals(items);
+
+        itemsSubtotalEl.textContent = formatRs(totals.itemsSubtotal);
+
+        tableFeeRow.hidden = !totals.tableEnabled;
+        if (totals.tableEnabled) {
+          tableFeeLabel.textContent = `Table Fee (${totals.hours} ${totals.hours === 1 ? "hr" : "hrs"})`;
+          tableFeeAmountEl.textContent = formatRs(totals.tableFee);
+        }
+
+        discountRow.hidden = !promoApplied || totals.discount === 0;
+        discountAmountEl.textContent = `- ${formatRs(totals.discount)}`;
+
+        grandTotalEl.textContent = formatRs(totals.grandTotal);
+        perPlayerAmountEl.textContent = formatRs(totals.perPlayer);
+      }
+
+      function updateItemQty(index, newQty) {
+        const items = getBillItems();
+        if (!items[index]) return;
+        items[index].qty = clampInt(newQty, 1, 20);
+        saveBillItems(items);
+        renderOrderList();
+      }
+
+      function removeItem(index) {
+        const items = getBillItems();
+        const removed = items.splice(index, 1)[0];
+        saveBillItems(items);
+        renderOrderList();
+        if (removed) showToast(`Removed ${removed.name}`);
+      }
+
+      function clearEntireBill() {
+        saveBillItems([]);
+        promoApplied = false;
+        promoInput.value = "";
+        promoFeedback.textContent = "";
+        promoFeedback.className = "promo-feedback";
+        tableFeeToggle.checked = false;
+        syncTableFeeState();
+        renderOrderList();
+      }
+
+      clearBillBtn.addEventListener("click", () => {
+        saveBillItems([]);
+        renderOrderList();
+        showToast("Bill cleared.");
+      });
+
+      // Table Fee Controls
+      function syncTableFeeState() {
+        const enabled = tableFeeToggle.checked;
+        tableHoursRow.classList.toggle("is-disabled", !enabled);
+        tableHoursInput.disabled = !enabled;
+        hoursMinus.disabled = !enabled || clampInt(tableHoursInput.value, 1, 12) <= 1;
+        hoursPlus.disabled = !enabled || clampInt(tableHoursInput.value, 1, 12) >= 12;
+        renderSummary(getBillItems());
+      }
+
+      tableFeeToggle.addEventListener("change", syncTableFeeState);
+
+      hoursMinus.addEventListener("click", () => {
+        tableHoursInput.value = String(clampInt(Number(tableHoursInput.value) - 1, 1, 12));
+        syncTableFeeState();
+      });
+
+      hoursPlus.addEventListener("click", () => {
+        tableHoursInput.value = String(clampInt(Number(tableHoursInput.value) + 1, 1, 12));
+        syncTableFeeState();
+      });
+
+      tableHoursInput.addEventListener("change", () => {
+        tableHoursInput.value = String(clampInt(tableHoursInput.value, 1, 12));
+        syncTableFeeState();
+      });
+
+      // Promo Code Controls
+      function handlePromoApply() {
+        const code = promoInput.value.trim().toUpperCase();
+        if (!code) {
+          promoApplied = false;
+          promoFeedback.textContent = "Please enter a promo code.";
+          promoFeedback.className = "promo-feedback error";
+        } else if (code === PROMO_CODE) {
+          promoApplied = true;
+          promoInput.value = PROMO_CODE;
+          promoFeedback.textContent = "ROLL10 applied — 10% off your bill!";
+          promoFeedback.className = "promo-feedback success";
+        } else {
+          promoApplied = false;
+          promoFeedback.textContent = "Invalid code. Try ROLL10 for 10% off.";
+          promoFeedback.className = "promo-feedback error";
+        }
+        renderSummary(getBillItems());
+      }
+
+      applyPromoBtn.addEventListener("click", handlePromoApply);
+      promoInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          handlePromoApply();
+        }
+      });
+
+      // Split Bill Controls
+      function updatePlayers(newCount) {
+        const clamped = clampInt(newCount, 1, 20);
+        playerCountInput.value = String(clamped);
+        playersMinus.disabled = clamped <= 1;
+        playersPlus.disabled = clamped >= 20;
+        renderSummary(getBillItems());
+      }
+
+      playersMinus.addEventListener("click", () => updatePlayers(Number(playerCountInput.value) - 1));
+      playersPlus.addEventListener("click", () => updatePlayers(Number(playerCountInput.value) + 1));
+      playerCountInput.addEventListener("change", () => updatePlayers(playerCountInput.value));
+
+      // Order Confirmation Modal
+      function openConfirmationModal() {
+        const items = getBillItems();
+        const totals = computeTotals(items);
+
+        if (items.length === 0 && !totals.tableEnabled) {
+          showToast("Add items or enable table fee before confirming.");
+          return;
+        }
+
+        const refCode = `RB-${Math.floor(1000 + Math.random() * 9000)}`;
+        orderRefEl.textContent = `Order Confirmed • ${refCode}`;
+
+        confirmReceiptList.innerHTML = "";
+        items.forEach((item) => {
+          const qty = clampInt(item.qty || 1, 1, 20);
+          const line = Number(item.price) * qty;
+          const row = document.createElement("div");
+          row.className = "modal-receipt-row";
+
+          const left = document.createElement("span");
+          left.textContent = `${item.name} × ${qty}`;
+
+          const right = document.createElement("strong");
+          right.textContent = formatRs(line);
+
+          row.append(left, right);
+          confirmReceiptList.appendChild(row);
+        });
+
+        if (totals.tableEnabled) {
+          const tableRow = document.createElement("div");
+          tableRow.className = "modal-receipt-row";
+          const left = document.createElement("span");
+          left.textContent = `Board Game Table (${totals.hours} ${totals.hours === 1 ? "hr" : "hrs"})`;
+          const right = document.createElement("strong");
+          right.textContent = formatRs(totals.tableFee);
+          tableRow.append(left, right);
+          confirmReceiptList.appendChild(tableRow);
+        }
+
+        confirmTotals.innerHTML = "";
+
+        if (promoApplied && totals.discount > 0) {
+          const discRow = document.createElement("div");
+          discRow.className = "summary-row discount";
+          discRow.innerHTML = `<span>Promo (${PROMO_CODE} — 10% off)</span><span>- ${formatRs(totals.discount)}</span>`;
+          confirmTotals.appendChild(discRow);
+        }
+
+        const totalRow = document.createElement("div");
+        totalRow.className = "summary-row total";
+        totalRow.innerHTML = `<span>Total Due</span><span>${formatRs(totals.grandTotal)}</span>`;
+        confirmTotals.appendChild(totalRow);
+
+        const splitRow = document.createElement("div");
+        splitRow.className = "summary-row";
+        splitRow.innerHTML = `<span>Split (${totals.players} ${totals.players === 1 ? "player" : "players"})</span><strong>${formatRs(totals.perPlayer)} each</strong>`;
+        confirmTotals.appendChild(splitRow);
+
+        confirmModal.hidden = false;
+      }
+
+      function closeConfirmationModal() {
+        confirmModal.hidden = true;
+      }
+
+      confirmOrderBtn.addEventListener("click", openConfirmationModal);
+      closeModalX.addEventListener("click", closeConfirmationModal);
+      keepEditingBtn.addEventListener("click", closeConfirmationModal);
+      confirmModal.addEventListener("click", (event) => {
+        if (event.target === confirmModal) closeConfirmationModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !confirmModal.hidden) {
+          closeConfirmationModal();
+        }
+      });
+
+      newOrderBtn.addEventListener("click", () => {
+        clearEntireBill();
+        closeConfirmationModal();
+        showToast("Ready for a new table order!");
+      });
+
+      // Initialize Page
+      updatePlayers(playerCountInput.value);
+      syncTableFeeState();
+      renderOrderList();
+    })();
+  </script>
+</body>
+</html>
