@@ -72,7 +72,7 @@ h4,
 }
 
 /* Override dark-surface headings to keep high contrast */
-.hero-card .hero-title,
+.hero .hero-card .hero-title,
 .booking-banner .booking-title,
 .countdown-banner .countdown-title,
 .digital-card .card-member-name,
@@ -136,6 +136,11 @@ textarea {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
+  width: 184px;
+  height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
   color: var(--rb-text-on-dark);
   text-decoration: none;
   border-radius: var(--rb-radius-sm);
@@ -191,6 +196,7 @@ textarea {
   align-items: center;
   justify-content: flex-end;
   flex: 1 1 auto;
+  min-width: 0;
 }
 
 .site-header .nav-list {
@@ -390,6 +396,11 @@ textarea {
 @media (max-width: 420px) {
   .site-header .nav-container {
     width: min(100% - 1.5rem, 1240px);
+  }
+
+  .site-header .brand-logo {
+    width: auto;
+    max-width: calc(100% - 56px);
   }
 
   .site-header .brand-logo-img {

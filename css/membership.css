@@ -31,15 +31,6 @@ body {
   box-shadow: 0 4px 18px rgba(42, 25, 16, 0.16);
 }
 
-.brand-logo {
-  width: 42px;
-  height: 42px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid rgba(250, 243, 232, 0.45);
-  background-color: var(--cafe-cream);
-}
-
 .brand-name {
   font-weight: 700;
   font-size: 1.2rem;
