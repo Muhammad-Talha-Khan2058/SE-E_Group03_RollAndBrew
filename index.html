@@ -11,18 +11,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="css/home-about-contact.css" />
+  <link rel="stylesheet" href="css/theme.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header">
-    <div class="container nav-container">
+    <div class="nav-container">
       <a class="brand-logo" href="index.html" aria-label="Roll &amp; Brew Home">
-        <img class="brand-logo-img" src="images/logo.png" alt="" />
+        <img class="brand-logo-img" src="images/logo.png" alt="Roll &amp; Brew Board Game Café logo" width="44" height="44" />
         <span class="brand-text">
           <span class="brand-name">Roll &amp; Brew</span>
           <span class="brand-tag">Board Game Café</span>
@@ -44,16 +45,23 @@
       <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
           <li><a class="nav-link nav-link--active" href="index.html" aria-current="page">Home</a></li>
-          <li><a class="nav-link" href="pages/about.html">About</a></li>
+          <li><a class="nav-link" href="pages/board-games.html">Board Games</a></li>
+          <li><a class="nav-link" href="pages/card-games.html">Card Games</a></li>
+          <li><a class="nav-link" href="pages/game-details.html">Game Details</a></li>
+          <li><a class="nav-link" href="snacks.html">Snacks</a></li>
+          <li><a class="nav-link" href="drinks.html">Drinks</a></li>
+          <li><a class="nav-link" href="bill.html">Bill <span class="bill-badge" id="navBillCount" aria-label="Items in bill">0</span></a></li>
           <li><a class="nav-link" href="pages/events.html">Events</a></li>
-          <li><a class="nav-link" href="pages/signup.html">Game Night</a></li>
-          <li><a class="nav-link" href="pages/data.html">Game Details</a></li>
+          <li><a class="nav-link" href="pages/signup.html">Sign-up</a></li>
+          <li><a class="nav-link" href="pages/gallery.html">Gallery</a></li>
           <li><a class="nav-link" href="pages/quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="pages/dice.html">Weekend Dice</a></li>
+          <li><a class="nav-link" href="pages/membership.html">Membership</a></li>
+          <li><a class="nav-link" href="pages/about.html">About</a></li>
           <li><a class="nav-link" href="pages/faq.html">FAQ</a></li>
           <li><a class="nav-link" href="pages/location.html">Location</a></li>
           <li><a class="nav-link" href="pages/feedback.html">Feedback</a></li>
           <li><a class="nav-link" href="pages/contact.html">Contact</a></li>
-          <li><a class="nav-link" href="pages/bill.html">Bill</a></li>
         </ul>
       </nav>
     </div>
@@ -73,7 +81,7 @@
             Your cozy neighborhood board game lounge—50+ tabletop classics, specialty espresso, and freshly baked snacks.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary-hero" href="pages/data.html">Explore Our Games</a>
+            <a class="btn btn-primary-hero" href="pages/board-games.html">Explore Our Games</a>
             <a class="btn btn-secondary-hero" href="pages/contact.html">Plan Your Visit</a>
           </div>
         </div>
@@ -107,7 +115,7 @@
               <span class="availability-dot" aria-hidden="true"></span>
               Table #4 Copy Available
             </p>
-            <a class="btn btn-dark" href="pages/data.html">Game details</a>
+            <a class="btn btn-dark" href="pages/game-details.html?id=1">Game details</a>
           </div>
         </article>
       </div>
@@ -171,8 +179,8 @@
         <div class="explore-row">
           <h2 id="explore-heading" class="explore-heading">Explore Café Sections</h2>
           <nav class="explore-pills" aria-label="Explore Café Sections">
-            <a class="sand-pill" href="pages/data.html">Board &amp; Card Games</a>
-            <a class="sand-pill" href="pages/bill.html">Snacks &amp; Drinks Menu</a>
+            <a class="sand-pill" href="pages/board-games.html">Board &amp; Card Games</a>
+            <a class="sand-pill" href="snacks.html">Snacks &amp; Drinks Menu</a>
             <a class="sand-pill" href="pages/events.html">Events &amp; Gallery</a>
             <a class="sand-pill" href="pages/quiz.html">Quiz &amp; Dice Roller</a>
             <a class="sand-pill" href="pages/faq.html">FAQ &amp; Hours</a>
@@ -204,14 +212,14 @@
         <a href="index.html">Home</a>
         <a href="pages/about.html">About</a>
         <a href="pages/events.html">Events</a>
-        <a href="pages/signup.html">Game Night</a>
-        <a href="pages/data.html">Game Details</a>
+        <a href="pages/signup.html">Sign-up</a>
+        <a href="pages/game-details.html">Game Details</a>
         <a href="pages/quiz.html">Quiz</a>
         <a href="pages/faq.html">FAQ</a>
         <a href="pages/location.html">Location</a>
         <a href="pages/feedback.html">Feedback</a>
         <a href="pages/contact.html">Contact</a>
-        <a href="pages/bill.html">Bill</a>
+        <a href="bill.html">Bill</a>
       </nav>
     </div>
   </footer>

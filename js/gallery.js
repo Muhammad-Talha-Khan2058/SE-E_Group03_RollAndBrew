@@ -249,8 +249,8 @@
           <circle cx="36" cy="80" r="8" fill="#FBF5EA"/>
           <circle cx="80" cy="80" r="8" fill="#FBF5EA"/>
         </g>
-        <text x="400" y="346" text-anchor="middle" fill="#FBF5EA" font-family="Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">${escapeHtml(photo.title)}</text>
-        <text x="400" y="392" text-anchor="middle" fill="#C9A27A" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">${escapeHtml(photo.category)} • Roll &amp; Brew</text>
+        <text x="400" y="346" text-anchor="middle" fill="#F6EFE2" font-family="Plus Jakarta Sans, Segoe UI, Arial, sans-serif" font-size="32" font-weight="700">${escapeHtml(photo.title)}</text>
+        <text x="400" y="392" text-anchor="middle" fill="#EAD6BE" font-family="Plus Jakarta Sans, Segoe UI, Arial, sans-serif" font-size="22" font-weight="600">${escapeHtml(photo.category)} • Roll &amp; Brew</text>
       </svg>
     `.trim();
 

@@ -6,63 +6,67 @@
   <meta name="description" content="Take the Roll &amp; Brew Board Game Café quiz to find the perfect board game for your group, mood, and schedule.">
   <title>Find Your Perfect Game | Roll &amp; Brew Board Game Café</title>
 
-  <!-- Clean sans-serif font: Inter -->
+  <!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Bootstrap 5 CSS (vanilla JS, no jQuery) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-  <!-- Page stylesheet (relative path from pages/) -->
+  <!-- Page & shared theme stylesheets (relative paths from pages/) -->
   <link rel="stylesheet" href="../css/quiz.css">
+  <link rel="stylesheet" href="../css/theme.css">
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Site Header & Responsive Navigation -->
-  <header class="site-header sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark" aria-label="Primary navigation">
-      <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
-          <img src="../images/logo.png" alt="Roll &amp; Brew Board Game Café logo" class="brand-logo" width="44" height="44">
+  <header class="site-header">
+    <div class="nav-container">
+      <a class="brand-logo" href="../index.html" aria-label="Roll &amp; Brew Home">
+        <img class="brand-logo-img" src="../images/logo.png" alt="Roll &amp; Brew Board Game Café logo" width="44" height="44" />
+        <span class="brand-text">
           <span class="brand-name">Roll &amp; Brew</span>
-        </a>
+          <span class="brand-tag">Board Game Café</span>
+        </span>
+      </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation menu">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="primaryNav">
-          <ul class="navbar-nav gap-lg-1 mt-3 mt-lg-0">
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="../index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="games.html">Games</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="menu.html">Menu</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active text-nowrap" href="quiz.html" aria-current="page">Game Quiz</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="dice.html">Weekend Dice</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="membership.html">Membership</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="about.html">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-nowrap" href="contact.html">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+      <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link" href="board-games.html">Board Games</a></li>
+          <li><a class="nav-link" href="card-games.html">Card Games</a></li>
+          <li><a class="nav-link" href="game-details.html">Game Details</a></li>
+          <li><a class="nav-link" href="../snacks.html">Snacks</a></li>
+          <li><a class="nav-link" href="../drinks.html">Drinks</a></li>
+          <li><a class="nav-link" href="../bill.html">Bill <span class="bill-badge" id="navBillCount" aria-label="Items in bill">0</span></a></li>
+          <li><a class="nav-link" href="events.html">Events</a></li>
+          <li><a class="nav-link" href="signup.html">Sign-up</a></li>
+          <li><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li><a class="nav-link nav-link--active" href="quiz.html" aria-current="page">Quiz</a></li>
+          <li><a class="nav-link" href="dice.html">Weekend Dice</a></li>
+          <li><a class="nav-link" href="membership.html">Membership</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="location.html">Location</a></li>
+          <li><a class="nav-link" href="feedback.html">Feedback</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <!-- Main Quiz Content -->
@@ -148,7 +152,7 @@
               <button type="button" id="save-result-btn" class="btn btn-cafe-outline">
                 Save this result
               </button>
-              <a href="games.html" class="btn btn-cafe-secondary">
+              <a href="board-games.html" class="btn btn-cafe-secondary">
                 Back to Games
               </a>
               <a href="dice.html" class="btn btn-cafe-outline">
@@ -171,7 +175,7 @@
   <footer class="site-footer py-4 mt-auto">
     <div class="container text-center">
       <nav aria-label="Roll &amp; Brew pages" class="d-flex flex-wrap justify-content-center gap-3 mb-2">
-        <a class="footer-nav-link" href="quiz.html" aria-current="page">Game Quiz</a>
+        <a class="footer-nav-link" href="quiz.html" aria-current="page">Quiz</a>
         <a class="footer-nav-link" href="dice.html">Weekend Dice</a>
         <a class="footer-nav-link" href="membership.html">Membership</a>
       </nav>
@@ -180,10 +184,11 @@
     </div>
   </footer>
 
-  <!-- Bootstrap 5 JS Bundle (vanilla JS, required for mobile navbar toggle) -->
+  <!-- Bootstrap 5 JS Bundle (vanilla JS) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-  <!-- Quiz Data & Logic (relative path from pages/) -->
+  <!-- Quiz Data & Logic and Shared Mobile Nav (relative paths from pages/) -->
   <script src="../js/quiz.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

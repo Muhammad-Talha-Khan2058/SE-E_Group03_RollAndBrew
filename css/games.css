@@ -8,24 +8,24 @@
    ========================================================================== */
 
 :root {
-  /* Core Palette */
-  --bg-cream: #FAF5EE;
-  --bg-cream-alt: #F3EADF;
-  --surface-card: #FFFDF9;
-  --espresso: #3D251E;
-  --espresso-dark: #2B1914;
-  --espresso-light: #5A3A30;
-  --border-warm: #D8C8B4;
-  --border-strong: #C2AD94;
+  /* Core Palette (Unified Roll & Brew Tokens) */
+  --bg-cream: #f6efe2;
+  --bg-cream-alt: #efe4d1;
+  --surface-card: #fffdf9;
+  --espresso: #351f12;
+  --espresso-dark: #26150c;
+  --espresso-light: #4a2c1a;
+  --border-warm: #e4d6c1;
+  --border-strong: #ceba9e;
 
   /* Accent & Text */
-  --accent-caramel: #B56E33;
-  --accent-caramel-soft: #EFE1D1;
-  --text-primary: #2D1B15;
-  --text-body: #4C372F;
-  --text-muted: #6E574E;
-  --text-on-espresso: #FAF5EE;
-  --text-on-espresso-muted: #E3D5C4;
+  --accent-caramel: #c28144;
+  --accent-caramel-soft: #ead6be;
+  --text-primary: #2a180e;
+  --text-body: #4d3728;
+  --text-muted: #694c3a;
+  --text-on-espresso: #f6efe2;
+  --text-on-espresso-muted: #dfd0bc;
 
   /* Difficulty & Status Badges */
   --badge-easy-bg: #E7F3EB;
@@ -53,8 +53,8 @@
   --status-reserved-border: #E8CFA0;
 
   /* Typography */
-  --font-serif: "Fraunces", "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-sans: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Layout, Radii & Elevation */
   --container-max: 1180px;

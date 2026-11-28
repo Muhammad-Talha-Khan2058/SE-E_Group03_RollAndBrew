@@ -11,25 +11,25 @@
    ========================================================================== */
 
 :root {
-  --cafe-brown: #3B2418;
-  --cafe-brown-dark: #26160E;
-  --cafe-brown-hover: #4F3121;
-  --cafe-cream: #FAF3E8;
-  --cafe-card: #FFFDF9;
-  --cafe-border: #E5D4BE;
-  --cafe-accent: #C88A4B;
-  --cafe-accent-soft: #F7E8D0;
-  --cafe-text: #2A1A11;
-  --cafe-text-muted: #5C4033;
-  --cafe-success: #246A3B;
-  --cafe-success-bg: #E7F5EC;
+  --cafe-brown: #351f12;
+  --cafe-brown-dark: #26150c;
+  --cafe-brown-hover: #4a2c1a;
+  --cafe-cream: #f6efe2;
+  --cafe-card: #fffdf9;
+  --cafe-border: #e4d6c1;
+  --cafe-accent: #c28144;
+  --cafe-accent-soft: #ead6be;
+  --cafe-text: #2a180e;
+  --cafe-text-muted: #694c3a;
+  --cafe-success: #246a3b;
+  --cafe-success-bg: #e7f5ec;
   --cafe-radius: 1rem;
-  --cafe-shadow: 0 8px 24px rgba(59, 36, 24, 0.08);
+  --cafe-shadow: 0 8px 24px rgba(53, 31, 18, 0.08);
 }
 
 /* Base Typography & Background */
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--cafe-cream);
   color: var(--cafe-text);
   min-height: 100vh;

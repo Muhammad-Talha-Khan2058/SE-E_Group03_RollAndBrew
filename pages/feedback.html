@@ -6,28 +6,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feedback | Roll &amp; Brew</title>
 
-  <!-- Relative path going up one folder from pages/ to css/style.css -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Relative path going up one folder from pages/ to css/ -->
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/theme.css">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
   <!-- Site header containing the cafe brand and primary navigation -->
   <header class="site-header">
-    <div class="header-container">
-      <a href="../index.html" class="brand-logo">Roll &amp; Brew</a>
+    <div class="nav-container">
+      <a class="brand-logo" href="../index.html" aria-label="Roll &amp; Brew Home">
+        <img class="brand-logo-img" src="../images/logo.png" alt="Roll &amp; Brew Board Game Café logo" width="44" height="44" />
+        <span class="brand-text">
+          <span class="brand-name">Roll &amp; Brew</span>
+          <span class="brand-tag">Board Game Café</span>
+        </span>
+      </a>
 
-      <!-- Top navigation bar linking between the site pages -->
-      <nav class="main-nav" aria-label="Primary Navigation">
-        <ul>
-          <li><a href="faq.html">FAQ &amp; House Rules</a></li>
-          <li><a href="location.html">Location &amp; Hours</a></li>
-          <li><a href="feedback.html" aria-current="page">Feedback</a></li>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="../index.html">Home</a></li>
+          <li><a class="nav-link" href="board-games.html">Board Games</a></li>
+          <li><a class="nav-link" href="card-games.html">Card Games</a></li>
+          <li><a class="nav-link" href="game-details.html">Game Details</a></li>
+          <li><a class="nav-link" href="../snacks.html">Snacks</a></li>
+          <li><a class="nav-link" href="../drinks.html">Drinks</a></li>
+          <li><a class="nav-link" href="../bill.html">Bill <span class="bill-badge" id="navBillCount" aria-label="Items in bill">0</span></a></li>
+          <li><a class="nav-link" href="events.html">Events</a></li>
+          <li><a class="nav-link" href="signup.html">Sign-up</a></li>
+          <li><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="dice.html">Weekend Dice</a></li>
+          <li><a class="nav-link" href="membership.html">Membership</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="location.html">Location</a></li>
+          <li><a class="nav-link nav-link--active" href="feedback.html" aria-current="page">Feedback</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- Main content area unique to the Feedback page -->
-  <main class="page-content">
+  <main id="main-content" class="page-content">
     <!-- Page introduction / title section -->
     <section class="page-hero" aria-labelledby="page-title">
       <h1 id="page-title">Feedback</h1>

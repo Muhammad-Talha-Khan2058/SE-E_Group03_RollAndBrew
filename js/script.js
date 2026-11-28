@@ -9,7 +9,8 @@
 const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector(".primary-nav");
 
-if (navToggle && primaryNav) {
+if (navToggle && primaryNav && !navToggle.dataset.navBound) {
+  navToggle.dataset.navBound = "true";
   const setMenuOpen = (isOpen) => {
     navToggle.setAttribute("aria-expanded", String(isOpen));
     primaryNav.classList.toggle("is-open", isOpen);
@@ -42,11 +43,42 @@ if (navToggle && primaryNav) {
   });
 
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 768 && primaryNav.classList.contains("is-open")) {
+    if (window.innerWidth > 992 && primaryNav.classList.contains("is-open")) {
       setMenuOpen(false);
     }
   });
 }
+
+/* ==========================================================================
+   Shared Nav Bill Badge Sync (keeps Bill badge updated across all pages)
+   ========================================================================== */
+function syncNavBillCountFromStorage() {
+  const badge = document.getElementById("navBillCount");
+  if (!badge) return;
+  let totalQty = 0;
+  try {
+    const raw = localStorage.getItem("rollAndBrewBill");
+    const parsed = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(parsed)) {
+      totalQty = parsed.reduce((sum, item) => {
+        const qty = parseInt(item && item.qty ? item.qty : 1, 10);
+        return sum + (Number.isNaN(qty) ? 0 : Math.min(20, Math.max(1, qty)));
+      }, 0);
+    }
+  } catch {
+    totalQty = 0;
+  }
+  badge.textContent = String(totalQty);
+  badge.setAttribute("aria-label", `${totalQty} ${totalQty === 1 ? "item" : "items"} in bill`);
+}
+
+document.addEventListener("DOMContentLoaded", syncNavBillCountFromStorage);
+window.addEventListener("pageshow", syncNavBillCountFromStorage);
+window.addEventListener("storage", (event) => {
+  if (!event.key || event.key === "rollAndBrewBill") {
+    syncNavBillCountFromStorage();
+  }
+});
 
 /* ==========================================================================
    Contact Form Validation & Local Submission

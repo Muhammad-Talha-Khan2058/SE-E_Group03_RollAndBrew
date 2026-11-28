@@ -107,10 +107,11 @@
     const toggleBtn = document.querySelector(".nav-toggle");
     const primaryNav = document.getElementById("primary-navigation");
 
-    if (!toggleBtn || !primaryNav) {
+    if (!toggleBtn || !primaryNav || toggleBtn.dataset.navBound === "true") {
       return;
     }
 
+    toggleBtn.dataset.navBound = "true";
     toggleBtn.addEventListener("click", function () {
       const isOpen = primaryNav.classList.toggle("is-open");
       toggleBtn.setAttribute("aria-expanded", String(isOpen));
@@ -445,6 +446,12 @@
    */
   function setActiveCategoryNavLink(href) {
     const navLinks = document.querySelectorAll(".primary-nav .nav-link");
+    const hasDetailsNavLink = Array.from(navLinks).some(function (link) {
+      return link.getAttribute("href") === "game-details.html";
+    });
+    if (hasDetailsNavLink) {
+      return;
+    }
     navLinks.forEach(function (link) {
       const isMatch = link.getAttribute("href") === href;
       link.classList.toggle("nav-link--active", isMatch);

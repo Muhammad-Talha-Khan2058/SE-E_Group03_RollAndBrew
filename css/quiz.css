@@ -4,17 +4,17 @@
    ========================================================================== */
 
 :root {
-  --bg-cream: #FAF3E8;
-  --bg-card: #FFFDF9;
-  --bg-latte: #F2E5D5;
-  --brown-dark: #3B2418;
-  --brown-hover: #28170F;
-  --brown-medium: #5C3A28;
-  --caramel: #9C6644;
-  --border-warm: #E2D2BC;
-  --text-main: #2A1810;
-  --text-muted: #5C473C;
-  --focus-ring: #9C6644;
+  --bg-cream: #f6efe2;
+  --bg-card: #fffdf9;
+  --bg-latte: #efe4d1;
+  --brown-dark: #351f12;
+  --brown-hover: #26150c;
+  --brown-medium: #4a2c1a;
+  --caramel: #c28144;
+  --border-warm: #e4d6c1;
+  --text-main: #2a180e;
+  --text-muted: #694c3a;
+  --focus-ring: #c28144;
 }
 
 /* Base layout & sticky footer */
@@ -29,7 +29,7 @@ body {
   min-height: 100vh;
   background-color: var(--bg-cream);
   color: var(--text-main);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
 }
 

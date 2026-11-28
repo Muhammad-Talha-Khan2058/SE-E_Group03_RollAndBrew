@@ -8,18 +8,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="../css/games.css" />
+  <link rel="stylesheet" href="../css/theme.css" />
 </head>
 <body data-page="catalog" data-default-type="board">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header">
-    <div class="container navbar">
+    <div class="nav-container">
       <a class="brand-logo" href="../index.html" aria-label="Roll &amp; Brew Home">
-        <span class="brand-mark" aria-hidden="true">R&amp;B</span>
+        <img class="brand-logo-img" src="../images/logo.png" alt="Roll &amp; Brew Board Game Café logo" width="44" height="44" />
         <span class="brand-text">
           <span class="brand-name">Roll &amp; Brew</span>
           <span class="brand-tag">Board Game Café</span>
@@ -33,18 +34,31 @@
         aria-controls="primary-navigation"
         aria-label="Toggle navigation menu"
       >
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
-        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
       </button>
 
-      <nav id="primary-navigation" class="primary-nav" aria-label="Primary navigation">
+      <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
           <li><a class="nav-link" href="../index.html">Home</a></li>
           <li><a class="nav-link nav-link--active" href="board-games.html" aria-current="page">Board Games</a></li>
           <li><a class="nav-link" href="card-games.html">Card Games</a></li>
+          <li><a class="nav-link" href="game-details.html">Game Details</a></li>
+          <li><a class="nav-link" href="../snacks.html">Snacks</a></li>
+          <li><a class="nav-link" href="../drinks.html">Drinks</a></li>
+          <li><a class="nav-link" href="../bill.html">Bill <span class="bill-badge" id="navBillCount" aria-label="Items in bill">0</span></a></li>
           <li><a class="nav-link" href="events.html">Events</a></li>
+          <li><a class="nav-link" href="signup.html">Sign-up</a></li>
+          <li><a class="nav-link" href="gallery.html">Gallery</a></li>
+          <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="dice.html">Weekend Dice</a></li>
+          <li><a class="nav-link" href="membership.html">Membership</a></li>
+          <li><a class="nav-link" href="about.html">About</a></li>
           <li><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="location.html">Location</a></li>
+          <li><a class="nav-link" href="feedback.html">Feedback</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -188,5 +202,6 @@
 
   <script src="../js/games-data.js"></script>
   <script src="../js/games.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

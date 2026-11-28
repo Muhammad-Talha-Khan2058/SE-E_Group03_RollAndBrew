@@ -116,8 +116,8 @@
           <circle cx="25" cy="59" r="6" fill="#FBF5EA"/>
           <circle cx="59" cy="59" r="6" fill="#FBF5EA"/>
         </g>
-        <text x="320" y="246" text-anchor="middle" fill="#FBF5EA" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">${escapeHtml(eventItem.game)}</text>
-        <text x="320" y="284" text-anchor="middle" fill="#C9A27A" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="600">Roll &amp; Brew Tabletop Session</text>
+        <text x="320" y="246" text-anchor="middle" fill="#F6EFE2" font-family="Plus Jakarta Sans, Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">${escapeHtml(eventItem.game)}</text>
+        <text x="320" y="284" text-anchor="middle" fill="#EAD6BE" font-family="Plus Jakarta Sans, Segoe UI, Arial, sans-serif" font-size="18" font-weight="600">Roll &amp; Brew Tabletop Session</text>
       </svg>
     `.trim();
 

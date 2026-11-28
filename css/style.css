@@ -5,14 +5,14 @@
 
 /* 1. Color Variables (easy to reuse and update across all pages) */
 :root {
-  --bg-cream: #f6efe4;          /* Warm cream page background */
+  --bg-cream: #f6efe2;          /* Warm cream page background */
   --card-cream: #fffdf9;        /* Off-white/cream for main content cards */
-  --box-beige: #efe3d2;         /* Soft beige for FAQ and rule boxes */
-  --coffee-dark: #4a2e1b;       /* Dark coffee brown for header, footer & accents */
-  --coffee-medium: #6b442a;     /* Lighter coffee brown for hover states */
-  --text-espresso: #1a110b;     /* Dark espresso for crisp, readable text */
-  --text-muted: #5c493c;        /* Muted brown for subtitles and secondary text */
-  --border-warm: #dccbb6;       /* Soft warm border for cards and inputs */
+  --box-beige: #efe4d1;         /* Soft beige for FAQ and rule boxes */
+  --coffee-dark: #351f12;       /* Dark coffee brown for header, footer & accents */
+  --coffee-medium: #4a2c1a;     /* Lighter coffee brown for hover states */
+  --text-espresso: #2a180e;     /* Dark espresso for crisp, readable text */
+  --text-muted: #694c3a;        /* Muted brown for subtitles and secondary text */
+  --border-warm: #e4d6c1;       /* Soft warm border for cards and inputs */
 }
 
 /* 2. Global Reset & Sticky Footer Layout */
@@ -25,7 +25,7 @@ body {
   min-height: 100vh;            /* Full viewport height so footer stays at bottom */
   display: flex;
   flex-direction: column;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   color: var(--text-espresso);
   background-color: var(--bg-cream);
@@ -543,8 +543,8 @@ button:hover,
     align-items: stretch;
   }
 
-  button,
-  .btn {
+  .page-content button,
+  .page-content .btn {
     width: 100%;
     text-align: center;
   }

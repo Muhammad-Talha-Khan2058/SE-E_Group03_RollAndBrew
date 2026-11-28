@@ -1,16 +1,16 @@
 :root {
-  --cafe-brown: #3B2418;
-  --cafe-brown-hover: #2C1A11;
-  --cafe-brown-soft: #5A3928;
-  --cafe-cream: #FAF3E8;
-  --cafe-cream-deep: #F2E5D3;
-  --cafe-surface: #FFFFFF;
-  --cafe-border: #E5D4BE;
-  --cafe-gold: #C88A3B;
-  --cafe-gold-soft: #F7E8D0;
-  --cafe-text: #2A1910;
-  --cafe-muted: #6C5344;
-  --cafe-success: #2A6F4E;
+  --cafe-brown: #351f12;
+  --cafe-brown-hover: #26150c;
+  --cafe-brown-soft: #4a2c1a;
+  --cafe-cream: #f6efe2;
+  --cafe-cream-deep: #efe4d1;
+  --cafe-surface: #fffdf9;
+  --cafe-border: #e4d6c1;
+  --cafe-gold: #c28144;
+  --cafe-gold-soft: #ead6be;
+  --cafe-text: #2a180e;
+  --cafe-muted: #694c3a;
+  --cafe-success: #246a3b;
   --cafe-radius: 1.25rem;
 }
 
@@ -19,7 +19,7 @@ html {
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--cafe-cream);
   color: var(--cafe-text);
   line-height: 1.6;

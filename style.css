@@ -4,21 +4,21 @@
    ========================================================================== */
 
 :root {
-  /* Core Palette */
-  --espresso-dark: #231710;
-  --espresso: #3b2518;
-  --espresso-mid: #563724;
-  --espresso-muted: #7a5843;
+  /* Core Palette (Unified Roll & Brew Tokens) */
+  --espresso-dark: #26150c;
+  --espresso: #351f12;
+  --espresso-mid: #4a2c1a;
+  --espresso-muted: #694c3a;
 
-  --cream-bg: #faf4ea;
-  --cream-card: #fffaf2;
-  --cream-soft: #f2e6d5;
-  --cream-border: #e3d1b8;
+  --cream-bg: #f6efe2;
+  --cream-card: #fffdf9;
+  --cream-soft: #efe4d1;
+  --cream-border: #e4d6c1;
 
-  --amber: #d4822a;
-  --amber-hover: #b86a19;
-  --amber-soft: #fbe8cf;
-  --amber-glow: rgba(212, 130, 42, 0.22);
+  --amber: #c28144;
+  --amber-hover: #a96b31;
+  --amber-soft: #ead6be;
+  --amber-glow: rgba(194, 129, 68, 0.22);
 
   /* Accent Badges */
   --veg-bg: #e7f3e8;
@@ -30,8 +30,8 @@
   --spicy-border: #f3c1b8;
 
   /* Typography */
-  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
-  --font-body: "Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Radii & Shadows */
   --radius-sm: 8px;
