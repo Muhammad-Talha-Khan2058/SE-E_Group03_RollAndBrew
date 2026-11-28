@@ -1,6 +1,6 @@
 /* ==========================================================================
    Roll & Brew — Board & Card Games Catalog Data
-   Vanilla JavaScript dataset of 12 curated tabletop games.
+   Vanilla JavaScript dataset of 16 curated tabletop games.
    ========================================================================== */
 
 (function (global) {
@@ -174,6 +174,62 @@
         "Lead a rival spacefaring corporation through deep-engine card combos to make the Red Planet habitable.",
       rules:
         "Played across generations until Mars reaches +8°C temperature, 14% oxygen, and 9 ocean tiles. Each generation, players buy drafted project cards and take 1–2 actions per turn—playing cards, funding Awards, claiming Milestones, or converting plants and heat—while raising their Terraform Rating and resource production. After each generation, produce megacredits and resources. Once all three global parameters are complete, score Terraform Rating, board tiles, Awards, Milestones, and cards."
+    },
+    {
+      id: 13,
+      title: "Chess",
+      type: "board",
+      minPlayers: 2,
+      maxPlayers: 2,
+      duration: "30–60 min",
+      difficulty: "Medium",
+      status: "Available",
+      description:
+        "Outthink your opponent across an 8x8 checkered battlefield in the timeless two-player duel of tactics, positioning, and checkmate.",
+      rules:
+        "Setup places an 8x8 board with a light square in each player's bottom-right corner; each side arranges 8 pawns across the second rank and 8 back-rank pieces (rooks on the corners, knights, bishops, queen on her matching color, and king beside her). White moves first, and players alternate moving one piece per turn according to its movement pattern, capturing opposing pieces by landing on their square. Special rules include castling, en passant pawn captures, and promoting a pawn that reaches the far rank. Checkmating the opponent's king wins, while stalemate, insufficient material, or agreed repetition ends in a draw."
+    },
+    {
+      id: 14,
+      title: "Ludo",
+      type: "board",
+      minPlayers: 2,
+      maxPlayers: 4,
+      duration: "30–45 min",
+      difficulty: "Easy",
+      status: "Available",
+      description:
+        "Roll the die and race all four colored tokens from your starting yard around the cross-shaped track into the home triangle.",
+      rules:
+        "Each player chooses a color and places their 4 tokens in their matching corner yard. Players take turns rolling a six-sided die; rolling a 6 lets you move a token onto your starting square or advance an active token 6 spaces and grants a bonus roll. Tokens travel clockwise around the perimeter track and up their colored home column—landing on an opponent's unprotected token sends it back to its yard. Safe star squares protect tokens from capture. The first player to move all 4 tokens into the center home triangle by exact roll wins."
+    },
+    {
+      id: 15,
+      title: "Monopoly",
+      type: "board",
+      minPlayers: 2,
+      maxPlayers: 6,
+      duration: "90–180 min",
+      difficulty: "Easy",
+      status: "Available",
+      description:
+        "Buy iconic properties, build houses and hotels, and negotiate high-stakes trades to bankrupt every rival at the table.",
+      rules:
+        "Setup places Chance and Community Chest decks on the board, sets a Banker, and gives each player $1,500 in starting cash and a token on GO. On your turn, roll two dice and advance clockwise, collecting $200 whenever you pass GO. You may buy unowned properties you land on (or auction them if declined), pay rent on opponent-owned spaces, and draw Chance or Community Chest cards when prompted. Once you own a complete color set, build houses evenly and upgrade to hotels to raise rent; the last player remaining solvent after all others go bankrupt wins."
+    },
+    {
+      id: 16,
+      title: "Scrabble",
+      type: "board",
+      minPlayers: 2,
+      maxPlayers: 4,
+      duration: "45–60 min",
+      difficulty: "Medium",
+      status: "Checked Out",
+      description:
+        "Arrange letter tiles on a 15x15 crossword board to craft high-scoring words across Double and Triple Word bonus squares.",
+      rules:
+        "Setup mixes all 100 letter tiles inside the cloth bag; each player draws 1 tile to determine turn order, returns them, and draws a starting rack of 7 tiles. The first player forms a word of two or more letters covering the center star square, and subsequent plays must connect horizontally or vertically to existing words on the 15x15 grid. Score the sum of letter values multiplied by any newly covered Double or Triple Letter and Word squares (plus a 50-point bonus for playing all 7 tiles in one turn), then refill your rack from the bag. Play ends when the bag is empty and one player clears their rack or everyone passes consecutively; the highest total score wins."
     }
   ];
 
