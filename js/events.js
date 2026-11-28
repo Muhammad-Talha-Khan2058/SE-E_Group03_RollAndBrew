@@ -60,14 +60,27 @@
 
   function formatEventDate(isoString) {
     const date = new Date(isoString);
-    return date.toLocaleString("en-PK", {
+    if (Number.isNaN(date.getTime())) return "";
+
+    const parts = new Intl.DateTimeFormat("en-US", {
       weekday: "short",
-      month: "short",
       day: "numeric",
+      month: "short",
       year: "numeric",
       hour: "numeric",
-      minute: "2-digit"
+      minute: "2-digit",
+      hour12: true,
+      hourCycle: "h12",
+      timeZone: "Asia/Karachi"
+    }).formatToParts(date);
+
+    const lookup = {};
+    parts.forEach((part) => {
+      lookup[part.type] = part.value;
     });
+
+    const period = (lookup.dayPeriod || "").toUpperCase();
+    return `${lookup.weekday}, ${lookup.day} ${lookup.month} ${lookup.year} · ${lookup.hour}:${lookup.minute} ${period}`;
   }
 
   function formatFee(fee) {
