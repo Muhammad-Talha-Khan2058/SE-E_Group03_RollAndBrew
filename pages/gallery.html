@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Roll &amp; Brew — Board Game Café</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="../css/gallery.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg site-navbar" aria-label="Primary navigation">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">
+          <span class="brand-mark" aria-hidden="true">R&amp;B</span>
+          <span>Roll &amp; Brew</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#primaryNavbar"
+          aria-controls="primaryNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="primaryNavbar">
+          <ul class="navbar-nav ms-auto gap-lg-1 mt-3 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="games.html">Games</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="menu.html">Menu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="events.html">Events</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signup.html">Sign-up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="gallery.html">Gallery</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="gallery-hero">
+      <div class="container">
+        <span class="hero-kicker">Café Moments</span>
+        <h1 class="display-5 mb-2">Photo Gallery</h1>
+        <p class="mb-0">
+          Snapshots from packed tournament tables, late-night game sessions, fresh espresso pours, and our favorite tabletop boxes at Roll &amp; Brew.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-5" aria-label="Photo gallery">
+      <div class="container">
+        <div class="controls-bar mb-4">
+          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Filter photos by category">
+              <button type="button" class="filter-btn active" data-filter-category="All" aria-pressed="true">
+                All
+              </button>
+              <button type="button" class="filter-btn" data-filter-category="Tournaments" aria-pressed="false">
+                Tournaments
+              </button>
+              <button type="button" class="filter-btn" data-filter-category="Game Nights" aria-pressed="false">
+                Game Nights
+              </button>
+              <button type="button" class="filter-btn" data-filter-category="Café &amp; Food" aria-pressed="false">
+                Café &amp; Food
+              </button>
+              <button type="button" class="filter-btn" data-filter-category="Games" aria-pressed="false">
+                Games
+              </button>
+            </div>
+            <p id="resultsSummary" class="results-summary mb-0" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <div id="galleryGrid" class="row g-4"></div>
+
+        <div id="noPhotosMessage" class="empty-state d-none" role="status">
+          <h2>No photos found</h2>
+          <p class="mb-3">
+            No gallery photos match the selected category right now. Reset the filter to browse all café snapshots.
+          </p>
+          <button type="button" id="resetFilterBtn" class="btn-reset-filters">
+            Show all photos
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div
+    class="modal fade gallery-modal"
+    id="galleryLightboxModal"
+    tabindex="-1"
+    aria-labelledby="lightboxTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content lightbox-content">
+        <div class="modal-header lightbox-header">
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span id="lightboxCounter" class="lightbox-counter" aria-live="polite">1 of 12</span>
+            <span id="lightboxCategory" class="lightbox-category-badge"></span>
+          </div>
+          <button
+            type="button"
+            class="btn-close lightbox-close-btn"
+            data-bs-dismiss="modal"
+            aria-label="Close lightbox"
+          ></button>
+        </div>
+
+        <div class="modal-body lightbox-body">
+          <div class="lightbox-stage">
+            <button
+              type="button"
+              id="lightboxPrevBtn"
+              class="lightbox-nav-btn lightbox-prev"
+              aria-label="Previous photo"
+            >
+              <span aria-hidden="true">&#8249;</span>
+            </button>
+
+            <figure class="lightbox-figure mb-0">
+              <img id="lightboxImage" class="lightbox-img" src="" alt="" />
+            </figure>
+
+            <button
+              type="button"
+              id="lightboxNextBtn"
+              class="lightbox-nav-btn lightbox-next"
+              aria-label="Next photo"
+            >
+              <span aria-hidden="true">&#8250;</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="modal-footer lightbox-footer">
+          <div class="lightbox-meta-text">
+            <div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-1">
+              <h2 id="lightboxTitle" class="lightbox-title h5 mb-0"></h2>
+              <span id="lightboxDate" class="lightbox-date"></span>
+            </div>
+            <p id="lightboxCaption" class="lightbox-caption mb-0"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row gy-3 align-items-center">
+        <div class="col-12 col-md-6">
+          <p class="fw-bold mb-1">Roll &amp; Brew — Board Game Café</p>
+          <p class="footer-attribution mb-0">
+            Images on this website were generated using [tool name]
+          </p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item me-3"><a href="../index.html">Home</a></li>
+            <li class="list-inline-item me-3"><a href="games.html">Games</a></li>
+            <li class="list-inline-item me-3"><a href="menu.html">Menu</a></li>
+            <li class="list-inline-item me-3"><a href="events.html">Events</a></li>
+            <li class="list-inline-item me-3"><a href="signup.html">Sign-up</a></li>
+            <li class="list-inline-item"><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+  <script src="../js/gallery.js"></script>
+</body>
+</html>
