@@ -720,6 +720,83 @@ select {
   margin-bottom: 1.25rem;
 }
 
+.empty-state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   Game Details Page
+   -------------------------------------------------------------------------- */
+.detail-breadcrumb {
+  margin-bottom: 1.15rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.detail-breadcrumb a {
+  color: var(--espresso);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.detail-breadcrumb a:hover {
+  color: var(--accent-caramel);
+}
+
+.game-detail-card {
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.detail-title-heading {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.detail-description {
+  font-size: 1rem;
+  color: var(--text-body);
+  margin-bottom: 0.5rem;
+}
+
+.detail-sections {
+  display: grid;
+  gap: 1.1rem;
+  margin-top: 1.25rem;
+}
+
+.detail-section-box {
+  padding: 1.1rem 1.25rem;
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 0.97rem;
+  line-height: 1.7;
+}
+
+.detail-section-box h3 {
+  font-size: 1.08rem;
+  margin-bottom: 0.45rem;
+}
+
+.related-games-section {
+  margin-top: 2.5rem;
+}
+
+.related-games-heading {
+  font-size: 1.35rem;
+  margin-bottom: 1.1rem;
+}
+
 /* --------------------------------------------------------------------------
    Rules Modal Dialog
    -------------------------------------------------------------------------- */
