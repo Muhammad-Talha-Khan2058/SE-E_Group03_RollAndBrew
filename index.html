@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roll &amp; Brew — Board Game Café</title>
+  <meta
+    name="description"
+    content="Roll &amp; Brew is a cozy board game café featuring 50+ curated board games, freshly pulled espresso, house pastries, and welcoming tables open daily 11:00 AM – 12:00 AM."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/home-about-contact.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container nav-container">
+      <a class="brand-logo" href="index.html" aria-label="Roll &amp; Brew Home">
+        <img class="brand-logo-img" src="images/logo.png" alt="" />
+        <span class="brand-text">
+          <span class="brand-name">Roll &amp; Brew</span>
+          <span class="brand-tag">Board Game Café</span>
+        </span>
+      </a>
+
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-list">
+          <li><a class="nav-link nav-link--active" href="index.html" aria-current="page">Home</a></li>
+          <li><a class="nav-link" href="pages/about.html">About</a></li>
+          <li><a class="nav-link" href="pages/events.html">Events</a></li>
+          <li><a class="nav-link" href="pages/signup.html">Game Night</a></li>
+          <li><a class="nav-link" href="pages/data.html">Game Details</a></li>
+          <li><a class="nav-link" href="pages/quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="pages/faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="pages/location.html">Location</a></li>
+          <li><a class="nav-link" href="pages/feedback.html">Feedback</a></li>
+          <li><a class="nav-link" href="pages/contact.html">Contact</a></li>
+          <li><a class="nav-link" href="pages/bill.html">Bill</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-card">
+          <p class="hours-badge">
+            <span class="badge-dot" aria-hidden="true"></span>
+            Open Today: 11:00 AM – 12:00 AM
+          </p>
+          <h1 id="hero-heading" class="hero-title">Roll the Dice. Sip the Coffee.</h1>
+          <p class="hero-intro">
+            Your cozy neighborhood board game lounge—50+ tabletop classics, specialty espresso, and freshly baked snacks.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary-hero" href="pages/data.html">Explore Our Games</a>
+            <a class="btn btn-secondary-hero" href="pages/contact.html">Plan Your Visit</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game of the Week Section -->
+    <section class="section" aria-labelledby="gotw-heading">
+      <div class="container">
+        <article class="gotw-card">
+          <div class="gotw-top">
+            <div class="gotw-badges">
+              <span class="gotw-eyebrow">Game of the Week</span>
+              <span class="tag-pill gotw-meta-pill">3–4 Players &bull; 75 Min</span>
+            </div>
+            <div class="gotw-emblem" aria-hidden="true">
+              <svg viewBox="0 0 28 28" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polygon points="14,2 24.5,8 24.5,20 14,26 3.5,20 3.5,8" />
+                <polygon points="14,7.5 19.5,10.7 19.5,17.3 14,20.5 8.5,17.3 8.5,10.7" />
+              </svg>
+            </div>
+          </div>
+
+          <h2 id="gotw-heading" class="gotw-title">Settlers of Catan</h2>
+          <p class="gotw-description">
+            Gather resources and negotiate trades of timber, brick, and grain to build winding roads, expand your settlements, and outwit rivals across the island of Catan.
+          </p>
+
+          <div class="gotw-footer">
+            <p class="gotw-availability">
+              <span class="availability-dot" aria-hidden="true"></span>
+              Table #4 Copy Available
+            </p>
+            <a class="btn btn-dark" href="pages/data.html">Game details</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Why Visit Roll & Brew Section -->
+    <section class="section section--tinted" aria-labelledby="why-visit-heading">
+      <div class="container">
+        <div class="section-header section-header--center">
+          <p class="section-eyebrow">The Café Experience</p>
+          <h2 id="why-visit-heading" class="section-title">Why Visit Roll &amp; Brew</h2>
+        </div>
+
+        <div class="cards-grid cards-grid--3">
+          <article class="card why-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9">
+                <rect x="3" y="4" width="12" height="12" rx="2.5" />
+                <rect x="9" y="8" width="12" height="12" rx="2.5" />
+                <circle cx="15" cy="14" r="1.2" fill="currentColor" />
+              </svg>
+            </div>
+            <span class="why-highlight">50+</span>
+            <h3 class="card-title">Curated Games</h3>
+            <p class="card-text">Party cards to deep strategy</p>
+          </article>
+
+          <article class="card why-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9">
+                <path d="M5 9h11v6a5.5 5.5 0 0 1-5.5 5.5h0A5.5 5.5 0 0 1 5 15V9Z" />
+                <path d="M16 10.5h2a2.5 2.5 0 0 1 0 5h-2" />
+                <path d="M8 5.5c0-1 1-1.5 1-2.5M12 5.5c0-1 1-1.5 1-2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+            <span class="why-highlight">Fresh Roast</span>
+            <h3 class="card-title">Craft Coffee</h3>
+            <p class="card-text">House lattes &amp; fresh bites</p>
+          </article>
+
+          <article class="card why-card">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.9">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9.5" cy="7" r="4" />
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <span class="why-highlight">Unplugged</span>
+            <h3 class="card-title">Screen-Free</h3>
+            <p class="card-text">Cozy booths for real connection</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Explore Café Sections Row -->
+    <section class="section explore-section" aria-labelledby="explore-heading">
+      <div class="container">
+        <div class="explore-row">
+          <h2 id="explore-heading" class="explore-heading">Explore Café Sections</h2>
+          <nav class="explore-pills" aria-label="Explore Café Sections">
+            <a class="sand-pill" href="pages/data.html">Board &amp; Card Games</a>
+            <a class="sand-pill" href="pages/bill.html">Snacks &amp; Drinks Menu</a>
+            <a class="sand-pill" href="pages/events.html">Events &amp; Gallery</a>
+            <a class="sand-pill" href="pages/quiz.html">Quiz &amp; Dice Roller</a>
+            <a class="sand-pill" href="pages/faq.html">FAQ &amp; Hours</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Group Bookings Banner -->
+    <section class="section booking-section" aria-labelledby="bookings-heading">
+      <div class="container">
+        <div class="booking-banner">
+          <div class="booking-content">
+            <h2 id="bookings-heading" class="booking-title">Questions or Group Bookings?</h2>
+            <p class="booking-subtitle">
+              Reserve a booth for 2–6 players or send us a quick message.
+            </p>
+          </div>
+          <a class="btn btn-cream" href="pages/contact.html">Contact Us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-simple">
+      <p class="footer-copyright">&copy; 2026 Roll &amp; Brew Board Game Café</p>
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <a href="index.html">Home</a>
+        <a href="pages/about.html">About</a>
+        <a href="pages/events.html">Events</a>
+        <a href="pages/signup.html">Game Night</a>
+        <a href="pages/data.html">Game Details</a>
+        <a href="pages/quiz.html">Quiz</a>
+        <a href="pages/faq.html">FAQ</a>
+        <a href="pages/location.html">Location</a>
+        <a href="pages/feedback.html">Feedback</a>
+        <a href="pages/contact.html">Contact</a>
+        <a href="pages/bill.html">Bill</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

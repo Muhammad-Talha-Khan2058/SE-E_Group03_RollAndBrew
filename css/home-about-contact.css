@@ -1,0 +1,1639 @@
+/* ==========================================================================
+   Roll & Brew — Shared Styles for Home, About & Contact Pages
+   Palette:
+     - Warm Cream Background:     #F6EFE2
+     - Tinted Cream Section:      #EFE4D1
+     - Off-White Card Surface:    #FFFDF9
+     - Dark Roasted Coffee Brown: #2F1B10 / #3B2314 / #4A2C1A
+     - Warm Caramel Accent:       #B8773D
+   ========================================================================== */
+
+:root {
+  --bg-cream: #f6efe2;
+  --bg-cream-tint: #efe4d1;
+  --surface-offwhite: #fffdf9;
+  --coffee-darkest: #26150c;
+  --coffee-dark: #351f12;
+  --coffee-medium: #4a2c1a;
+  --coffee-muted: #694c3a;
+  --accent-caramel: #c28144;
+  --accent-caramel-soft: #ead6be;
+  --border-warm: #e4d6c1;
+  --text-dark: #2a180e;
+  --text-body: #4d3728;
+  --text-on-dark: #f6efe2;
+  --text-on-dark-muted: #dfd0bc;
+
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 8px 24px rgba(47, 27, 16, 0.07);
+  --shadow-card-hover: 0 14px 32px rgba(47, 27, 16, 0.12);
+  --shadow-hero-card: 0 20px 44px rgba(20, 10, 5, 0.35);
+
+  --container-max: 1160px;
+  --transition-fast: 0.2s ease;
+}
+
+/* Base & Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-body);
+  background-color: var(--bg-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent-caramel);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--coffee-dark);
+  color: var(--text-on-dark);
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.container {
+  width: min(100% - 2.5rem, var(--container-max));
+  margin-inline: auto;
+}
+
+/* ==========================================================================
+   Header & Navigation Bar (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--coffee-dark);
+  border-bottom: 1px solid rgba(246, 239, 226, 0.14);
+  box-shadow: 0 4px 18px rgba(31, 17, 9, 0.18);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  min-height: 76px;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-on-dark);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.brand-logo:hover {
+  opacity: 0.92;
+}
+
+.brand-logo-img {
+  display: block;
+  height: 46px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-on-dark);
+  white-space: nowrap;
+}
+
+.brand-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-caramel-soft);
+  white-space: nowrap;
+  margin-top: 0.15rem;
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.05rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-on-dark-muted);
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-link:hover {
+  background-color: rgba(246, 239, 226, 0.12);
+  color: var(--text-on-dark);
+}
+
+/* Active Cream Pill Button */
+.nav-link--active,
+.nav-link[aria-current="page"] {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link--active:hover,
+.nav-link[aria-current="page"]:hover {
+  background-color: var(--surface-offwhite);
+  color: var(--coffee-darkest);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0 10px;
+  background-color: rgba(246, 239, 226, 0.08);
+  border: 1px solid rgba(246, 239, 226, 0.25);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-toggle:hover {
+  background-color: rgba(246, 239, 226, 0.16);
+  border-color: rgba(246, 239, 226, 0.42);
+}
+
+.nav-toggle[aria-expanded="true"] {
+  background-color: var(--bg-cream);
+  border-color: var(--bg-cream);
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bg-cream);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform var(--transition-fast), opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+  background-color: var(--coffee-darkest);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@keyframes navSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.1;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Primary Dark Roasted Coffee Brown Button (for cream / off-white surfaces) */
+.btn-dark {
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  border-color: var(--coffee-dark);
+  box-shadow: 0 6px 16px rgba(47, 27, 16, 0.18);
+}
+
+.btn-dark:hover {
+  background-color: var(--coffee-medium);
+  border-color: var(--coffee-medium);
+  box-shadow: 0 10px 22px rgba(47, 27, 16, 0.24);
+}
+
+.btn-outline-dark {
+  background-color: transparent;
+  color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+}
+
+.btn-outline-dark:hover {
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+}
+
+/* Hero Buttons inside the Dark Roasted Coffee Brown Banner */
+.btn-primary-hero {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  border-color: var(--bg-cream);
+  box-shadow: 0 8px 20px rgba(15, 7, 3, 0.3);
+}
+
+.btn-primary-hero:hover {
+  background-color: var(--surface-offwhite);
+  border-color: var(--surface-offwhite);
+}
+
+.btn-secondary-hero {
+  background-color: var(--coffee-darkest);
+  color: var(--bg-cream);
+  border-color: rgba(246, 239, 226, 0.45);
+}
+
+.btn-secondary-hero:hover {
+  background-color: var(--coffee-medium);
+  border-color: var(--bg-cream);
+}
+
+/* ==========================================================================
+   Hero Banner (Centered Dark Roasted Coffee Brown Card on Cream Background)
+   ========================================================================== */
+.hero {
+  padding: 3rem 0 1.25rem;
+  background-color: var(--bg-cream);
+}
+
+.hero-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  margin-inline: auto;
+  padding: 4.25rem 2.5rem;
+  border-radius: var(--radius-lg);
+  color: var(--text-on-dark);
+  background-color: #0d1b38;
+  background-image:
+    linear-gradient(135deg, rgba(10, 22, 48, 0.84) 0%, rgba(17, 36, 74, 0.76) 52%, rgba(24, 49, 98, 0.72) 100%),
+    url("../images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: var(--shadow-hero-card);
+}
+
+.hours-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1rem;
+  margin-bottom: 1.35rem;
+  border-radius: var(--radius-pill);
+  background-color: rgba(246, 239, 226, 0.12);
+  border: 1px solid rgba(246, 239, 226, 0.28);
+  color: var(--accent-caramel-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #8fd18a;
+  box-shadow: 0 0 0 3px rgba(143, 209, 138, 0.22);
+}
+
+.hero-title {
+  font-size: clamp(2.25rem, 4.4vw, 3.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+  margin-bottom: 1.1rem;
+}
+
+.hero-intro {
+  max-width: 58ch;
+  margin-inline: auto;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: var(--text-on-dark-muted);
+  margin-bottom: 2rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.9rem;
+}
+
+/* ==========================================================================
+   Page Sections & Off-White Cards
+   ========================================================================== */
+.section {
+  padding: 4.5rem 0;
+}
+
+.section--tinted {
+  background-color: var(--bg-cream-tint);
+  border-block: 1px solid var(--border-warm);
+}
+
+.section-header {
+  max-width: 640px;
+  margin-bottom: 2.5rem;
+}
+
+.section-header--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-header--center .section-subtitle {
+  margin-inline: auto;
+}
+
+.section-header--split {
+  max-width: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.section-eyebrow {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--accent-caramel);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 2.8vw, 2.35rem);
+  font-weight: 700;
+  margin-bottom: 0.65rem;
+}
+
+.section-subtitle {
+  font-size: 1.02rem;
+  color: var(--coffee-muted);
+  max-width: 58ch;
+}
+
+.cards-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cards-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cards-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Off-White Card Component */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  margin-bottom: 1.2rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.card-text {
+  font-size: 0.96rem;
+  color: var(--text-body);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.card-btn {
+  align-self: flex-start;
+  padding: 0.72rem 1.25rem;
+  font-size: 0.9rem;
+}
+
+.tag-pill {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--coffee-dark);
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 0.95rem;
+}
+
+.game-card .card-text {
+  margin-bottom: 1rem;
+}
+
+.card-meta {
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-warm);
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--coffee-muted);
+}
+
+.menu-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.95rem;
+}
+
+.menu-card-top .tag-pill {
+  margin-bottom: 0;
+}
+
+.menu-price {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--coffee-dark);
+}
+
+.menu-card .card-text {
+  margin-bottom: 0;
+}
+
+.step-card .card-text {
+  margin-bottom: 0;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 1.1rem;
+}
+
+/* ==========================================================================
+   Game of the Week Card
+   ========================================================================== */
+.gotw-card {
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-left: 6px solid var(--coffee-dark);
+  border-radius: var(--radius-lg);
+  padding: 2.1rem 2.25rem;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.gotw-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.gotw-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.gotw-badges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.gotw-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.32rem 0.85rem;
+  border-radius: var(--radius-pill);
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gotw-meta-pill {
+  margin-bottom: 0;
+}
+
+.gotw-emblem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  color: var(--coffee-dark);
+}
+
+.gotw-title {
+  font-size: clamp(1.65rem, 2.5vw, 2.1rem);
+  color: var(--coffee-darkest);
+  margin-bottom: 0.65rem;
+}
+
+.gotw-description {
+  max-width: 72ch;
+  font-size: 1.02rem;
+  color: var(--text-body);
+  margin-bottom: 1.6rem;
+}
+
+.gotw-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-warm);
+}
+
+.gotw-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--coffee-dark);
+}
+
+.availability-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3f7d47;
+  box-shadow: 0 0 0 4px rgba(63, 125, 71, 0.18);
+}
+
+/* ==========================================================================
+   Why Visit Roll & Brew Cards
+   ========================================================================== */
+.why-card {
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1.75rem;
+}
+
+.why-card .card-icon {
+  margin-bottom: 1rem;
+}
+
+.why-highlight {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-caramel);
+  margin-bottom: 0.35rem;
+}
+
+.why-card .card-title {
+  margin-bottom: 0.45rem;
+}
+
+.why-card .card-text {
+  margin-bottom: 0;
+  color: var(--coffee-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Explore Café Sections (Soft Sand Pill Links)
+   ========================================================================== */
+.explore-section {
+  padding: 3rem 0 2rem;
+}
+
+.explore-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.35rem;
+  text-align: center;
+}
+
+.explore-heading {
+  font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+  color: var(--coffee-darkest);
+}
+
+.explore-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.sand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius-pill);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  color: var(--coffee-darkest);
+  font-size: 0.94rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(47, 27, 16, 0.05);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.sand-pill:hover {
+  background-color: #dfcba9;
+  border-color: var(--accent-caramel);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(47, 27, 16, 0.1);
+}
+
+/* ==========================================================================
+   Bottom Group Bookings Banner (Dark Roasted Coffee Brown)
+   ========================================================================== */
+.booking-section {
+  padding: 2rem 0 4.5rem;
+}
+
+.booking-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-inline: auto;
+  padding: 2.5rem 2.75rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--coffee-darkest) 0%, var(--coffee-dark) 58%, var(--coffee-medium) 100%);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.booking-content {
+  max-width: 600px;
+}
+
+.booking-title {
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  color: var(--text-on-dark);
+  margin-bottom: 0.5rem;
+}
+
+.booking-subtitle {
+  font-size: 1.02rem;
+  color: var(--text-on-dark-muted);
+}
+
+.btn-cream {
+  background-color: var(--bg-cream);
+  color: var(--coffee-darkest);
+  border-color: var(--bg-cream);
+  white-space: nowrap;
+  box-shadow: 0 8px 20px rgba(15, 7, 3, 0.25);
+}
+
+.btn-cream:hover {
+  background-color: var(--surface-offwhite);
+  border-color: var(--surface-offwhite);
+}
+
+/* ==========================================================================
+   Footer (Simple Dark Roasted Coffee Brown)
+   ========================================================================== */
+.site-footer {
+  background-color: var(--coffee-darkest);
+  color: var(--text-on-dark-muted);
+  border-top: 1px solid rgba(246, 239, 226, 0.14);
+  padding: 1.75rem 0;
+}
+
+.footer-simple {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-copyright {
+  font-size: 0.92rem;
+  color: var(--text-on-dark-muted);
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.footer-nav a {
+  color: var(--text-on-dark-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer-nav a:hover {
+  color: var(--text-on-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   About Page — Our Story Section
+   ========================================================================== */
+.about-story-section {
+  padding: 4.5rem 0;
+}
+
+.about-story-heading {
+  font-size: clamp(2.1rem, 3.6vw, 2.85rem);
+  margin-bottom: 0;
+}
+
+.about-story-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.38fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.story-feature-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2.75rem 2.25rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--coffee-darkest) 0%, var(--coffee-dark) 62%, var(--coffee-medium) 100%);
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-hero-card);
+}
+
+.story-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background-color: rgba(246, 239, 226, 0.14);
+  border: 2px solid var(--accent-caramel-soft);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.story-feature-title {
+  font-size: 1.5rem;
+  color: var(--text-on-dark);
+  margin-bottom: 0.45rem;
+}
+
+.story-feature-subtitle {
+  max-width: 28ch;
+  font-size: 0.96rem;
+  color: var(--text-on-dark-muted);
+}
+
+.story-text-card {
+  display: flex;
+  align-items: center;
+  padding: 2.75rem 2.5rem;
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.story-paragraph {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   About Page — What We Stand For
+   ========================================================================== */
+.stand-for-header {
+  align-items: baseline;
+  margin-bottom: 1.75rem;
+}
+
+.stand-for-header .section-title {
+  margin-bottom: 0;
+}
+
+.stand-for-meta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--coffee-muted);
+  transition: color var(--transition-fast);
+}
+
+.stand-for-meta:hover {
+  color: var(--coffee-darkest);
+  text-decoration: underline;
+}
+
+.stand-for-card {
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.stand-for-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.stand-for-item {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+.stand-for-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.stand-for-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.stand-for-copy {
+  font-size: 1.02rem;
+  color: var(--text-body);
+}
+
+.stand-for-copy strong {
+  color: var(--coffee-darkest);
+}
+
+/* ==========================================================================
+   About Page — Meet the Team
+   ========================================================================== */
+.team-role-card {
+  align-items: center;
+  text-align: center;
+  padding: 2.15rem 1.75rem;
+}
+
+.team-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  margin-bottom: 1.15rem;
+}
+
+.team-role-card .card-title {
+  margin-bottom: 0.35rem;
+}
+
+.team-role-subtitle {
+  font-size: 0.96rem;
+  color: var(--coffee-muted);
+  margin-bottom: 1.25rem;
+  flex-grow: 1;
+}
+
+.tan-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.38rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  color: var(--coffee-darkest);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   About Page — Warm Tan Café Snapshot Banner
+   ========================================================================== */
+.snapshot-section {
+  padding: 1rem 0 4.5rem;
+}
+
+.snapshot-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-inline: auto;
+  padding: 2.35rem 2.6rem;
+  border-radius: var(--radius-lg);
+  background-color: #eadcc6;
+  border: 1px solid #d9c4a5;
+  box-shadow: var(--shadow-card);
+}
+
+.snapshot-content {
+  max-width: 640px;
+}
+
+.snapshot-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--coffee-medium);
+  margin-bottom: 0.45rem;
+}
+
+.snapshot-title {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  color: var(--coffee-darkest);
+  line-height: 1.35;
+}
+
+.snapshot-btn {
+  white-space: nowrap;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Contact Page — Header & Form Card
+   ========================================================================== */
+.contact-section {
+  padding: 4.5rem 0;
+}
+
+.contact-header {
+  max-width: 620px;
+  margin-inline: auto;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: clamp(2.15rem, 3.8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--coffee-darkest);
+  margin-bottom: 0.75rem;
+}
+
+.contact-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--coffee-muted);
+}
+
+.contact-card {
+  max-width: 760px;
+  margin-inline: auto;
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--coffee-darkest);
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-warm);
+  background-color: var(--bg-cream);
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  color: var(--text-dark);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.form-control::placeholder {
+  color: #8c7260;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--coffee-dark);
+  background-color: var(--surface-offwhite);
+  box-shadow: 0 0 0 3px rgba(194, 129, 68, 0.25);
+}
+
+.form-control.is-invalid {
+  border-color: #b43c2f;
+  background-color: #fff6f5;
+}
+
+.form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(180, 60, 47, 0.18);
+}
+
+textarea.form-control {
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-error {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #b43c2f;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+  padding-top: 0.35rem;
+}
+
+.reply-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--coffee-muted);
+}
+
+.reply-note::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #3f7d47;
+  box-shadow: 0 0 0 3px rgba(63, 125, 71, 0.18);
+}
+
+.form-success {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--radius-md);
+  background-color: #eef6ee;
+  border: 1px solid #b9d9bc;
+  color: #214a26;
+}
+
+.form-success-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1c3f20;
+  margin-bottom: 0.25rem;
+}
+
+.form-success-text {
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Contact Page — Visit Us, Hours & Location Cards
+   ========================================================================== */
+.visit-header {
+  align-items: baseline;
+  margin-bottom: 1.75rem;
+}
+
+.visit-header .section-title {
+  margin-bottom: 0;
+}
+
+.visit-meta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--coffee-muted);
+  transition: color var(--transition-fast);
+}
+
+.visit-meta:hover {
+  color: var(--coffee-darkest);
+  text-decoration: underline;
+}
+
+.visit-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.visit-card {
+  background-color: var(--surface-offwhite);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.visit-contact-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+  align-items: center;
+}
+
+.visit-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.visit-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+}
+
+.visit-contact-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.visit-item-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-caramel);
+}
+
+.visit-contact-link {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--coffee-darkest);
+  transition: color var(--transition-fast);
+}
+
+.visit-contact-link:hover {
+  color: var(--accent-caramel);
+  text-decoration: underline;
+}
+
+.visit-phone {
+  white-space: nowrap;
+}
+
+.visit-details-card {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+  gap: 2rem 2.5rem;
+  align-items: start;
+}
+
+.visit-card-title {
+  font-size: 1.3rem;
+  color: var(--coffee-darkest);
+  margin-bottom: 0.75rem;
+}
+
+.visit-address-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-body);
+  margin-bottom: 1.35rem;
+}
+
+.visit-directions-btn {
+  padding: 0.75rem 1.35rem;
+  font-size: 0.92rem;
+}
+
+.hours-list {
+  margin: 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.hours-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+.hours-row dt {
+  font-weight: 700;
+  color: var(--coffee-darkest);
+}
+
+.hours-row dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-body);
+  white-space: nowrap;
+}
+
+.walkins-note {
+  font-size: 0.92rem;
+  color: var(--coffee-muted);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 992px) {
+  .about-story-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards-grid--3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 920px) {
+  .brand-name {
+    font-size: 1.22rem;
+  }
+
+  .nav-list {
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    min-height: 68px;
+    padding: 0.65rem 0;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .primary-nav {
+    display: none;
+    width: 100%;
+    padding: 0.65rem;
+    margin-top: 0.2rem;
+    border-radius: var(--radius-md);
+    background-color: var(--coffee-darkest);
+    border: 1px solid rgba(246, 239, 226, 0.14);
+    box-shadow: 0 12px 28px rgba(15, 7, 3, 0.28);
+  }
+
+  .primary-nav.is-open {
+    display: block;
+    animation: navSlideDown 0.18s ease-out;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+
+  .nav-link {
+    width: 100%;
+    min-height: 44px;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    font-size: 0.98rem;
+  }
+
+  .nav-link--active::after,
+  .nav-link[aria-current="page"]::after {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-caramel);
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 2rem 0 0.75rem;
+  }
+
+  .hero-card {
+    padding: 3rem 1.5rem;
+  }
+
+  .cards-grid--3,
+  .cards-grid--4 {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 3.25rem 0;
+  }
+
+  .gotw-card,
+  .story-feature-card,
+  .story-text-card,
+  .stand-for-card,
+  .contact-card,
+  .visit-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .form-row,
+  .visit-contact-card,
+  .visit-details-card {
+    grid-template-columns: 1fr;
+  }
+
+  .stand-for-item {
+    align-items: flex-start;
+  }
+
+  .snapshot-section {
+    padding: 0.5rem 0 3.25rem;
+  }
+
+  .snapshot-banner {
+    justify-content: center;
+    text-align: center;
+    padding: 1.85rem 1.5rem;
+  }
+
+  .booking-section {
+    padding: 1.5rem 0 3.25rem;
+  }
+
+  .booking-banner {
+    justify-content: center;
+    text-align: center;
+    padding: 1.85rem 1.5rem;
+  }
+
+  .footer-simple {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-nav {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: min(100% - 1.5rem, var(--container-max));
+  }
+
+  .brand-logo {
+    gap: 0.55rem;
+  }
+
+  .brand-logo-img {
+    height: 38px;
+  }
+
+  .brand-name {
+    font-size: 1.15rem;
+  }
+
+  .brand-tag {
+    font-size: 0.65rem;
+  }
+}
