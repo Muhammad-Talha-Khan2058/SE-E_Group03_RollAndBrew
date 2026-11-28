@@ -1,0 +1,452 @@
+/* ==========================================================================
+   Roll & Brew Board Game Café — Quiz Page Stylesheet
+   Warm café theme: Dark brown (#3B2418), Cream (#FAF3E8), Inter font
+   ========================================================================== */
+
+:root {
+  --bg-cream: #FAF3E8;
+  --bg-card: #FFFDF9;
+  --bg-latte: #F2E5D5;
+  --brown-dark: #3B2418;
+  --brown-hover: #28170F;
+  --brown-medium: #5C3A28;
+  --caramel: #9C6644;
+  --border-warm: #E2D2BC;
+  --text-main: #2A1810;
+  --text-muted: #5C473C;
+  --focus-ring: #9C6644;
+}
+
+/* Base layout & sticky footer */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-cream);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* Accessible skip link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1100;
+  padding: 0.65rem 1.1rem;
+  background-color: var(--brown-dark);
+  color: var(--bg-cream);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* High-visibility focus state for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Header & Navigation */
+.site-header {
+  background-color: var(--brown-dark);
+  box-shadow: 0 2px 10px rgba(42, 24, 16, 0.18);
+}
+
+.brand-logo {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(250, 243, 232, 0.35);
+  background-color: var(--bg-cream);
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--bg-cream);
+}
+
+.site-header .nav-link {
+  color: rgba(250, 243, 232, 0.85);
+  font-weight: 500;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site-header .nav-link:hover {
+  color: #FFFFFF;
+  background-color: rgba(250, 243, 232, 0.12);
+}
+
+/* Highlight current page in navbar */
+.site-header .nav-link.active {
+  color: var(--brown-dark);
+  background-color: var(--bg-cream);
+  font-weight: 600;
+}
+
+.site-header .navbar-toggler {
+  border-color: rgba(250, 243, 232, 0.4);
+}
+
+/* Main Quiz Card */
+.quiz-main {
+  flex: 1 0 auto;
+}
+
+.quiz-card {
+  background-color: var(--bg-card);
+  border-radius: 1.25rem;
+  border: 1px solid var(--border-warm) !important;
+}
+
+.cafe-pill {
+  background-color: var(--bg-latte);
+  color: var(--brown-dark);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.95rem;
+  letter-spacing: 0.02em;
+}
+
+.quiz-heading {
+  font-weight: 700;
+  color: var(--brown-dark);
+  letter-spacing: -0.02em;
+}
+
+.quiz-subtitle {
+  max-width: 36rem;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* Saved Result Banner on Start Screen */
+.last-result-banner {
+  background-color: var(--bg-latte);
+  border: 1px solid var(--border-warm);
+  border-left: 5px solid var(--brown-dark);
+  border-radius: 1rem;
+  padding: 1.15rem 1.25rem;
+}
+
+.last-result-title {
+  color: var(--brown-dark);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.last-result-meta {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* Progress Bar */
+.progress-label {
+  color: var(--brown-dark);
+  font-size: 0.95rem;
+}
+
+.optional-badge {
+  background-color: var(--bg-latte);
+  color: var(--brown-medium);
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+}
+
+.quiz-progress {
+  height: 0.65rem;
+  border-radius: 999px;
+  background-color: var(--bg-latte);
+  overflow: hidden;
+}
+
+.quiz-progress .progress-bar {
+  background-color: var(--brown-dark);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+/* Question Title & Hint */
+.question-title {
+  color: var(--brown-dark);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.question-hint {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Clickable Option Cards */
+.option-card {
+  width: 100%;
+  text-align: left;
+  background-color: #FFFFFF;
+  border: 2px solid var(--border-warm);
+  border-radius: 1rem;
+  padding: 1rem 1.15rem;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.option-card:hover {
+  border-color: var(--caramel);
+  background-color: #FFF9F0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(59, 36, 24, 0.08);
+}
+
+.option-card.selected {
+  border-color: var(--brown-dark);
+  background-color: var(--bg-latte);
+  box-shadow: 0 4px 12px rgba(59, 36, 24, 0.12);
+}
+
+.option-label {
+  display: block;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--brown-dark);
+}
+
+.option-desc {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.option-indicator {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--caramel);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: transparent;
+  background-color: #FFFFFF;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.option-card.selected .option-indicator {
+  background-color: var(--brown-dark);
+  border-color: var(--brown-dark);
+  color: var(--bg-cream);
+}
+
+.border-warm {
+  border-color: var(--border-warm) !important;
+}
+
+/* Café Buttons */
+.btn-cafe {
+  background-color: var(--brown-dark);
+  color: var(--bg-cream);
+  border: 2px solid var(--brown-dark);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-cafe:hover:not(:disabled),
+.btn-cafe:focus-visible:not(:disabled) {
+  background-color: var(--brown-hover);
+  border-color: var(--brown-hover);
+  color: #FFFFFF;
+}
+
+.btn-cafe:disabled {
+  background-color: #B4A296;
+  border-color: #B4A296;
+  color: #FAF3E8;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+.btn-cafe-outline {
+  background-color: transparent;
+  color: var(--brown-dark);
+  border: 2px solid var(--brown-dark);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+}
+
+.btn-cafe-outline:hover:not(:disabled) {
+  background-color: var(--brown-dark);
+  color: var(--bg-cream);
+}
+
+.btn-cafe-secondary {
+  background-color: var(--bg-latte);
+  color: var(--brown-dark);
+  border: 2px solid var(--border-warm);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  text-decoration: none;
+}
+
+.btn-cafe-secondary:hover {
+  background-color: #E7D4BC;
+  color: var(--brown-dark);
+  border-color: var(--caramel);
+}
+
+.btn-cafe-ghost {
+  background-color: transparent;
+  color: var(--brown-medium);
+  border: 2px dashed var(--border-warm);
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 0.6rem 1.25rem;
+}
+
+.btn-cafe-ghost:hover {
+  background-color: var(--bg-latte);
+  border-color: var(--caramel);
+  color: var(--brown-dark);
+}
+
+/* Result Cards */
+.result-notice {
+  background-color: #FFF4E0;
+  border: 1px solid #DFB77E;
+  color: var(--brown-dark);
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.best-match-card {
+  background-color: var(--bg-card);
+  border: 2px solid var(--brown-dark);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 26px rgba(59, 36, 24, 0.1);
+}
+
+.match-badge {
+  background-color: var(--brown-dark);
+  color: var(--bg-cream);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+}
+
+.match-badge-runner {
+  background-color: var(--bg-latte);
+  color: var(--brown-dark);
+  border: 1px solid var(--border-warm);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+}
+
+.game-meta-box {
+  background-color: var(--bg-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 0.85rem;
+  padding: 0.65rem 0.9rem;
+}
+
+.game-meta-label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.game-meta-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brown-dark);
+}
+
+.game-tag {
+  background-color: var(--bg-latte);
+  color: var(--brown-dark);
+  border-radius: 999px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.runner-up-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-warm);
+  border-radius: 1.1rem;
+  height: 100%;
+}
+
+.save-feedback {
+  min-height: 1.5rem;
+  color: var(--brown-medium);
+  font-weight: 600;
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--brown-dark);
+  color: var(--bg-cream);
+}
+
+.footer-attribution {
+  color: rgba(250, 243, 232, 0.8);
+}
+
+.footer-nav-link {
+  color: var(--bg-cream);
+  font-weight: 500;
+  font-size: 0.92rem;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-nav-link:hover,
+.footer-nav-link:focus-visible {
+  color: #FFFFFF;
+  border-bottom-color: var(--bg-cream);
+}
+
+/* Small screen refinements */
+@media (max-width: 575.98px) {
+  .question-title {
+    font-size: 1.3rem;
+  }
+
+  .option-card {
+    padding: 0.9rem 1rem;
+  }
+}
