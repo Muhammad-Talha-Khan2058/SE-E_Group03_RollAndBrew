@@ -19,6 +19,25 @@
     Hard: "difficulty-hard"
   };
 
+  const GAME_SETUP_MAP = {
+    1: "Assemble the modular hexagonal terrain tiles into an island with numbered chits, sort resource and Development Card decks beside the board, place the Robber on the desert, and have players place their starting settlements and roads.",
+    2: "Give each player 45 colored plastic trains, deal 4 train cards and secret Destination Tickets, and reveal 5 face-up train cards next to the draw deck.",
+    3: "Arrange the Factory displays in a circle (5 for 2 players, 7 for 3, 9 for 4), fill each with 4 tiles drawn from the bag, and give every player a 5x5 mosaic board.",
+    4: "Lay out a 5x5 grid of 25 word cards, split into Red and Blue teams, and seat both Spymasters together with a shared secret key card.",
+    5: "Shuffle the deck, deal 7 cards face down to each player, and flip the top card face up to start the discard pile.",
+    6: "Remove all Exploding Kittens and Defuse cards, deal 7 cards plus 1 Defuse card to each player, then shuffle the required Exploding Kittens back into the draw deck.",
+    7: "Shuffle the sushi deck and deal a starting hand to each player based on table size (10 cards for 2 players, 9 for 3, 8 for 4, or 7 for 5).",
+    8: "Place the treasury coins in the center, deal 2 coins and 2 face-down character cards to each player, and set the remaining Court deck in the middle.",
+    9: "Set out the world map board, deal Role cards and starting city cards to each player, build the Epidemic-seeded Player Deck, and draw initial Infection cards to place starting disease cubes.",
+    10: "Place the starting tile in the center of the table, stack the remaining landscape tiles face down, and give each player 8 meeples in their chosen color.",
+    11: "Lay out 10 Kingdom card piles alongside Copper, Silver, Gold, Estate, Duchy, Province, and Curse piles; each player begins with 7 Coppers and 3 Estates and draws a 5-card hand.",
+    12: "Place the Mars board with temperature, oxygen, and ocean markers at starting positions, deal Corporation and Project cards, and give each player a resource mat.",
+    13: "Orient the 8x8 board with a light square in each player's bottom-right corner. Place 8 pawns on the second rank and arrange the back rank with rooks on the corners, knights, bishops, queen on her matching color, and king beside her.",
+    14: "Each player picks a color and places all 4 matching tokens in their corner starting yard, keeping one six-sided die ready in the center.",
+    15: "Place the Chance and Community Chest decks on the board, designate a Banker to give each player $1,500 in starting cash, and place every player's token on GO.",
+    16: "Mix all 100 letter tiles inside the cloth bag; each player draws 1 tile to determine turn order, returns them to the bag, and draws a starting rack of 7 tiles."
+  };
+
   /**
    * Escape HTML special characters so dynamic text renders safely.
    * @param {unknown} value
@@ -396,13 +415,45 @@
         <div class="empty-state">
           <h2>${escapeHtml(heading)}</h2>
           <p>${message}</p>
-          <div class="filter-pills" style="justify-content: center;">
+          <div class="empty-state-actions">
             <a class="btn btn-primary" href="board-games.html">Browse Board Games</a>
             <a class="btn btn-secondary" href="card-games.html">Browse Card Games</a>
           </div>
         </div>
       `;
     }
+  }
+
+  /**
+   * Return setup instructions for a game, preferring an explicit setup field if present.
+   * @param {Object} game
+   * @returns {string}
+   */
+  function getGameSetup(game) {
+    if (game.setup) {
+      return game.setup;
+    }
+    return (
+      GAME_SETUP_MAP[game.id] ||
+      "Place the game components in the center of the table, deal starting player pieces or hands as listed in the box insert, and choose a starting player."
+    );
+  }
+
+  /**
+   * Mark the matching shelf nav link active on game-details.html.
+   * @param {string} href
+   */
+  function setActiveCategoryNavLink(href) {
+    const navLinks = document.querySelectorAll(".primary-nav .nav-link");
+    navLinks.forEach(function (link) {
+      const isMatch = link.getAttribute("href") === href;
+      link.classList.toggle("nav-link--active", isMatch);
+      if (isMatch) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
   }
 
   /**
@@ -443,11 +494,13 @@
     const statusClass = getStatusClass(game.status);
     const difficultyClass = getDifficultyClass(game.difficulty);
     const playersText = formatPlayers(game);
+    const setupInstructions = getGameSetup(game);
     const backHref = game.type === "card" ? "card-games.html" : "board-games.html";
     const backLabel = game.type === "card" ? "Back to Card Games" : "Back to Board Games";
     const otherHref = game.type === "card" ? "board-games.html" : "card-games.html";
     const otherLabel = game.type === "card" ? "Explore Board Games" : "Explore Card Games";
 
+    setActiveCategoryNavLink(backHref);
     document.title = `${game.title} — Roll & Brew`;
 
     if (elements.kickerEl) {
@@ -492,8 +545,8 @@
 
     const relatedHtml = relatedGames.length
       ? `
-        <section aria-labelledby="related-heading" style="margin-top: 2.25rem;">
-          <h2 id="related-heading" class="modal-section-heading">More ${escapeHtml(typeLabel)}s at Roll &amp; Brew</h2>
+        <section class="related-games-section" aria-labelledby="related-heading">
+          <h2 id="related-heading" class="related-games-heading">More ${escapeHtml(typeLabel)}s at Roll &amp; Brew</h2>
           <div class="games-grid">
             ${relatedGames.map(buildGameCardHtml).join("")}
           </div>
@@ -502,13 +555,13 @@
       : "";
 
     elements.containerEl.innerHTML = `
-      <article class="games-controls">
+      <article class="game-detail-card">
         <div class="game-card-header">
           <span class="game-type-badge ${typeClass}">${escapeHtml(typeLabel)}</span>
           <span class="game-status-badge ${statusClass}">${escapeHtml(game.status)}</span>
         </div>
 
-        <h2 class="game-title">${escapeHtml(game.title)}</h2>
+        <h2 class="detail-title-heading">${escapeHtml(game.title)}</h2>
 
         <div class="game-meta">
           <span class="meta-pill">${escapeHtml(playersText)}</span>
@@ -517,12 +570,18 @@
           <span class="meta-pill">Catalog #${escapeHtml(game.id)}</span>
         </div>
 
-        <h3 class="modal-section-heading">About This Game</h3>
-        <p class="game-description">${escapeHtml(game.description)}</p>
+        <p class="detail-description">${escapeHtml(game.description)}</p>
 
-        <h3 class="modal-section-heading">How to Play &amp; Rules Overview</h3>
-        <div class="modal-rules-box">
-          <p>${escapeHtml(game.rules)}</p>
+        <div class="detail-sections">
+          <section class="detail-section-box" aria-labelledby="setup-heading">
+            <h3 id="setup-heading">Setup Instructions</h3>
+            <p>${escapeHtml(setupInstructions)}</p>
+          </section>
+
+          <section class="detail-section-box" aria-labelledby="rules-heading">
+            <h3 id="rules-heading">Full Rules</h3>
+            <p>${escapeHtml(game.rules)}</p>
+          </section>
         </div>
 
         <div class="controls-bottom">
