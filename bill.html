@@ -265,24 +265,15 @@
     </div>
   </footer>
 
+  <script src="app.js"></script>
   <script>
     (function () {
-      const STORAGE_KEY = "rollAndBrewBill";
+      const { clampInt, getBillItems, saveBillItems, initNavbar } = window.RollAndBrew;
       const TABLE_RATE_PER_HOUR = 300;
       const PROMO_CODE = "ROLL10";
       const PROMO_RATE = 0.10;
 
-      // Mobile Hamburger Toggle
-      const hamburgerBtn = document.getElementById("hamburgerBtn");
-      const navMenu = document.getElementById("navMenu");
-
-      hamburgerBtn.addEventListener("click", () => {
-        const isOpen = navMenu.classList.toggle("open");
-        hamburgerBtn.setAttribute("aria-expanded", String(isOpen));
-      });
-
       // DOM References
-      const navBillCount = document.getElementById("navBillCount");
       const orderList = document.getElementById("orderList");
       const billEmptyState = document.getElementById("billEmptyState");
       const clearBillBtn = document.getElementById("clearBillBtn");
@@ -342,30 +333,6 @@
         }, 2500);
       }
 
-      function getBillItems() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          const parsed = raw ? JSON.parse(raw) : [];
-          return Array.isArray(parsed) ? parsed : [];
-        } catch {
-          return [];
-        }
-      }
-
-      function saveBillItems(items) {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-        } catch {
-          // Ignore storage errors
-        }
-      }
-
-      function clampInt(value, min, max) {
-        const num = parseInt(value, 10);
-        if (Number.isNaN(num)) return min;
-        return Math.min(max, Math.max(min, num));
-      }
-
       function computeTotals(items) {
         const itemsSubtotal = items.reduce(
           (sum, item) => sum + (Number(item.price) || 0) * (Number(item.qty) || 1),
@@ -394,8 +361,6 @@
 
       function renderOrderList() {
         const items = getBillItems();
-        const totalQty = items.reduce((sum, item) => sum + (Number(item.qty) || 1), 0);
-        navBillCount.textContent = String(totalQty);
         clearBillBtn.disabled = items.length === 0;
 
         orderList.innerHTML = "";
@@ -687,7 +652,8 @@
         showToast("Ready for a new table order!");
       });
 
-      // Initialize Page
+      // Initialize Page & Sync Navbar
+      initNavbar({ onBillSync: renderOrderList });
       updatePlayers(playerCountInput.value);
       syncTableFeeState();
       renderOrderList();

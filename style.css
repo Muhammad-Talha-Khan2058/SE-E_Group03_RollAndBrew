@@ -121,10 +121,11 @@ ul {
   align-items: center;
   gap: 0.65rem;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: clamp(1.2rem, 4vw, 1.45rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   color: var(--cream-bg);
+  flex-shrink: 0;
 }
 
 .brand-icon {
@@ -179,14 +180,32 @@ ul {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  height: 20px;
+  min-width: 22px;
+  height: 22px;
   padding: 0 6px;
   border-radius: var(--radius-pill);
   background-color: var(--amber-soft);
   color: var(--espresso-dark);
   font-size: 0.75rem;
   font-weight: 700;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.bill-badge.bump {
+  animation: badgeBump 0.3s ease;
+}
+
+@keyframes badgeBump {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.26);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .nav-link.active .bill-badge {
@@ -679,6 +698,9 @@ ul {
 
   .nav-inner {
     flex-wrap: wrap;
+    min-height: 64px;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
   }
 
   .nav-links {
@@ -687,12 +709,30 @@ ul {
     flex-direction: column;
     align-items: stretch;
     gap: 0.35rem;
-    padding: 0.5rem 0 1rem;
-    border-top: 1px solid rgba(250, 244, 234, 0.12);
+    padding: 0.65rem 0 0.85rem;
+    border-top: 1px solid rgba(250, 244, 234, 0.14);
   }
 
   .nav-links.open {
     display: flex;
+    animation: navMenuReveal 0.2s ease-out;
+  }
+
+  @keyframes navMenuReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-links.open {
+      animation: none;
+    }
   }
 
   .nav-link {
