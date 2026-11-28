@@ -14,15 +14,15 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/home-about-contact.css" />
+  <link rel="stylesheet" href="../css/home-about-contact.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header">
     <div class="container nav-container">
-      <a class="brand-logo" href="index.html" aria-label="Roll &amp; Brew Home">
-        <img class="brand-logo-img" src="images/logo.png" alt="" />
+      <a class="brand-logo" href="../index.html" aria-label="Roll &amp; Brew Home">
+        <img class="brand-logo-img" src="../images/logo.png" alt="" />
         <span class="brand-text">
           <span class="brand-name">Roll &amp; Brew</span>
           <span class="brand-tag">Board Game Café</span>
@@ -43,11 +43,17 @@
 
       <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="pages/games.html">Games</a></li>
-          <li><a class="nav-link" href="pages/menu.html">Menu</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
           <li><a class="nav-link" href="about.html">About</a></li>
-          <li><a class="nav-link nav-link--active" href="contact.html" aria-current="page">Contact Us</a></li>
+          <li><a class="nav-link" href="events.html">Events</a></li>
+          <li><a class="nav-link" href="signup.html">Game Night</a></li>
+          <li><a class="nav-link" href="data.html">Game Details</a></li>
+          <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="location.html">Location</a></li>
+          <li><a class="nav-link" href="feedback.html">Feedback</a></li>
+          <li><a class="nav-link nav-link--active" href="contact.html" aria-current="page">Contact</a></li>
+          <li><a class="nav-link" href="bill.html">Bill</a></li>
         </ul>
       </nav>
     </div>
@@ -137,7 +143,7 @@
       <div class="container">
         <div class="section-header section-header--split visit-header">
           <h2 id="visit-heading" class="section-title">Visit Us</h2>
-          <a class="visit-meta" href="pages/faq.html">Full Hours &amp; Location</a>
+          <a class="visit-meta" href="faq.html">Full Hours &amp; Location</a>
         </div>
 
         <div class="visit-stack">
@@ -164,47 +170,41 @@
               </div>
               <div class="visit-contact-copy">
                 <span class="visit-item-label">Phone</span>
-                <a class="visit-contact-link visit-phone" href="tel:+15552348910">(555) 234-8910</a>
+                <a class="visit-contact-link visit-phone" href="tel:+923340001002">0334-0001-002</a>
               </div>
             </div>
           </article>
 
-          <!-- Address & Hours Card -->
+          <!-- Rulebook Save & Response Info Card -->
           <article class="visit-card visit-details-card">
             <div class="visit-address-block">
-              <h3 class="visit-card-title">Café Address</h3>
+              <h3 class="visit-card-title">Need a Rulebook Save?</h3>
               <p class="visit-address-text">
-                245 Maple Street, Suite B<br />
-                Downtown District
+                Stuck on a tricky rule mid-game or looking for a recommendation for your group? Our Game Masters love matchmaking the right box to your mood.
               </p>
-              <a
-                class="btn btn-dark visit-directions-btn"
-                href="https://maps.google.com/?q=245+Maple+Street+Roll+and+Brew"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get Directions
+              <a class="btn btn-dark visit-directions-btn" href="quiz.html">
+                Test Your Tabletop IQ
               </a>
             </div>
 
             <div class="visit-hours-block">
-              <h3 class="visit-card-title">Opening Hours</h3>
+              <h3 class="visit-card-title">How We Respond</h3>
               <dl class="hours-list">
                 <div class="hours-row">
-                  <dt>Mon–Thu</dt>
-                  <dd>12pm – 11pm</dd>
+                  <dt>Table Holds</dt>
+                  <dd>Confirmed in 2 hrs</dd>
                 </div>
                 <div class="hours-row">
-                  <dt>Fri–Sat</dt>
-                  <dd>12pm – 1am</dd>
+                  <dt>Game Requests</dt>
+                  <dd>Reviewed weekly</dd>
                 </div>
                 <div class="hours-row">
-                  <dt>Sun</dt>
-                  <dd>1pm – 11pm</dd>
+                  <dt>Same-Day Check</dt>
+                  <dd>0334-0001-002</dd>
                 </div>
               </dl>
               <p class="walkins-note">
-                Walk-ins are always welcome! Reservations are recommended on Friday and Saturday evenings.
+                Include your group size and favorite game genre above so we can have a box waiting.
               </p>
             </div>
           </article>
@@ -222,7 +222,7 @@
               Reserve a booth for 2–6 players or check our house rules and FAQs.
             </p>
           </div>
-          <a class="btn btn-cream" href="pages/faq.html">View FAQ</a>
+          <a class="btn btn-cream" href="faq.html">View FAQ</a>
         </div>
       </div>
     </section>
@@ -232,141 +232,21 @@
     <div class="container footer-simple">
       <p class="footer-copyright">&copy; 2026 Roll &amp; Brew Board Game Café</p>
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="index.html">Home</a>
-        <a href="pages/games.html">Games</a>
-        <a href="pages/menu.html">Menu</a>
+        <a href="../index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="pages/events.html">Events</a>
-        <a href="pages/quiz.html">Quiz</a>
-        <a href="pages/faq.html">FAQ</a>
+        <a href="events.html">Events</a>
+        <a href="signup.html">Game Night</a>
+        <a href="data.html">Game Details</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="faq.html">FAQ</a>
+        <a href="location.html">Location</a>
+        <a href="feedback.html">Feedback</a>
         <a href="contact.html">Contact</a>
+        <a href="bill.html">Bill</a>
       </nav>
     </div>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector(".nav-toggle");
-    const primaryNav = document.querySelector(".primary-nav");
-
-    if (navToggle && primaryNav) {
-      const setMenuOpen = (isOpen) => {
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-        primaryNav.classList.toggle("is-open", isOpen);
-      };
-
-      navToggle.addEventListener("click", () => {
-        const expanded = navToggle.getAttribute("aria-expanded") === "true";
-        setMenuOpen(!expanded);
-      });
-
-      primaryNav.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", () => setMenuOpen(false));
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-          navToggle.focus();
-        }
-      });
-
-      document.addEventListener("click", (event) => {
-        if (
-          primaryNav.classList.contains("is-open") &&
-          !primaryNav.contains(event.target) &&
-          !navToggle.contains(event.target)
-        ) {
-          setMenuOpen(false);
-        }
-      });
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 768 && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-        }
-      });
-    }
-
-    const contactForm = document.getElementById("contact-form");
-    const nameInput = document.getElementById("contact-name");
-    const emailInput = document.getElementById("contact-email");
-    const nameError = document.getElementById("name-error");
-    const emailError = document.getElementById("email-error");
-    const formSuccess = document.getElementById("form-success");
-
-    const isValidEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-
-    const updateEmailValidation = (forceCheck = false) => {
-      const value = emailInput.value.trim();
-
-      if (value === "") {
-        if (forceCheck) {
-          emailInput.classList.add("is-invalid");
-          emailError.hidden = false;
-          return false;
-        }
-        emailInput.classList.remove("is-invalid");
-        emailError.hidden = true;
-        return false;
-      }
-
-      const valid = isValidEmail(value);
-      emailInput.classList.toggle("is-invalid", !valid);
-      emailError.hidden = valid;
-      return valid;
-    };
-
-    if (contactForm && nameInput && emailInput) {
-      nameInput.addEventListener("input", () => {
-        if (nameInput.value.trim() !== "") {
-          nameInput.classList.remove("is-invalid");
-          nameError.hidden = true;
-        }
-      });
-
-      emailInput.addEventListener("blur", () => {
-        if (emailInput.value.trim() !== "") {
-          updateEmailValidation(false);
-        }
-      });
-
-      emailInput.addEventListener("input", () => {
-        if (emailInput.value.trim() === "" || isValidEmail(emailInput.value.trim())) {
-          emailInput.classList.remove("is-invalid");
-          emailError.hidden = true;
-        } else if (!emailError.hidden) {
-          updateEmailValidation(false);
-        }
-      });
-
-      contactForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        formSuccess.hidden = true;
-
-        const nameValid = nameInput.value.trim() !== "";
-        nameInput.classList.toggle("is-invalid", !nameValid);
-        nameError.hidden = nameValid;
-
-        const emailValid = updateEmailValidation(true);
-
-        if (!nameValid) {
-          nameInput.focus();
-          return;
-        }
-
-        if (!emailValid) {
-          emailInput.focus();
-          return;
-        }
-
-        contactForm.reset();
-        emailInput.classList.remove("is-invalid");
-        emailError.hidden = true;
-        nameInput.classList.remove("is-invalid");
-        nameError.hidden = true;
-        formSuccess.hidden = false;
-      });
-    }
-  </script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

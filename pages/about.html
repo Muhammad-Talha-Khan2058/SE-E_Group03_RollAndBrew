@@ -14,15 +14,15 @@
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="css/home-about-contact.css" />
+  <link rel="stylesheet" href="../css/home-about-contact.css" />
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header class="site-header">
     <div class="container nav-container">
-      <a class="brand-logo" href="index.html" aria-label="Roll &amp; Brew Home">
-        <img class="brand-logo-img" src="images/logo.png" alt="" />
+      <a class="brand-logo" href="../index.html" aria-label="Roll &amp; Brew Home">
+        <img class="brand-logo-img" src="../images/logo.png" alt="" />
         <span class="brand-text">
           <span class="brand-name">Roll &amp; Brew</span>
           <span class="brand-tag">Board Game Café</span>
@@ -43,11 +43,17 @@
 
       <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link" href="pages/games.html">Games</a></li>
-          <li><a class="nav-link" href="pages/menu.html">Menu</a></li>
+          <li><a class="nav-link" href="../index.html">Home</a></li>
           <li><a class="nav-link nav-link--active" href="about.html" aria-current="page">About</a></li>
-          <li><a class="nav-link" href="pages/contact.html">Contact</a></li>
+          <li><a class="nav-link" href="events.html">Events</a></li>
+          <li><a class="nav-link" href="signup.html">Game Night</a></li>
+          <li><a class="nav-link" href="data.html">Game Details</a></li>
+          <li><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="location.html">Location</a></li>
+          <li><a class="nav-link" href="feedback.html">Feedback</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+          <li><a class="nav-link" href="bill.html">Bill</a></li>
         </ul>
       </nav>
     </div>
@@ -83,7 +89,7 @@
       <div class="container">
         <div class="section-header section-header--split stand-for-header">
           <h2 id="stand-for-heading" class="section-title">What We Stand For</h2>
-          <a class="stand-for-meta" href="pages/faq.html">Full House Rules</a>
+          <a class="stand-for-meta" href="faq.html">Full House Rules</a>
         </div>
 
         <article class="stand-for-card">
@@ -184,60 +190,21 @@
     <div class="container footer-simple">
       <p class="footer-copyright">&copy; 2026 Roll &amp; Brew Board Game Café</p>
       <nav class="footer-nav" aria-label="Footer Navigation">
-        <a href="index.html">Home</a>
-        <a href="pages/games.html">Games</a>
-        <a href="pages/menu.html">Menu</a>
+        <a href="../index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="pages/events.html">Events</a>
-        <a href="pages/quiz.html">Quiz</a>
-        <a href="pages/faq.html">FAQ</a>
-        <a href="pages/contact.html">Contact</a>
+        <a href="events.html">Events</a>
+        <a href="signup.html">Game Night</a>
+        <a href="data.html">Game Details</a>
+        <a href="quiz.html">Quiz</a>
+        <a href="faq.html">FAQ</a>
+        <a href="location.html">Location</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="contact.html">Contact</a>
+        <a href="bill.html">Bill</a>
       </nav>
     </div>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector(".nav-toggle");
-    const primaryNav = document.querySelector(".primary-nav");
-
-    if (navToggle && primaryNav) {
-      const setMenuOpen = (isOpen) => {
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-        primaryNav.classList.toggle("is-open", isOpen);
-      };
-
-      navToggle.addEventListener("click", () => {
-        const expanded = navToggle.getAttribute("aria-expanded") === "true";
-        setMenuOpen(!expanded);
-      });
-
-      primaryNav.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", () => setMenuOpen(false));
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-          navToggle.focus();
-        }
-      });
-
-      document.addEventListener("click", (event) => {
-        if (
-          primaryNav.classList.contains("is-open") &&
-          !primaryNav.contains(event.target) &&
-          !navToggle.contains(event.target)
-        ) {
-          setMenuOpen(false);
-        }
-      });
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 768 && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-        }
-      });
-    }
-  </script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

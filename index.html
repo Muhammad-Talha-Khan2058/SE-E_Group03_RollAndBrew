@@ -44,10 +44,16 @@
       <nav id="primary-navigation" class="primary-nav" aria-label="Primary Navigation">
         <ul class="nav-list">
           <li><a class="nav-link nav-link--active" href="index.html" aria-current="page">Home</a></li>
-          <li><a class="nav-link" href="pages/games.html">Games</a></li>
-          <li><a class="nav-link" href="pages/menu.html">Menu</a></li>
-          <li><a class="nav-link" href="about.html">About</a></li>
+          <li><a class="nav-link" href="pages/about.html">About</a></li>
+          <li><a class="nav-link" href="pages/events.html">Events</a></li>
+          <li><a class="nav-link" href="pages/signup.html">Game Night</a></li>
+          <li><a class="nav-link" href="pages/data.html">Game Details</a></li>
+          <li><a class="nav-link" href="pages/quiz.html">Quiz</a></li>
+          <li><a class="nav-link" href="pages/faq.html">FAQ</a></li>
+          <li><a class="nav-link" href="pages/location.html">Location</a></li>
+          <li><a class="nav-link" href="pages/feedback.html">Feedback</a></li>
           <li><a class="nav-link" href="pages/contact.html">Contact</a></li>
+          <li><a class="nav-link" href="pages/bill.html">Bill</a></li>
         </ul>
       </nav>
     </div>
@@ -67,7 +73,7 @@
             Your cozy neighborhood board game lounge—50+ tabletop classics, specialty espresso, and freshly baked snacks.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary-hero" href="pages/games.html">Explore Our Games</a>
+            <a class="btn btn-primary-hero" href="pages/data.html">Explore Our Games</a>
             <a class="btn btn-secondary-hero" href="pages/contact.html">Plan Your Visit</a>
           </div>
         </div>
@@ -101,7 +107,7 @@
               <span class="availability-dot" aria-hidden="true"></span>
               Table #4 Copy Available
             </p>
-            <a class="btn btn-dark" href="pages/games.html">Game details</a>
+            <a class="btn btn-dark" href="pages/data.html">Game details</a>
           </div>
         </article>
       </div>
@@ -196,59 +202,20 @@
       <p class="footer-copyright">&copy; 2026 Roll &amp; Brew Board Game Café</p>
       <nav class="footer-nav" aria-label="Footer Navigation">
         <a href="index.html">Home</a>
-        <a href="pages/games.html">Games</a>
-        <a href="pages/menu.html">Menu</a>
-        <a href="about.html">About</a>
+        <a href="pages/about.html">About</a>
         <a href="pages/events.html">Events</a>
+        <a href="pages/signup.html">Game Night</a>
+        <a href="pages/data.html">Game Details</a>
         <a href="pages/quiz.html">Quiz</a>
         <a href="pages/faq.html">FAQ</a>
+        <a href="pages/location.html">Location</a>
+        <a href="pages/feedback.html">Feedback</a>
         <a href="pages/contact.html">Contact</a>
+        <a href="pages/bill.html">Bill</a>
       </nav>
     </div>
   </footer>
 
-  <script>
-    const navToggle = document.querySelector(".nav-toggle");
-    const primaryNav = document.querySelector(".primary-nav");
-
-    if (navToggle && primaryNav) {
-      const setMenuOpen = (isOpen) => {
-        navToggle.setAttribute("aria-expanded", String(isOpen));
-        primaryNav.classList.toggle("is-open", isOpen);
-      };
-
-      navToggle.addEventListener("click", () => {
-        const expanded = navToggle.getAttribute("aria-expanded") === "true";
-        setMenuOpen(!expanded);
-      });
-
-      primaryNav.querySelectorAll(".nav-link").forEach((link) => {
-        link.addEventListener("click", () => setMenuOpen(false));
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-          navToggle.focus();
-        }
-      });
-
-      document.addEventListener("click", (event) => {
-        if (
-          primaryNav.classList.contains("is-open") &&
-          !primaryNav.contains(event.target) &&
-          !navToggle.contains(event.target)
-        ) {
-          setMenuOpen(false);
-        }
-      });
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 768 && primaryNav.classList.contains("is-open")) {
-          setMenuOpen(false);
-        }
-      });
-    }
-  </script>
+  <script src="js/script.js"></script>
 </body>
 </html>
