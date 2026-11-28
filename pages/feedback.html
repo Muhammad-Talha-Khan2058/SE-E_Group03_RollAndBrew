@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsive viewport for mobile and desktop screens -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback | Roll &amp; Brew</title>
+
+  <!-- Relative path going up one folder from pages/ to css/style.css -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Site header containing the cafe brand and primary navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="brand-logo">Roll &amp; Brew</a>
+
+      <!-- Top navigation bar linking between the site pages -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="faq.html">FAQ &amp; House Rules</a></li>
+          <li><a href="location.html">Location &amp; Hours</a></li>
+          <li><a href="feedback.html" aria-current="page">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content area unique to the Feedback page -->
+  <main class="page-content">
+    <!-- Page introduction / title section -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <h1 id="page-title">Feedback</h1>
+      <p class="page-subtitle">Loved your game night or have a board game we should add to our shelf? Share your thoughts with us!</p>
+    </section>
+
+    <!-- Visitor feedback form section -->
+    <section class="feedback-section" aria-labelledby="feedback-heading">
+      <h2 id="feedback-heading">Share Your Thoughts</h2>
+
+      <form id="feedback-form" class="feedback-form">
+        <div class="form-group">
+          <label for="visitor-name">Your Name</label>
+          <input type="text" id="visitor-name" name="visitorName" placeholder="e.g., Ayesha Khan" required>
+        </div>
+
+        <div class="form-group">
+          <label for="visitor-email">Email Address</label>
+          <input type="email" id="visitor-email" name="visitorEmail" placeholder="e.g., ayesha@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="feedback-topic">What are you writing about?</label>
+          <select id="feedback-topic" name="feedbackTopic" required>
+            <option value="" disabled selected>Choose a topic...</option>
+            <option value="Cafe Experience">Cafe Experience</option>
+            <option value="Board Game Suggestion">Board Game Suggestion</option>
+            <option value="Food & Drinks">Food &amp; Drinks</option>
+            <option value="Something Else">Something Else</option>
+          </select>
+        </div>
+
+        <fieldset class="rating-fieldset">
+          <legend>Rating (1 to 5)</legend>
+          <div class="rating-options">
+            <label class="rating-option">
+              <input type="radio" name="rating" value="1" required>
+              <span>1 &#9733;</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="2">
+              <span>2 &#9733;</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="3">
+              <span>3 &#9733;</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="4">
+              <span>4 &#9733;</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="5">
+              <span>5 &#9733;</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="feedback-message">Your Message</label>
+          <textarea id="feedback-message" name="feedbackMessage" placeholder="Tell us about your visit, your favorite drinks, or a game you'd love to play here..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn">Submit Feedback</button>
+      </form>
+
+      <!-- Thank-you box shown by js/script.js after submitting the form -->
+      <div id="feedback-thanks" class="feedback-thanks" role="status" aria-live="polite" hidden>
+        <h3>Thank you for sharing with Roll &amp; Brew!</h3>
+        <p id="feedback-thanks-text"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site footer with copyright notice -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Roll &amp; Brew Board Game Cafe. All rights reserved.</p>
+  </footer>
+
+  <!-- Relative path going up one folder from pages/ to js/script.js -->
+  <script src="../js/script.js"></script>
+</body>
+</html>

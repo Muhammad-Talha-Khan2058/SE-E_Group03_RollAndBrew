@@ -1,0 +1,551 @@
+/* ==========================================================================
+   Roll & Brew — Main Stylesheet
+   Theme: Warm, cozy coffee-and-cream palette
+   ========================================================================== */
+
+/* 1. Color Variables (easy to reuse and update across all pages) */
+:root {
+  --bg-cream: #f6efe4;          /* Warm cream page background */
+  --card-cream: #fffdf9;        /* Off-white/cream for main content cards */
+  --box-beige: #efe3d2;         /* Soft beige for FAQ and rule boxes */
+  --coffee-dark: #4a2e1b;       /* Dark coffee brown for header, footer & accents */
+  --coffee-medium: #6b442a;     /* Lighter coffee brown for hover states */
+  --text-espresso: #1a110b;     /* Dark espresso for crisp, readable text */
+  --text-muted: #5c493c;        /* Muted brown for subtitles and secondary text */
+  --border-warm: #dccbb6;       /* Soft warm border for cards and inputs */
+}
+
+/* 2. Global Reset & Sticky Footer Layout */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;            /* Full viewport height so footer stays at bottom */
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-espresso);
+  background-color: var(--bg-cream);
+}
+
+/* 3. Top Header & Navigation Bar */
+.site-header {
+  background-color: var(--coffee-dark);
+  color: var(--card-cream);
+  box-shadow: 0 2px 8px rgba(26, 17, 11, 0.15);
+}
+
+.header-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;              /* Allows wrapping cleanly on smaller screens */
+  gap: 1rem;
+}
+
+.brand-logo {
+  color: var(--card-cream);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;              /* Prevents nav links from overflowing on mobile */
+  gap: 0.65rem;
+}
+
+.main-nav a {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  color: var(--bg-cream);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  background-color: var(--coffee-medium);
+  color: var(--card-cream);
+}
+
+/* Active state for the current page (supports aria-current or .active class) */
+.main-nav a[aria-current="page"],
+.main-nav a.active {
+  background-color: var(--bg-cream);
+  color: var(--coffee-dark);
+  font-weight: 700;
+}
+
+/* 4. Main Content Area & Section Cards */
+.page-content {
+  flex: 1;                      /* Pushes footer to the bottom on short pages */
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+/* Style each section inside <main> as a clean off-white card */
+.page-content section,
+.card {
+  background-color: var(--card-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(74, 46, 27, 0.06);
+}
+
+.page-hero {
+  text-align: center;
+  border-top: 5px solid var(--coffee-dark);
+}
+
+.page-hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2rem;
+  color: var(--coffee-dark);
+}
+
+.page-subtitle {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.page-content h2 {
+  margin: 0 0 1.15rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.4rem;
+  color: var(--coffee-dark);
+  border-bottom: 2px solid var(--box-beige);
+}
+
+/* 5. FAQ Accordion Boxes (<details> and <summary>) */
+.faq-item {
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faq-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-item:hover {
+  border-color: var(--coffee-medium);
+}
+
+/* Subtle highlight when a question is expanded */
+.faq-item[open] {
+  border-color: var(--coffee-dark);
+  box-shadow: 0 2px 8px rgba(74, 46, 27, 0.1);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--coffee-dark);
+  list-style-position: inside;
+}
+
+.faq-item p {
+  margin: 0.75rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-warm);
+  color: var(--text-espresso);
+}
+
+/* 6. House Rules List */
+.house-rules-list {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;  /* Keeps numbers neatly inside each rule box */
+}
+
+.house-rules-list li {
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-left: 4px solid var(--coffee-dark);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.85rem;
+}
+
+.house-rules-list li:last-child {
+  margin-bottom: 0;
+}
+
+.house-rules-list strong {
+  color: var(--coffee-dark);
+}
+
+/* 7. Reusable Styles for Tables (Location & Hours page) */
+.table-wrapper {
+  overflow-x: auto;             /* Lets wide tables scroll safely on small screens */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+  background-color: var(--card-cream);
+}
+
+th,
+td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-warm);
+}
+
+th {
+  background-color: var(--coffee-dark);
+  color: var(--card-cream);
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--box-beige);
+}
+
+/* 8. Reusable Styles for Forms (Feedback page) */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+label {
+  font-weight: 600;
+  color: var(--coffee-dark);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text-espresso);
+  background-color: var(--card-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 6px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--coffee-medium);
+  border-color: var(--coffee-dark);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button,
+.btn {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.75rem 1.4rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--card-cream);
+  background-color: var(--coffee-dark);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: var(--coffee-medium);
+}
+
+.rating-fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.rating-fieldset legend {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--coffee-dark);
+}
+
+.rating-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.rating-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--coffee-dark);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.rating-option:hover {
+  border-color: var(--coffee-medium);
+}
+
+.rating-option input[type="radio"] {
+  margin: 0;
+  accent-color: var(--coffee-dark);
+  cursor: pointer;
+}
+
+.rating-option:has(input:checked) {
+  background-color: var(--coffee-dark);
+  border-color: var(--coffee-dark);
+  color: var(--card-cream);
+}
+
+.feedback-thanks {
+  margin-top: 1.5rem;
+  padding: 1.15rem 1.25rem;
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-left: 4px solid var(--coffee-dark);
+  border-radius: 8px;
+}
+
+.feedback-thanks[hidden] {
+  display: none;
+}
+
+.feedback-thanks h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  color: var(--coffee-dark);
+}
+
+.feedback-thanks p {
+  margin: 0;
+  color: var(--text-espresso);
+}
+
+/* 9. Location & Hours Page Components */
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.location-card {
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-left: 4px solid var(--coffee-dark);
+  border-radius: 8px;
+  padding: 1.1rem 1.2rem;
+}
+
+.location-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+  color: var(--coffee-dark);
+}
+
+.location-card p {
+  margin: 0;
+}
+
+.location-list {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.location-list li {
+  margin-bottom: 0.4rem;
+}
+
+.location-list li:last-child {
+  margin-bottom: 0;
+}
+
+.hours-note {
+  margin: 1rem 0 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.map-box {
+  background-color: var(--box-beige);
+  border: 1px solid var(--border-warm);
+  border-radius: 10px;
+  padding: 1.15rem;
+}
+
+.map-canvas {
+  position: relative;
+  min-height: 210px;
+  border-radius: 8px;
+  border: 2px dashed var(--border-warm);
+  background-color: var(--bg-cream);
+  background-image:
+    linear-gradient(to right, rgba(74, 46, 27, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(74, 46, 27, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.25rem 1rem;
+  overflow: hidden;
+}
+
+.map-road {
+  position: absolute;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background-color: var(--card-cream);
+  border: 1px solid var(--border-warm);
+  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+}
+
+.map-road-top {
+  top: 0.75rem;
+  left: 0.85rem;
+}
+
+.map-road-side {
+  bottom: 0.75rem;
+  right: 0.85rem;
+}
+
+.map-pin-card {
+  background-color: var(--card-cream);
+  border: 2px solid var(--coffee-dark);
+  border-radius: 10px;
+  padding: 0.9rem 1.3rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(74, 46, 27, 0.14);
+}
+
+.map-pin-badge {
+  display: inline-block;
+  background-color: var(--coffee-dark);
+  color: var(--card-cream);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.4rem;
+}
+
+.map-pin-address {
+  margin: 0;
+  font-weight: 600;
+  color: var(--coffee-dark);
+}
+
+.map-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.map-caption {
+  margin: 0;
+  flex: 1 1 240px;
+  color: var(--text-espresso);
+}
+
+/* 10. Site Footer */
+.site-footer {
+  background-color: var(--coffee-dark);
+  color: var(--bg-cream);
+  text-align: center;
+  padding: 1.25rem 1rem;
+  font-size: 0.95rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* 11. Mobile Responsiveness */
+@media (max-width: 640px) {
+  .header-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .main-nav ul {
+    justify-content: center;
+  }
+
+  .page-content {
+    padding: 1.25rem 0.9rem 2rem;
+  }
+
+  .page-content section,
+  .card {
+    padding: 1.25rem;
+  }
+
+  .page-hero h1 {
+    font-size: 1.65rem;
+  }
+
+  .map-canvas {
+    min-height: 180px;
+  }
+
+  .map-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

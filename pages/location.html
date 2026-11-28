@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character encoding and responsive viewport for mobile and desktop screens -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Location &amp; Hours | Roll &amp; Brew</title>
+
+  <!-- Relative path going up one folder from pages/ to css/style.css -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- Site header containing the cafe brand and primary navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="brand-logo">Roll &amp; Brew</a>
+
+      <!-- Top navigation bar linking between the site pages -->
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <ul>
+          <li><a href="faq.html">FAQ &amp; House Rules</a></li>
+          <li><a href="location.html" aria-current="page">Location &amp; Hours</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content area unique to the Location & Hours page -->
+  <main class="page-content">
+    <!-- Page introduction / title section -->
+    <section class="page-hero" aria-labelledby="page-title">
+      <h1 id="page-title">Location &amp; Hours</h1>
+      <p class="page-subtitle">Pull up a chair, sip something warm, and come roll the dice with us at our cozy board game cafe!</p>
+    </section>
+
+    <!-- Where to find us: address, nearby landmarks, and parking details -->
+    <section class="location-section" aria-labelledby="location-heading">
+      <h2 id="location-heading">Find Us in Islamabad</h2>
+
+      <div class="location-grid">
+        <div class="location-card">
+          <h3>Our Address</h3>
+          <p>
+            <strong>Roll &amp; Brew Board Game Cafe</strong><br>
+            1st Floor, Al-Safa Plaza, Block B<br>
+            F-7 Markaz (Jinnah Super Market), Islamabad
+          </p>
+        </div>
+
+        <div class="location-card">
+          <h3>Nearby Landmarks</h3>
+          <ul class="location-list">
+            <li>Right beside Saeed Book Bank in F-7 Markaz</li>
+            <li>Across the street from Gol Market roundabout</li>
+            <li>2-minute walk from the main Jinnah Super plaza</li>
+          </ul>
+        </div>
+
+        <div class="location-card">
+          <h3>Parking Information</h3>
+          <ul class="location-list">
+            <li>Free visitor parking in the main F-7 Markaz lot behind the plaza</li>
+            <li>Additional street-side parking available along College Road</li>
+            <li>Dedicated motorbike and bicycle parking near the front entrance</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Opening hours table grouping weekday and weekend schedules separately -->
+    <section class="hours-section" aria-labelledby="hours-heading">
+      <h2 id="hours-heading">Opening Hours</h2>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Days</th>
+              <th scope="col">Opening Hours</th>
+              <th scope="col">Schedule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Monday - Thursday</strong></td>
+              <td>12:00 PM - 11:00 PM</td>
+              <td>Weekday Hours</td>
+            </tr>
+            <tr>
+              <td><strong>Friday - Sunday</strong></td>
+              <td>1:00 PM - 1:00 AM</td>
+              <td>Weekend Late-Night Hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="hours-note">Last table seating for board games is 45 minutes before closing. Come early on weekends to grab your favorite booth!</p>
+    </section>
+
+    <!-- Pretend interactive-style map box with Get Directions button -->
+    <section class="map-section" aria-labelledby="map-heading">
+      <h2 id="map-heading">Cafe Map &amp; Directions</h2>
+
+      <div class="map-box">
+        <div class="map-canvas" role="img" aria-label="Stylized map showing Roll & Brew in F-7 Markaz, Islamabad near Gol Market and College Road">
+          <span class="map-road map-road-top">College Road</span>
+          <span class="map-road map-road-side">Gol Market</span>
+          <div class="map-pin-card">
+            <span class="map-pin-badge">Roll &amp; Brew</span>
+            <p class="map-pin-address">F-7 Markaz, Islamabad</p>
+          </div>
+        </div>
+
+        <div class="map-footer">
+          <p class="map-caption">Look for the warm wooden signboard above the corner cafe steps in Block B, F-7 Markaz.</p>
+          <a href="https://www.google.com/maps/search/?api=1&query=F-7+Markaz+Islamabad" target="_blank" rel="noopener noreferrer" class="btn">Get Directions</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site footer with copyright notice -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Roll &amp; Brew Board Game Cafe. All rights reserved.</p>
+  </footer>
+
+  <!-- Relative path going up one folder from pages/ to js/script.js -->
+  <script src="../js/script.js"></script>
+</body>
+</html>
